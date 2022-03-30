@@ -1,0 +1,19 @@
+﻿Lehetőségek:
+	-Kliens felé letölteni a kiválasztott feladat teszteseteit, és akár tesztminták (ha lesz ilyen), és helyben ellenőrizni. Majd mikor zárjuk a programot, az egész tesztesetes mappát kitisztítani. Ekkor csak kliens kell, és fájlátvitel.
+	Vagy kliens-szerver kell, ahol a kliens csak az adatokat küldi, és fogadja, a szerver pedig fogad, kiértékel és küldi az eredményt.
+	-A letöltött adatok csak olvashatóak legyenek (tesztek).
+	-Az kiértékelt feladat eredményét (pl exe) feltölteni a szerverre az exe-vel együtt. 
+	Vagy csak az exe-t, mert a kiértékelés az exe-ből is lehetséges. 
+	Vagy a kódot visszük fel (kisebb feladatnál) --> kódfelvitel nem ajánlott, mert nem őrzi meg a struktúrát, és nemtudni mi kell, és mi a felesleg.
+	-Ha letöltjük az adatokat, akkor a kiértékelés elosztottan történik, és a terhelés is eloszlik, de hálózati forgalom lesz nagyobb (lehozzuk a teszteket, és visszavisszük az eredményt + .exe-t). 
+	Vagy felvinni a kiértékelendő .exe-t (és kódot, ha kell) központilag kiértékeli, majd egy eredményt visszaküld. Ezzel kisebb hálózati forgalom van (az eredmény nagyon kicsi, míg az előzőnél a tesztesetek mérete változó, és akár többször is lehívjuk) és központosítva van, de a központosításból következik, hogy a központot terheli az összes kiértékelés.
+	-
+
+ToDo:
+	-Kiértékelés kigondolása, megvalósítási ötletek
+	-Biztonságos fájlátvitel megvalósítása (SSH.net féle sftp pl.) --> Először udp-vel multicast keresés, majd aztán befodulnak egymás felé, és tcp-vel kapcsolatba állnak. A szerver folyamatosan hallgatja a kérést, a kliens amikor elindul, és amikor elveszti a szervert (lehal a szerver, és újra kell majd csatlakoznia--> bár ez lehet, hogy gombra fog történni).
+	-
+
+2022.01.07
+Server Todo:
+	-visszajelző információk oldal (multicast működik, ssl tcp működik, stb.)

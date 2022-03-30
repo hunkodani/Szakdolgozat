@@ -1,0 +1,41 @@
+﻿<Page x:Class="Wpf_IPC.Menu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Wpf_IPC"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Menu" Height="650" Width="1000" Visibility="Visible" Background="#FFB69671" MinWidth="850" MinHeight="650">
+
+    <Grid>
+        <StackPanel x:Name="TeacherStack" Height="300" Margin="0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Border Margin="0" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" Padding="0" VerticalAlignment="Center" MaxHeight="30">
+                <Button x:Name="AddTestBtn" Content="Add new test" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="AddTestBtn_Click"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="ViewTestsBtn" Content="View tests" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ViewTestsBtn_Click"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="TestResultsBtn" Content="View test results" Background="#FFDDDDDD" BorderThickness="0" FontSize="16"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="TeacherSettingsBtn" Content="Settings" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="SettingsBtn_Click"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="TeacherExitBtn" Content="Exit" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ExitBtn_Click"/>
+            </Border>
+        </StackPanel>
+        <StackPanel x:Name="StudentStack" HorizontalAlignment="Center" Height="300" Margin="0" VerticalAlignment="Center" Width="300" Visibility="Hidden">
+            <Border Margin="0,0,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="RunTestBtn" Content="Run Test" Background="#FFDDDDDD" BorderThickness="0" FontSize="16"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="StudentSettingsBtn" Content="Settings" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="SettingsBtn_Click"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="StundentExitBtn" Content="Exit" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ExitBtn_Click"/>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

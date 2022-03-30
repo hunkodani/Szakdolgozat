@@ -1,0 +1,36 @@
+Users
+ -Username: PK, 					varchar2(50)
+ -Password: Encrypted, 					varchar2(255)
+ -Role: FK to RoleID in Roles table, 			int
+ -FolderLocation: 					varchar2(255)
+
+Roles
+ -RoleID: PK, 						int
+ -RoleName: 						varchar2(50)
+
+Subjects
+ -SubjectCode: PK,					varchar2(30)
+ -SubjectName: PK (Not necessary),			varchar2(255)
+ -FolderLocation (Not necessary):			varchar2(255)
+
+Tests:
+ -TestName: PK,						varchar2(100)
+ -Subject: FK to SubjectCode in Subjects table,		varchar2(30)
+
+
+Assignments:
+ -Username: FK to Username in Users table,		varchar2(50)
+ -TestName: FK to TestName in Tests table,		varchar2(100)
+
+
+Root location + SubjectName + TestName identifies the exact location of the description 
+file (desc_TestName name format inside the location) and the test files 
+(testXX_TestName name format inside location)
+
+Role Elements:
+ -Student:
+ can read tests, read/write/delete permission in own folder
+ -Teacher:
+ can read/create tests, read/write/delete permission in own folder
+ -Administrator:
+ read/write/delete permission from root directory, can create useraccounts
