@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 
-namespace Server_WPF_IPC
+namespace AppEvaluatorServer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -172,6 +172,10 @@ namespace Server_WPF_IPC
             ///Aborts the Tcp listening thread
             //make separate thread and use bool world variable to stop it
             NetworkMethods.TcpServerShutdown = true;
+            if (true)
+            {
+
+            }
         }
     }
 }

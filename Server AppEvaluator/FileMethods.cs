@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Server_WPF_IPC
+namespace AppEvaluatorServer
 {
     internal static class FileMethods
     {

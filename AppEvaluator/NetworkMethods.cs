@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Wpf_IPC
+namespace AppEvaluator
 {
     internal class NetworkMethods
     {

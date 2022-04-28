@@ -9,7 +9,7 @@ using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace Server_WPF_IPC
+namespace AppEvaluatorServer
 {
     internal static class NetworkMethods
     {
@@ -44,7 +44,10 @@ namespace Server_WPF_IPC
         public static void ListenMulticastGroup()
         {
             StartMulticastGroup();
-            Thread receiveThread = new Thread(ReceiveMcastMessage);
+            Thread receiveThread = new(ReceiveMcastMessage)
+            {
+                IsBackground = true
+            };
             receiveThread.Start();
         }
 
@@ -110,7 +113,10 @@ namespace Server_WPF_IPC
         /// </summary>
         public static void ListenTcpRequests()
         {
-            Thread listenThread = new Thread(StartServerTcpListener);
+            Thread listenThread = new(StartServerTcpListener)
+            {
+                IsBackground = true
+            };
             listenThread.Start();
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 
-namespace Wpf_IPC
+namespace AppEvaluator
 {
     internal class FileEvaluation
     {

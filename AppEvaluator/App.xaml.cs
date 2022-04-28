@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Server_WPF_IPC
+namespace AppEvaluator
 {
     /// <summary>
     /// Interaction logic for App.xaml
