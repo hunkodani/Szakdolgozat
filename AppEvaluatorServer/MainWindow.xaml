@@ -1,10 +1,12 @@
-﻿<Window x:Class="AppEvaluatorServer.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppEvaluatorServer"
+        xmlns:AppEvaluatorServer="clr-namespace:AppEvaluatorServer" x:Class="AppEvaluatorServer.MainWindow"
         mc:Ignorable="d"
+    x:Name="mainwindow"
         Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Background="#FF746B58" Closing="DisposeElements">
     <Grid>
         <StackPanel>
@@ -16,7 +18,7 @@
                 <Label x:Name="FolderPathLbl" Content="" HorizontalAlignment="Stretch" Margin="10,0,0,0" VerticalAlignment="Stretch" FontSize="14"/>
             </StackPanel>
             <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Label Content="Migrate files to new folder? (If not, a clean folder will be generated and the &#xD;&#xA;old one cannot be accessed from this application --> cannot be undone!!)" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="14"/>
+                <Label Content="Migrate files to new folder? (If not, a clean folder will be generated and the &#xA;old one cannot be accessed from this application --&gt; cannot be undone!!)" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="14"/>
                 <CheckBox x:Name="MigrationCheck" Content="Migrate" HorizontalAlignment="Stretch" IsChecked="True" VerticalAlignment="Center" FontSize="14" Margin="20,0,0,0" Checked="MigrationCheck_Checked" Unchecked="MigrationCheck_Unchecked"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
@@ -24,6 +26,14 @@
                     <Button x:Name="SaveSettingsBtn" Content="Save setttings" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="1,1,1,1" Click="SaveSettingsBtn_Click" />
                 </Border>
                 <Label x:Name="RespondLbl" Content="" Margin="10,0,0,0" FontSize="14" Background="{x:Null}" Foreground="LimeGreen"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,30,0,0">
+                <Label Content="Connected to database?:"
+                       Margin="10,0,0,0"/>
+                <CheckBox IsChecked="{Binding ElementName=mainwindow, Path=SqlConnectionStatus}"
+                          VerticalAlignment="Center"
+                          Margin="10,0,0,0"/>
             </StackPanel>
 
         </StackPanel>

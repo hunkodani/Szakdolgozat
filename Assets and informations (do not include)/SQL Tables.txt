@@ -1,26 +1,29 @@
 Users
- -Username: PK, 					varchar2(50)
- -Password: Encrypted, 					varchar2(255)
- -Role: FK to RoleID in Roles table, 			int
- -FolderLocation: 					varchar2(255)
+ -UserId: PK,						int
+ -Username, 						varchar(100), NN
+ -Password: Encrypted, 					varchar(255), NN
+ -Code,							varchar(10)
+ -Role: FK to RoleID in Roles table, 			int, NN
+ -FolderLocation: 					varchar(255)
 
 Roles
- -RoleID: PK, 						int
- -RoleName: 						varchar2(50)
+ -RoleId: PK, 						int
+ -RoleName: 						varchar(50), NN
 
 Subjects
- -SubjectCode: PK,					varchar2(30)
- -SubjectName: PK (Not necessary),			varchar2(255)
- -FolderLocation (Not necessary):			varchar2(255)
+ -SubjectCode: PK,					varchar(50)
+ -SubjectName: PK (Not necessary),			varchar(150)
+ -FolderLocation (Not necessary):			varchar(255)
 
 Tests:
- -TestName: PK,						varchar2(100)
- -Subject: FK to SubjectCode in Subjects table,		varchar2(30)
+ -TestId: PK,						int
+ -TestName,						varchar(100)
+ -Subject: FK to SubjectCode in Subjects table,		varchar(50)
 
 
 Assignments:
- -Username: FK to Username in Users table,		varchar2(50)
- -TestName: FK to TestName in Tests table,		varchar2(100)
+ -UserId: FK to UserId in Users table,			int
+ -TestId: FK to TestId in Tests table,			int
 
 
 Root location + SubjectName + TestName identifies the exact location of the description 

@@ -28,13 +28,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4DC44A56D7D1DC30234F9DA31A966EC2"
+        "OwnerKey" = "8:_7BBB512AB7D940F58BE30F3EFC651BF7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7BBB512AB7D940F58BE30F3EFC651BF7"
+        "OwnerKey" = "8:_4DC44A56D7D1DC30234F9DA31A966EC2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -55,6 +55,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -71,6 +79,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -310,7 +326,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2D5D9C7E7A3B4768AED6840E0F698FC8"
             {
-            "Name" = "8:Wpf_IPC"
+            "Name" = "8:AppEvaluator"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -723,7 +739,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7BBB512AB7D940F58BE30F3EFC651BF7"
             {
-            "SourcePath" = "8:..\\Wpf_IPC\\obj\\Debug\\Wpf_IPC.exe"
+            "SourcePath" = "8:..\\AppEvaluator\\obj\\Debug\\AppEvaluator.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_AB7259549C374B78BAD57A32ECC0530D"

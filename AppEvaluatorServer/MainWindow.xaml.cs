@@ -25,11 +25,26 @@ namespace AppEvaluatorServer
         public static string NewDataPath { get; set; }
         public static string CurrentDataPath { get; set; }
 
+
+        public bool SqlConnectionStatus
+        {
+            get { return (bool)GetValue(SqlConnectionStatusProperty); }
+            set { SetValue(SqlConnectionStatusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SqlConnectionStatus.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SqlConnectionStatusProperty =
+            DependencyProperty.Register("SqlConnectionStatus", typeof(bool), typeof(MainWindow), new UIPropertyMetadata(false));
+
+
+
         public MainWindow()
         {
             InitializeComponent();
             NetworkMethods.ListenMulticastGroup();
             NetworkMethods.ListenTcpRequests();
+            SQLiteMethods.ConnectToDatabase();
+            SqlConnectionStatus = SQLiteMethods.ConnectionStatus;
             try
             {
                 FileMethods.LoadSettingsFromFile();
@@ -176,6 +191,7 @@ namespace AppEvaluatorServer
             {
 
             }
+            SQLiteMethods.DisconnectFromDatabase();
         }
     }
 }

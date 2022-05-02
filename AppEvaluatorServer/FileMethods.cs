@@ -21,7 +21,7 @@ namespace AppEvaluatorServer
             }
         }
         private static string SettingsFile => Path.Combine(SettingsFilePath, "settings.txt");
-        public static string DataDirectoryName => "WPF_Data";//ToDo: change name
+        public static string DataDirectoryName => "AppEvaluator_Data";
 
         public static void SaveSettingsToFile()
         {
