@@ -14,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppEvaluator.Views.Admin;
+using AppEvaluator.ViewModels;
+using AppEvaluator.Views.Teacher;
 
 namespace AppEvaluator
 {
@@ -26,7 +29,27 @@ namespace AppEvaluator
         {
             InitializeComponent();
             NetworkMethods.GetServerAddress();
-            Main.Content = new Authentication(this, Main);
+            //Main.Content = new Authentication(this, Main);
+
+            Main.Content = new ManageUsers()
+            {
+                DataContext = new ManageUsersViewModel()
+            };/*
+
+            Main.Content = new ManageSubjects()
+            {
+                DataContext = new ManageSubjectsViewModel()
+            };
+
+            Main.Content = new ManageTests()
+            {
+                DataContext = new ManageTestsViewModel()
+            };*/
+
+            /*Main.Content = new AddAssignments()
+            {
+                DataContext = new AddAssignmentsViewModel()
+            };*/
         }
 
         public void ShowLoginInformations(string username, string role)

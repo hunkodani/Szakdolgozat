@@ -30,7 +30,7 @@ namespace AppEvaluator
 
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -40,11 +40,6 @@ namespace AppEvaluator
         }
 
         #region Teacher
-
-        private void AddTestBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Content = new Teacher_AddTest(Main);
-        }
 
         private void ViewTestsBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -62,6 +57,30 @@ namespace AppEvaluator
 
 
         #endregion
+
+        #region AdminSpecific
+
+        private void ManageUsers(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        private void ManageTests(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Teacher_AddTest(Main);
+        }
+
+        private void ManageSubjects(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ManageAssignments(object sender, RoutedEventArgs e)
+        {
+
+        }
 
     }
 }

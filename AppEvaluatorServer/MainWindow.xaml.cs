@@ -81,7 +81,7 @@ namespace AppEvaluatorServer
 
         private void SaveSettingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            ///create a new-old configuration so if there is a problem, it can roll back to that
+            ///should create a new-old configuration so if there is a problem, it can roll back to that
             RespondLbl.Content = "";
             if (NewDataPath != null && !Directory.Exists(NewDataPath))
             {
@@ -94,6 +94,8 @@ namespace AppEvaluatorServer
                     else
                     {
                         _ = Directory.CreateDirectory(NewDataPath);
+                        _ = Directory.CreateDirectory(NewDataPath + "\\Subjects");
+                        _ = Directory.CreateDirectory(NewDataPath + "\\Users");
                     }
                     FileMethods.SaveSettingsToFile();
                     CurrentDataPath = FileMethods.FindSettingsElement("DataRoot");
@@ -187,10 +189,6 @@ namespace AppEvaluatorServer
             ///Aborts the Tcp listening thread
             //make separate thread and use bool world variable to stop it
             NetworkMethods.TcpServerShutdown = true;
-            if (true)
-            {
-
-            }
             SQLiteMethods.DisconnectFromDatabase();
         }
     }

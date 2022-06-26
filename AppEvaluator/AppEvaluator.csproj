@@ -75,14 +75,49 @@
     <Compile Include="Authentication.xaml.cs">
       <DependentUpon>Authentication.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\Admin\AddUserCommand.cs" />
+    <Compile Include="Commands\Admin\DeleteUserCommand.cs" />
+    <Compile Include="Commands\Admin\UpdateUserCommand.cs" />
+    <Compile Include="Commands\BackToMenuCommand.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Assignment.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Teacher_AddTest.xaml.cs">
       <DependentUpon>Teacher_AddTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Student_RunTest.xaml.cs">
       <DependentUpon>Student_RunTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AddAssignmentsViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ManageSubjectsViewModel.cs" />
+    <Compile Include="ViewModels\ManageTestsViewModel.cs" />
+    <Compile Include="ViewModels\ManageUsersViewModel.cs" />
+    <Compile Include="ViewModels\SubjectViewModel.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Admin\ManageSubjects.xaml.cs">
+      <DependentUpon>ManageSubjects.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ManageUsers.xaml.cs">
+      <DependentUpon>ManageUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Teacher\AddAssignments.xaml.cs">
+      <DependentUpon>AddAssignments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Teacher\DeleteAssignments.xaml.cs">
+      <DependentUpon>DeleteAssignments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Teacher\ManageTests.xaml.cs">
+      <DependentUpon>ManageTests.xaml</DependentUpon>
     </Compile>
     <Page Include="Authentication.xaml">
       <SubType>Designer</SubType>
@@ -111,6 +146,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Student_RunTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ManageSubjects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ManageUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Teacher\AddAssignments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Teacher\DeleteAssignments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Teacher\ManageTests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,6 +210,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Suggestions and ToDo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\Teacher\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

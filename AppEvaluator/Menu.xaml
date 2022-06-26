@@ -6,12 +6,12 @@
       xmlns:local="clr-namespace:AppEvaluator"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Menu" Height="650" Width="1000" Visibility="Visible" Background="#FFB69671" MinWidth="850" MinHeight="650">
+      Title="Menu" Height="650" Width="1000" Visibility="Visible" MinWidth="850" MinHeight="650">
 
     <Grid>
-        <StackPanel x:Name="TeacherStack" Height="300" Margin="0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel x:Name="TeacherStack" Height="300" Margin="0" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden">
             <Border Margin="0" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" Padding="0" VerticalAlignment="Center" MaxHeight="30">
-                <Button x:Name="AddTestBtn" Content="Add new test" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="AddTestBtn_Click"/>
+                <Button x:Name="AddTestBtn" Content="Add new test" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ManageTests"/>
             </Border>
             <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
                 <Button x:Name="ViewTestsBtn" Content="View tests" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ViewTestsBtn_Click"/>
@@ -35,6 +35,26 @@
             </Border>
             <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
                 <Button x:Name="StundentExitBtn" Content="Exit" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ExitBtn_Click"/>
+            </Border>
+        </StackPanel>
+        <StackPanel x:Name="AdminStack" HorizontalAlignment="Center" Height="300" Margin="0" VerticalAlignment="Center" Width="300" Visibility="Visible">
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="AdminUserBtn" Content="Manage users" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ManageUsers"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="AdminSubjectBtn" Content="Manage subjects" Background="#FFDDDDDD" BorderThickness="0" FontSize="16"  Click="ManageSubjects"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="AdminTestBtn" Content="Manage tests" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ManageTests"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="AdminAssignmentBtn" Content="Manage assignments" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ManageAssignments"/>
+            </Border>
+            <Border Margin="0,50,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="AdminSettingsBtn" Content="Settings" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="SettingsBtn_Click"/>
+            </Border>
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" Height="30" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" MaxHeight="30">
+                <Button x:Name="AdminExitBtn" Content="Exit" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" Click="ExitBtn_Click"/>
             </Border>
         </StackPanel>
     </Grid>

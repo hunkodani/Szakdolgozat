@@ -9,6 +9,8 @@ namespace AppEvaluatorServer
 {
     internal static class FileMethods
     {
+        #region Settings
+
         public static List<string[]> Settings = new();
         private static string SettingsFilePath
         {
@@ -75,5 +77,10 @@ namespace AppEvaluatorServer
             return tmp.ElementAt(1);
         }
 
+        #endregion
+
+        #region Data
+
+        #endregion
     }
 }

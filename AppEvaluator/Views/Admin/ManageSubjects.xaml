@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="AppEvaluator.Views.Admin.ManageSubjects"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppEvaluator.Views.Admin"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             FontSize="14"
+             MinWidth="850" 
+             MinHeight="650">
+    <Grid Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Manage subjects"
+                   Grid.Row="0"
+                   FontSize="24"
+                   HorizontalAlignment="Center"/>
+
+        <Grid Grid.Row="1"
+              Margin="0 10 0 0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5 0 5 0"
+                    BorderThickness="0 0 0 1"
+                    BorderBrush="Black"/>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="New subject"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Margin="0 0 0 5"/>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Text="Subjects added"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Margin="0 0 0 5"/>
+
+            <Grid Grid.Row="1"
+                  Grid.Column="0"
+                  Margin="10 5 15 0"
+                  VerticalAlignment="Center">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"
+                      Margin="0 10 0 0"
+                      HorizontalAlignment="Center">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" SharedSizeGroup="FirstColumn"/>
+                        <ColumnDefinition Width="200" SharedSizeGroup="SecondColumn"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="Subject code:"/>
+
+                    <TextBox Grid.Column="1"
+                               Text="{Binding SubjectCode, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <Grid Grid.Row="1"
+                      Margin="0 10 0 0"
+                      HorizontalAlignment="Center">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"/>
+                        <ColumnDefinition Width="auto" SharedSizeGroup="SecondColumn"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                               Text="Subject name:"/>
+
+                    <TextBox Grid.Column="1"
+                               Text="{Binding SubjectName, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <Grid Grid.Row="2"
+                      Margin="0 10 0 0"
+                      HorizontalAlignment="Center">
+
+                    <StackPanel Orientation="Vertical">
+
+                        <Button Content="Add new subject"
+                                Width="120"
+                                Height="25"
+                                Command="{Binding AddSubjectCommand}"/>
+
+                        <TextBlock Margin="0 15 0 0"
+                                   Text=""/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Margin="0 5 0 0">
+                
+                <ListView Margin="5 0"
+                          Height="500"
+                          ItemsSource="{Binding Subjects, UpdateSourceTrigger=PropertyChanged}"
+                          Name="SubjectListView">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Code"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Code}"/>
+                            <GridViewColumn Header="Name"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="FolderLocation"
+                                            Width="150"
+                                            DisplayMemberBinding="{Binding FolderLocation}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Button Content="Delete subject"
+                        Width="100"
+                        Height="25"
+                        Margin="0 10 0 0"
+                        HorizontalAlignment="Center"
+                        Command="{Binding DeleteSubjectCommand}"/>
+            </StackPanel>
+
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Content="Back"
+                    Width="100"
+                    Height="25"
+                    HorizontalAlignment="Left"
+                    Margin="10 0 0 10"
+                    Command="{Binding BackToMenuCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>

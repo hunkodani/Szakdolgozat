@@ -88,6 +88,7 @@ namespace AppEvaluator
             }
             catch (Exception e)
             {
+                Logging.WriteToLog(LogTypes.Error, e.Message);
                 //Console.WriteLine(e.ToString());
             }
         }
@@ -105,6 +106,7 @@ namespace AppEvaluator
             }
             catch (Exception e)
             {
+                Logging.WriteToLog(LogTypes.Error, e.Message);
                 //Console.WriteLine("\n" + e.ToString());
             }
         }
@@ -112,7 +114,7 @@ namespace AppEvaluator
 
         #region TCPFunctions
 
-        public static void SendTcpMessage(string username, string request, string optional = null)
+        public static void SendBasicTcpMessage(string username, string request, string optional = null)
         {
             TcpClient client = null;
             NetworkStream stream = null;
@@ -131,11 +133,11 @@ namespace AppEvaluator
                     char[] opt = new char[100];
                     optional.ToCharArray().CopyTo(opt, 0);
                     opt = FillWithSpace(opt, optional.Length);
-                    container = Encoding.ASCII.GetBytes(new string(name) + new string(req) + new string(opt));
+                    container = Encoding.ASCII.GetBytes(1 + new string(name) + new string(req) + new string(opt));
                 }
                 else
                 {
-                    container = Encoding.ASCII.GetBytes(new string(name) + new string(req));
+                    container = Encoding.ASCII.GetBytes(1 + new string(name) + new string(req));
                 }
                 
                 client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
@@ -156,6 +158,13 @@ namespace AppEvaluator
                     case "sql command":
                         ListenSqlResponse();
                         break;
+                    /*
+                    case "save testfile":
+                        break;
+                    case "save assingment":
+                        break;
+                    case "save user":
+                        break;*/
                     default:
                         break;
                 }
@@ -258,6 +267,169 @@ namespace AppEvaluator
 
         #endregion
 
+        #region TCPInserts
+
+        /// <summary>
+        /// Sends an insert tcp message with the specified data to insert a new subject
+        /// </summary>
+        /// <param name="subjectCode"></param>
+        /// <param name="subjectName"></param>
+        public static void SendInsertSubject(string subjectCode, string subjectName)
+        {
+            TcpClient client = null;
+            NetworkStream stream = null;
+            string request = "save subject";
+            try
+            {
+                byte[] container;
+                char[] req = new char[30];
+                char[] code = new char[50];
+                char[] name = new char[150];
+                request.ToCharArray().CopyTo(req, 0);
+                subjectCode.ToCharArray().CopyTo(code, 0);
+                subjectName.ToCharArray().CopyTo(name, 0);
+                req = FillWithSpace(req, request.Length);
+                code = FillWithSpace(code, subjectCode.Length);
+                name = FillWithSpace(name, subjectName.Length);
+
+                container = Encoding.ASCII.GetBytes(2 + new string(req) + new string(code) + new string(name));
+
+                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                stream = client.GetStream();
+
+                stream.Write(container, 0, container.Length);
+
+                stream.Dispose();
+                client.Close();
+            }
+            catch (Exception)
+            {
+                stream.Dispose();
+                client.Close();
+            }
+        }
+
+        /// <summary>
+        /// Sends an insert tcp message with the specified data to insert a new test
+        /// </summary>
+        /// <param name="testName"></param>
+        /// <param name="subjectCode"></param>
+        public static void SendInsertTest(string testName, string subjectCode)//minimum req: sql row data, 1 testfile, 1 description
+        {
+            TcpClient client = null;
+            NetworkStream stream = null;
+            string request = "save test";
+            try
+            {
+                byte[] container;
+                char[] req = new char[30];
+                char[] name = new char[100];
+                char[] code = new char[50];
+                request.ToCharArray().CopyTo(req, 0);
+                testName.ToCharArray().CopyTo(name, 0);
+                subjectCode.ToCharArray().CopyTo(code, 0);
+                req = FillWithSpace(req, request.Length);
+                name = FillWithSpace(name, testName.Length);
+                code = FillWithSpace(code, subjectCode.Length);
+
+                container = Encoding.ASCII.GetBytes(2 + new string(req) + new string(name) + new string(code));
+
+                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                stream = client.GetStream();
+
+                stream.Write(container, 0, container.Length);
+
+                stream.Dispose();
+                client.Close();
+            }
+            catch (Exception)
+            {
+                stream.Dispose();
+                client.Close();
+            }
+        }
+
+        /// <summary>
+        /// Sends an insert tcp message with the specified data to insert a new user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="code"></param>
+        /// <param name="role"></param>
+        public static void SendInsertUser(string username, string password, string code, int role)
+        {
+            TcpClient client = null;
+            NetworkStream stream = null;
+            string request = "save user";
+            try
+            {
+                byte[] container;
+                char[] req = new char[30];
+                char[] name = new char[100];
+                char[] pass = new char[255];
+                char[] codechar = new char[10];
+                request.ToCharArray().CopyTo(req, 0);
+                username.ToCharArray().CopyTo(name, 0);
+                password.ToCharArray().CopyTo(pass, 0);
+                code.ToCharArray().CopyTo(codechar, 0);
+                req = FillWithSpace(req, request.Length);
+                name = FillWithSpace(name, username.Length);
+                pass = FillWithSpace(pass, password.Length);
+                codechar = FillWithSpace(codechar, code.Length);
+
+                container = Encoding.ASCII.GetBytes(2 + new string(req) + new string(name) + new string(codechar) + role);
+
+                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                stream = client.GetStream();
+                stream.Write(container, 0, container.Length);
+
+                container = Encoding.ASCII.GetBytes(new string(pass));
+                stream.Write(container, 0, container.Length);
+
+                stream.Dispose();
+                client.Close();
+            }
+            catch (Exception)
+            {
+                stream?.Dispose();
+                client?.Close();
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Sends an insert tcp message with the specified data to insert a new assignment
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="testId"></param>
+        public static void SendInsertAssignment(int userId, int testId)
+        {
+            TcpClient client = null;
+            NetworkStream stream = null;
+            string request = "save assignment";
+            try
+            {
+                byte[] container;
+                char[] req = new char[30];
+                request.ToCharArray().CopyTo(req, 0);
+
+                container = Encoding.ASCII.GetBytes(2 + new string(req) + userId + testId);
+
+                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                stream = client.GetStream();
+                stream.Write(container, 0, container.Length);
+
+                stream.Dispose();
+                client.Close();
+            }
+            catch (Exception)
+            {
+                stream.Dispose();
+                client.Close();
+            }
+        }
+
+        #endregion
 
     }
 }
