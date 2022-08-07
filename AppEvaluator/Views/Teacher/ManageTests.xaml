@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800"
-             MinWidth="850" 
+             MinWidth="850"
              MinHeight="650"
              FontSize="14">
     <Grid Grid.IsSharedSizeScope="True">
@@ -54,133 +54,197 @@
                        FontSize="20"
                        Margin="0 0 0 5"/>
 
-            <Grid Grid.Row="1"
-                  Grid.Column="0"
-                  Margin="10 5 15 0"
-                  VerticalAlignment="Center">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0"
-                      Margin="0 10 0 0"
-                      HorizontalAlignment="Center">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" SharedSizeGroup="FirstColumn"/>
-                        <ColumnDefinition Width="200" SharedSizeGroup="SecondColumn"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Grid.Column="0"
-                               Text="Test name:"/>
-
-                    <TextBox Grid.Column="1"
-                               Text="{Binding TestName, UpdateSourceTrigger=PropertyChanged}"/>
-                </Grid>
-
-                <Grid Grid.Row="1"
-                      Margin="0 10 0 0"
-                      HorizontalAlignment="Center">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"/>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="SecondColumn"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Grid.Column="0"
-                               Text="Subject code:"/>
-
-                    <TextBox Grid.Column="1"
-                             Text="{Binding SubjectCode, UpdateSourceTrigger=PropertyChanged}"/>
-                </Grid>
-
-                <Grid Grid.Row="2"
-                      Margin="0 10 0 0"
-                      HorizontalAlignment="Center">
+            <ScrollViewer Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="10 5 10 0"
+                          VerticalAlignment="Center"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <Grid Margin="0 0 5 0">
 
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"/>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="SecondColumn"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0"
+                          Margin="0 10 0 0"
+                          HorizontalAlignment="Center">
 
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="0"
-                               Text="Description file:"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" SharedSizeGroup="FirstColumn"/>
+                            <ColumnDefinition Width="200" SharedSizeGroup="SecondColumn"/>
+                        </Grid.ColumnDefinitions>
 
-                    <Button Grid.Row="0"
-                            Grid.Column="1"
-                            Content="Browse"/>
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="Test name:"/>
 
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="0"
-                               Margin="0 10 0 0"
-                               Text="Test file(s):"/>
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding TestName, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
 
-                    <Button Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="0 10 0 0"
-                            Content="Browse"/>
-                </Grid>
+                    <Grid Grid.Row="1"
+                          Margin="0 10 0 0"
+                          HorizontalAlignment="Center">
 
-                <Grid Grid.Row="3"
-                      Margin="0 10 0 0"
-                      HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"/>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="SecondColumn"/>
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Vertical">
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="Subject:"/>
 
-                        <Button Content="Add new test"
+                        <!--<TextBox Grid.Column="1"
+                             Text="{Binding SubjectCode, UpdateSourceTrigger=PropertyChanged}"/>-->
+                        <ComboBox Grid.Column="1"
+                                  ItemsSource="{Binding CBSubjects}"
+                                  SelectionChanged="SubjectSelected">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} -- {1}">
+                                                <Binding Path="SubjectCode"/>
+                                                <Binding Path="SubjectName"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid Grid.Row="2"
+                          Margin="0 10 0 0"
+                          HorizontalAlignment="Center">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition SharedSizeGroup="FirstRow"/>
+                            <RowDefinition SharedSizeGroup="FirstRow"/>
+                            <RowDefinition SharedSizeGroup="FirstRow"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="FirstColumn"/>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="SecondColumn"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="Description file:"/>
+
+                        <Button Grid.Row="0"
+                                Grid.Column="1"
+                                Content="Browse"
+                                Margin="0 1"
+                                Command="{Binding AddDescFileCmd}"/>
+
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="Selected desc. file:"/>
+
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding DescFile.Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="Test file(s):"/>
+
+                        <Button Grid.Row="2"
+                                Grid.Column="1"
+                                Content="Browse"
+                                Margin="0 1"
+                                Command="{Binding AddTestFileCmd}"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Vertical"
+                                Grid.Row="3"
+                                Margin="0 10 0 0">
+
+                        <TextBlock Text="Attached files:"/>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Margin="0 10 0 0">
+                            <ListView ItemsSource="{Binding Files, UpdateSourceTrigger=PropertyChanged}"
+                                      x:Name="TestFileListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Name"
+                                                        DisplayMemberBinding="{Binding Name}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+
+                        <Button Content="Remove file"
                                 Width="100"
                                 Height="25"
-                                Command="{Binding AddTestCommand}"/>
-
-                        <TextBlock Margin="0 15 0 0"
-                                   Text=""/>
+                                Margin="0 10 0 0"
+                                HorizontalAlignment="Center"
+                                Command="{Binding RemoveTestFileCmd}"
+                                CommandParameter="{Binding ElementName=TestFileListView, Path=SelectedItem}"/>
                     </StackPanel>
+
+                    <Grid Grid.Row="4"
+                          Margin="0 30 0 0"
+                          HorizontalAlignment="Center">
+
+                        <StackPanel Orientation="Vertical">
+
+                            <Button Content="Add new test"
+                                    Width="100"
+                                    Height="25"
+                                    Command="{Binding AddTestCmd}"/>
+
+                            <TextBlock Margin="0 15 0 0"
+                                       Text="{Binding AddMessage, Mode=OneWay}"
+                                       Foreground="{Binding AddMessageColor}"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-
-                <StackPanel Orientation="Vertical"
-                            Grid.Row="4"
-                            Margin="0 10 0 0">
-                    
-                    <TextBlock Text="Attached files:"/>
-
-                    <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                  Margin="0 10 0 0">
-                        <ListView ItemsSource="{Binding Files, UpdateSourceTrigger=PropertyChanged}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Name"
-                                                    DisplayMemberBinding="{Binding Name}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-
-                    <Button Content="Remove file"
-                            Width="100"
-                            Height="25"
-                            Margin="0 10 0 0"
-                            HorizontalAlignment="Center"
-                            Command=""/>
-
-                </StackPanel>
-            </Grid>
+            </ScrollViewer>
 
             <StackPanel Orientation="Vertical"
                         Grid.Column="1"
                         Grid.Row="1"
                         Grid.RowSpan="2"
                         Margin="0 5 0 0">
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="5 5">
+                    <ComboBox ItemsSource="{Binding CBSubjects}"
+                              SelectionChanged="CBSubjectSelected"
+                              Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} -- {1}">
+                                            <Binding Path="SubjectCode"/>
+                                            <Binding Path="SubjectName"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Content="List tests"
+                            Width="100"
+                            Height="25"
+                            Margin="10 0 0 0"
+                            Command="{Binding LoadTestsCmd}"/>
+                </StackPanel>
 
                 <ListView Margin="5 0"
                           Height="500"
@@ -203,7 +267,7 @@
                         Height="25"
                         Margin="0 10 0 0"
                         HorizontalAlignment="Center"
-                        Command="{Binding DeleteTestCommand}"/>
+                        Command="{Binding DeleteTestCmd}"/>
 
             </StackPanel>
 
@@ -214,7 +278,7 @@
                     Height="25"
                     HorizontalAlignment="Left"
                     Margin="10 0 0 10"
-                    Command="{Binding BackToMenuCommand}"/>
+                    Command="{Binding BackToMenuCmd}"/>
         </Grid>
     </Grid>
 </UserControl>

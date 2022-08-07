@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="AppEvaluator.Views.Authentication"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppEvaluator.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             MinWidth="850" 
+             MinHeight="650"
+             FontSize="16">
+    <Grid>
+        <Border BorderBrush="Black" 
+                BorderThickness="5" 
+                HorizontalAlignment="Center" 
+                Height="300"
+                Margin="0" 
+                VerticalAlignment="Center" 
+                Width="222" 
+                CornerRadius="10">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" 
+                                  BlurRadius="20" 
+                                  Direction="0"/>
+            </Border.Effect>
+        </Border>
+        <Border BorderBrush="Black" 
+                BorderThickness="1" 
+                HorizontalAlignment="Center" 
+                Height="300" 
+                Margin="0" 
+                VerticalAlignment="Center" 
+                Width="242" 
+                CornerRadius="10" 
+                Background="#FFECECEC">
+            <Grid Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                
+                <Label Content="Username:"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Stretch"
+                       Grid.Row="1"/>
+                
+                <Border HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        CornerRadius="5"
+                        BorderThickness="2"
+                        Grid.Row="2"
+                        Background="#FFC1C1C1"
+                        BorderBrush="#FFC1C1C1">
+                    <TextBox BorderThickness="0"
+                             Text="{Binding Username, Mode=OneWayToSource}"
+                             ToolTip="Name of the user"
+                             Background="{x:Null}"
+                             Padding="0,2,0,0"/>
+                </Border>
+                
+                <Label Content="Password:"
+                       HorizontalAlignment="Left"
+                       Grid.Row="3"
+                       VerticalAlignment="Stretch"/>
+
+                <Border HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        CornerRadius="5"
+                        BorderThickness="2"
+                        BorderBrush="#FFC1C1C1"
+                        Background="#FFC1C1C1"
+                        Grid.Row="4">
+                    <PasswordBox x:Name="PasswordTB"
+                                 BorderThickness="0"
+                                 ToolTip="Password"
+                                 PasswordChanged="PasswordChanged"
+                                 Background="{x:Null}"
+                                 Padding="0,2,0,0" />
+                </Border>
+                <Border VerticalAlignment="Center"
+                        Width="100"
+                        Height="30"
+                        CornerRadius="5"
+                        BorderThickness="2"
+                        Background="#FF7AA3E0"
+                        BorderBrush="#FF7AA3E0"
+                        Grid.Row="5"
+                        HorizontalAlignment="Center">
+                    <Button x:Name="LoginBtn"
+                            Content="Login"
+                            Background="{x:Null}"
+                            BorderThickness="0"
+                            Command="{Binding AuthenticateUserCmd}"/>
+                </Border>
+                
+                <Label Content= "{Binding ErrorMsg}"
+                       Margin="0"
+                       Grid.Row="6"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Height="30"
+                       Foreground="#FFAA0000"
+                       FontSize="14"
+                       Visibility="{Binding ErrorMsgVis}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="AppEvaluator.Views.Menu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppEvaluator.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450"
+             d:DesignWidth="800" 
+             FontSize="16"
+             MinWidth="850"
+             MinHeight="650"
+             Loaded="MenuStartup">
+    <Grid>
+        <StackPanel Height="390" 
+                    Margin="0" 
+                    Width="300" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center">
+
+            <Border Margin="0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100"
+                    Tag="User">
+                <Button Content="Run Test" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"/>
+            </Border>
+
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100"
+                    Tag="User">
+                <Button Content="View results" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"
+                        Click="ViewTestsBtn_Click"/>
+            </Border>
+
+            <Border Margin="0,10,0,0"
+                    CornerRadius="5"
+                    BorderThickness="2"
+                    BorderBrush="#FFDDDDDD"
+                    MinWidth="100"
+                    Padding="0" 
+                    VerticalAlignment="Top"
+                    Tag="Teacher">
+                <Button Content="Manage tests" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0" 
+                        Command="{Binding ToManageTestsCmd}"/>
+            </Border>
+            
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100"
+                    Tag="Teacher">
+                <Button Content="View user test results" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"/>
+            </Border>
+
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100"
+                    Tag="Teacher">
+                <Button Content="Manage assignments" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0" 
+                        Command="{Binding ToAddAssignmentsCmd}"/>
+            </Border>
+
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100"
+                    Tag="Admin">
+                <Button Content="Manage users" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"
+                        Command="{Binding ToManageUsersCmd}"/>
+            </Border>
+
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100"
+                    Tag="Admin">
+                <Button Content="Manage subjects" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"
+                        Command="{Binding ToManageSubjectsCmd}"/>
+            </Border>
+            
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100">
+                <Button Content="Settings" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"
+                        Click="SettingsBtn_Click"/>
+            </Border>
+
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100">
+                <Button Content="Logout" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"
+                        Command="{Binding LogoutCmd}"/>
+            </Border>
+
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100">
+                <Button Content="Exit" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"
+                        Command="{Binding ExitCmd}"/>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

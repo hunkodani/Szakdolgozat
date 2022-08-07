@@ -106,10 +106,11 @@
                         <Button Content="Add new subject"
                                 Width="120"
                                 Height="25"
-                                Command="{Binding AddSubjectCommand}"/>
+                                Command="{Binding AddSubjectCmd}"/>
 
                         <TextBlock Margin="0 15 0 0"
-                                   Text=""/>
+                                   Text="{Binding AddMessage, Mode=OneWay}"
+                                   Foreground="{Binding AddMessageColor}"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -139,12 +140,22 @@
                     </ListView.View>
                 </ListView>
 
-                <Button Content="Delete subject"
-                        Width="100"
-                        Height="25"
-                        Margin="0 10 0 0"
-                        HorizontalAlignment="Center"
-                        Command="{Binding DeleteSubjectCommand}"/>
+                <Grid Margin="0 10 0 0"
+                            Height="25">
+
+                    <Button Content=""
+                            Width="25"
+                            Height="25"
+                            Margin="5 0 0 0"
+                            Command="{Binding LoadSubjectsCmd}"
+                            HorizontalAlignment="Left"/>
+
+                    <Button Content="Delete subject"
+                            Width="100"
+                            Height="25"
+                            HorizontalAlignment="Center"
+                            Command="{Binding DeleteSubjectCmd}"/>
+                </Grid>
             </StackPanel>
 
             <Button Grid.Row="2"
@@ -154,7 +165,7 @@
                     Height="25"
                     HorizontalAlignment="Left"
                     Margin="10 0 0 10"
-                    Command="{Binding BackToMenuCommand}"/>
+                    Command="{Binding BackToMenuCmd}"/>
         </Grid>
     </Grid>
 </UserControl>

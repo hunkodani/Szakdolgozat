@@ -129,10 +129,12 @@
                                Text="Role:"/>
 
                     <ComboBox Grid.Column="1"
-                              SelectedIndex="{Binding RoleId}">
-                        <ComboBoxItem Content="user"/>
+                              ItemsSource="{Binding Roles}"
+                              DisplayMemberPath="RoleName" 
+                              SelectionChanged="RoleSelected">
+                        <!--<ComboBoxItem Content="user"/>SelectedIndex="{Binding RoleId}"
                         <ComboBoxItem Content="teacher"/>
-                        <ComboBoxItem Content="admin"/>
+                        <ComboBoxItem Content="admin"/>-->
                     </ComboBox>
                 </Grid>
 
@@ -145,7 +147,7 @@
                         <Button Content="Add new user"
                                 Width="100"
                                 Height="25"
-                                Command="{Binding AddCommand}"/>
+                                Command="{Binding AddCmd}"/>
 
                         <TextBlock Margin="0 15 0 0"
                                    Text="{Binding AddMessage, Mode=OneWay}"
@@ -184,21 +186,32 @@
                         </ListView.View>
                     </ListView>
 
-                    <StackPanel Orientation="Horizontal"
-                                Margin="0 10 0 0"
+                    <Grid Margin="0 10 0 0"
+                            Height="25">
+                        
+                        <Button Content=""
+                                Width="25"
+                                Height="25"
+                                Margin="5 0 0 0"
+                                Command="{Binding LoadUsersCmd}"
+                                HorizontalAlignment="Left"/>
+                        
+                        <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-
-                        <Button Content="Manage"
+                            
+                            <Button Content="Manage"
                                 Width="100"
                                 Height="25"
                                 Click="ShowModifySection"/>
 
-                        <Button Content="Delete"
+                            <Button Content="Delete"
                                 Width="100"
                                 Height="25"
                                 Margin="10 0 0 0"
-                                Command="{Binding DeleteCommand}"/>
-                    </StackPanel>
+                                Command="{Binding DeleteCmd}"
+                                CommandParameter="{Binding ElementName=UserListView, Path=SelectedItem}"/>
+                        </StackPanel>
+                    </Grid>
 
                     <Grid Margin="0 20 0 10"
                           x:Name="ModifySection"
@@ -317,7 +330,7 @@
                               Margin="0 10 0 0"
                               HorizontalAlignment="Center">
 
-                            <Button Content="Modify user" Command="{Binding UpdateCommand}"/>
+                            <Button Content="Modify user" Command="{Binding UpdateCmd}"/>
                         </Grid>
                     </Grid>
                     <TextBlock Margin="0 15 0 0"
@@ -334,7 +347,7 @@
                     Height="25"
                     HorizontalAlignment="Left"
                     Margin="10 0 0 10"
-                    Command="{Binding BackToMenuCommand}"/>
+                    Command="{Binding BackToMenuCmd}"/>
         </Grid>
     </Grid>
 </UserControl>

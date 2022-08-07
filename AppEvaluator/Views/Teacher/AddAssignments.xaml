@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AppEvaluator.Views.Teacher"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" 
              d:DesignWidth="800"
              MinWidth="850" 
@@ -117,7 +117,7 @@
                     Width="100"
                     Height="25"
                     HorizontalAlignment="Left"
-                    Command="{Binding BackToMenuCommand}"/>
+                    Command="{Binding BackToMenuCmd}"/>
 
             <Button Content="To delete page"
                     Width="100"

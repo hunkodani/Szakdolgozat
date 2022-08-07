@@ -5,36 +5,43 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
+using AppEvaluator.NetworkingAndWCF;
+using AppEvaluator.Services;
 
 namespace AppEvaluator.ViewModels
 {
     internal class ManageUsersViewModel : ViewModelBase
     {
-        private readonly ObservableCollection<UserViewModel> _users;
+        private ObservableCollection<UserViewModel> _users;
 
         public IEnumerable<UserViewModel> Users => _users;
 
-        public ManageUsersViewModel()
+        private readonly List<Role> _roles;
+
+        public IEnumerable<Role> Roles => _roles;
+
+        public ManageUsersViewModel(NavigationService navigationService)
         {
-            AddCommand = new AddUserCommand(this);
-            UpdateCommand = new UpdateUserCommand();
-            DeleteCommand = new DeleteUserCommand();
-            BackToMenuCommand = new BackToMenuCommand();
+            AddCmd = new AddUserCmd(this);
+            UpdateCmd = new UpdateUserCmd(this);
+            DeleteCmd = new DeleteUserCmd(this);
+            LoadUsersCmd = new LoadUsersCmd(this);
+            BackToMenuCmd = new NavigateCmd(navigationService);
             _users = new ObservableCollection<UserViewModel>();
-            //temporary items
-            _users.Add(new UserViewModel(new User("asd", "asd", "asd", 1, "asd", 1)));
-            _users.Add(new UserViewModel(new User("adssd", "aasdsd", "adsd", 1, "assssd", 1)));
+            _roles = new List<Role>();
+            LoadUsers();
+            LoadRoles();
         }
 
-        public ICommand AddCommand { get; }
-        public ICommand UpdateCommand { get; }
-        public ICommand DeleteCommand { get; }
-        public ICommand BackToMenuCommand { get; }
+        public ICommand AddCmd { get; }
+        public ICommand UpdateCmd { get; }
+        public ICommand DeleteCmd { get; }
+        public ICommand LoadUsersCmd { get; }
+        public ICommand BackToMenuCmd { get; }
 
         #region Messages And Brushes
 
@@ -171,11 +178,36 @@ namespace AppEvaluator.ViewModels
             }
         }
 
-        public void createUpdatableUser(UserViewModel user)
+        public void CreateUpdatableUser(UserViewModel user)
         {
             _updatedUser = user;
             OnPropertyChanged(nameof(UpdatedUser));
         }
 
+        internal void LoadUsers()
+        {
+            List<User> users = WcfDataParser.UsersParse(WcfService.MainProxy?.GetUsers());
+            _users.Clear();
+            if (users != null)
+            {
+                foreach (User user in users)
+                {
+                    _users.Add(new UserViewModel(user));
+                }
+            }
+        }
+
+        internal void LoadRoles()
+        {
+            List<Role> roles = WcfDataParser.RolesParse(WcfService.MainProxy?.GetRoles());
+            _roles.Clear();
+            if (roles != null)
+            {
+                foreach (Role role in roles)
+                {
+                    _roles.Add(role);
+                }
+            }
+        }
     }
 }

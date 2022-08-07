@@ -1,10 +1,16 @@
-﻿using System;
+﻿using AppEvaluator.Commands;
+using AppEvaluator.Commands.Admin;
+using AppEvaluator.Models;
+using AppEvaluator.NetworkingAndWCF;
+using AppEvaluator.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AppEvaluator.ViewModels
 {
@@ -14,17 +20,53 @@ namespace AppEvaluator.ViewModels
 
         public IEnumerable<SubjectViewModel> Subjects => _subjects;
 
-        public ManageSubjectsViewModel()
+        public ManageSubjectsViewModel(NavigationService navigationService)
         {
+            AddSubjectCmd = new AddSubjectCmd(this);
+            DeleteSubjectCmd = new DeleteSubjectCmd(this);
+            LoadSubjectsCmd = new LoadSubjectsCmd(this);
+            BackToMenuCmd = new NavigateCmd(navigationService);
             _subjects = new ObservableCollection<SubjectViewModel>();
 
-            _subjects.Add(new SubjectViewModel(new Models.Subject("asd", "asd", "asd")));
-            _subjects.Add(new SubjectViewModel(new Models.Subject("asdasdasd", "asdasdasd", "asd")));
+            LoadSubjects();
         }
 
-        public ICommand AddSubjectCommand { get; }
-        public ICommand DeleteSubjectCommand { get; }
-        public ICommand BackToMenuCommand { get; }
+        public ICommand AddSubjectCmd { get; }
+        public ICommand DeleteSubjectCmd { get; }
+        public ICommand LoadSubjectsCmd { get; }
+        public ICommand BackToMenuCmd { get; }
+
+        #region Messages And Brushes
+
+        private string _addMessage;
+        public string AddMessage
+        {
+            get
+            {
+                return _addMessage;
+            }
+            set
+            {
+                _addMessage = value;
+                OnPropertyChanged(nameof(AddMessage));
+            }
+        }
+
+        private Brush _addMessageColor;
+
+        public Brush AddMessageColor
+        {
+            get
+            {
+                return _addMessageColor;
+            }
+            set
+            {
+                _addMessageColor = value;
+                OnPropertyChanged(nameof(AddMessageColor));
+            }
+        }
+        #endregion
 
         private string _subjectCode;
 
@@ -53,6 +95,19 @@ namespace AppEvaluator.ViewModels
             { 
                 _subjectName = value;
                 OnPropertyChanged(nameof(SubjectName));
+            }
+        }
+
+        internal void LoadSubjects()
+        {
+            List<Subject> subjects = WcfDataParser.SubjectsParse(WcfService.MainProxy?.GetSubjects());
+            _subjects.Clear();
+            if (subjects != null)
+            {
+                foreach (Subject subject in subjects)
+                {
+                    _subjects.Add(new SubjectViewModel(subject));
+                }
             }
         }
     }

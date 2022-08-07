@@ -23,7 +23,6 @@ namespace AppEvaluatorServer
     public partial class MainWindow : Window
     {
         public static string NewDataPath { get; set; }
-        public static string CurrentDataPath { get; set; }
 
 
         public bool SqlConnectionStatus
@@ -36,8 +35,6 @@ namespace AppEvaluatorServer
         public static readonly DependencyProperty SqlConnectionStatusProperty =
             DependencyProperty.Register("SqlConnectionStatus", typeof(bool), typeof(MainWindow), new UIPropertyMetadata(false));
 
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -48,20 +45,19 @@ namespace AppEvaluatorServer
             try
             {
                 FileMethods.LoadSettingsFromFile();
-                CurrentDataPath = FileMethods.FindSettingsElement("DataRoot");
-                FolderPathLbl.Content = CurrentDataPath;
+                FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
+                FolderPathLbl.Content = FileMethods.DataRoot;
                 MigrationCheck.IsChecked = FileMethods.FindSettingsElement("Migration") != "False";
             }
             catch (FileNotFoundException)
             {
-                CurrentDataPath = null;
+                FileMethods.DataRoot = null;
             }
-
         }
 
         private void PickFolderBtn_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new();
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             DialogResult result = folderBrowserDialog.ShowDialog();
             if (result == System.Windows.Forms.DialogResult.OK)
             {
@@ -87,9 +83,9 @@ namespace AppEvaluatorServer
             {
                 try
                 {
-                    if (MigrationCheck.IsChecked == true && CurrentDataPath != null)
+                    if (MigrationCheck.IsChecked == true && FileMethods.DataRoot != null)
                     {
-                        Directory.Move(CurrentDataPath, NewDataPath);
+                        Directory.Move(FileMethods.DataRoot, NewDataPath);
                     }
                     else
                     {
@@ -98,7 +94,7 @@ namespace AppEvaluatorServer
                         _ = Directory.CreateDirectory(NewDataPath + "\\Users");
                     }
                     FileMethods.SaveSettingsToFile();
-                    CurrentDataPath = FileMethods.FindSettingsElement("DataRoot");
+                    FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
                     RespondLbl.Foreground = Brushes.LimeGreen;
                     RespondLbl.Content = "Settings successfully saved";
                 }
@@ -144,7 +140,7 @@ namespace AppEvaluatorServer
                                 FileMethods.Settings.Add(new string[] { "Migration", "False" });
                             }
                             FileMethods.SaveSettingsToFile();
-                            CurrentDataPath = FileMethods.FindSettingsElement("DataRoot");
+                            FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
                             MigrationCheck.IsChecked = false;
                             RespondLbl.Foreground = Brushes.LimeGreen;
                             RespondLbl.Content = "Settings successfully saved";

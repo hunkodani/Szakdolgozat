@@ -1,18 +1,7 @@
-﻿using AppEvaluator.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppEvaluator.Models;
+using AppEvaluator.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AppEvaluator.Views.Admin
 {
@@ -50,7 +39,7 @@ namespace AppEvaluator.Views.Admin
         {
             if (this.DataContext != null)
             {
-                ((dynamic)this.DataContext).createUpdatableUser((UserViewModel)UserListView.SelectedItem);
+                ((dynamic)this.DataContext).CreateUpdatableUser((UserViewModel)UserListView.SelectedItem);
             }
         }
 
@@ -59,6 +48,16 @@ namespace AppEvaluator.Views.Admin
             if (this.DataContext != null)
             {
                 ((dynamic)this.DataContext).UpdatedUser.Password = ((PasswordBox)sender).Password;
+            }
+        }
+
+        private void RoleSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                Role role = (Role)e.AddedItems[0];
+                //Role role = (Role)((ComboBox)sender).SelectedItem;
+                ((dynamic)this.DataContext).RoleId = role.RoleId;
             }
         }
     }

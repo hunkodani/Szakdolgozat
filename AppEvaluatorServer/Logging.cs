@@ -9,15 +9,14 @@ namespace AppEvaluatorServer
 {
     class Logging
     {
-        private static readonly string _logFile = Path.Combine(Environment.CurrentDirectory, AppDomain.CurrentDomain.FriendlyName, "log.txt");
+        private static readonly string _logFile = Path.Combine(FileMethods.SettingsFilePath, "log.txt");
 
         public static void WriteToLog(LogTypes type, string content)
         {
-            string tmplog = "";
             try
             {
                 StreamWriter stream = new StreamWriter(_logFile, true, Encoding.UTF8);
-                stream.WriteLine(tmplog);
+                stream.WriteLine(type.ToString() + ": " + content);
                 stream.Close();
             }
             catch (Exception)

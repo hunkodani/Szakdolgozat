@@ -1,4 +1,9 @@
-﻿using AppEvaluator.Models;
+﻿using AppEvaluator.Commands;
+using AppEvaluator.Commands.Teacher;
+using AppEvaluator.Models;
+using AppEvaluator.NetworkingAndWCF;
+using AppEvaluator.Services;
+using AppEvaluator.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,10 +13,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AppEvaluator.ViewModels
 {
-    internal class AddAssignmentsViewModel
+    internal class AddAssignmentsViewModel : ViewModelBase
     {
         internal class UserAssignmentViewModel : UserViewModel
         {
@@ -38,21 +44,76 @@ namespace AppEvaluator.ViewModels
 
         public ICommand CreateAssignmentCmd { get; }
         public ICommand ToDeleteAssignmentCmd { get; }
-        public ICommand BackToMenuCommand { get; }
+        public ICommand BackToMenuCmd { get; }
 
-        public AddAssignmentsViewModel()
+        #region Messages And Brushes
+
+        private string _addMessage;
+        public string AddMessage
         {
+            get
+            {
+                return _addMessage;
+            }
+            set
+            {
+                _addMessage = value;
+                OnPropertyChanged(nameof(AddMessage));
+            }
+        }
+
+        private Brush _addMessageColor;
+
+        public Brush AddMessageColor
+        {
+            get
+            {
+                return _addMessageColor;
+            }
+            set
+            {
+                _addMessageColor = value;
+                OnPropertyChanged(nameof(AddMessageColor));
+            }
+        }
+        #endregion
+
+        public AddAssignmentsViewModel(NavigationService navigationService)
+        {
+            CreateAssignmentCmd = new CreateAssignmentCmd(this);
+            ToDeleteAssignmentCmd = new ToDeleteAssignmentCmd();
+            BackToMenuCmd = new NavigateCmd(navigationService);
             _users = new ObservableCollection<UserAssignmentViewModel>();
             _tests = new ObservableCollection<TestViewModel>();
 
-            _tests.Add(new TestViewModel(new Models.Test(1, "asd", "asd")));
-            _tests.Add(new TestViewModel(new Models.Test(2, "asdasdasd", "asd")));
-            _tests.Add(new TestViewModel(new Models.Test(3, "asdsd", "as")));
-            _tests.Add(new TestViewModel(new Models.Test(4, "asdasdasd", "as")));
+            LoadTests();
+            LoadUsers();
+        }
 
-            _users.Add(new UserAssignmentViewModel(new User("asd", "asd", "asd", 1, "asd", 1)));
-            _users.Add(new UserAssignmentViewModel(new User("asdasd", "asd", "assd", 1, "asssd", 2)));
-            _users.Add(new UserAssignmentViewModel(new User("dasd", "asd", "sd", 1, "asssd", 3)));
+        internal void LoadTests()
+        {
+            List<Test> tests = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests("Info-123"));
+            _tests.Clear();
+            if (tests != null)
+            {
+                foreach (Test test in tests)
+                {
+                    _tests.Add(new TestViewModel(test));
+                }
+            }
+        }
+
+        internal void LoadUsers()
+        {
+            List<User> users = WcfDataParser.UsersParse(WcfService.MainProxy?.GetUsers());
+            _users.Clear();
+            if (users != null)
+            {
+                foreach (User user in users)
+                {
+                    _users.Add(new UserAssignmentViewModel(user));
+                }
+            }
         }
     }
 }

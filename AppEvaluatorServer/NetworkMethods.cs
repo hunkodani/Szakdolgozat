@@ -8,13 +8,16 @@ using System.Net.Sockets;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.ServiceModel;
 
 namespace AppEvaluatorServer
 {
     internal static class NetworkMethods
     {
-        private static int ServerPort { get { return 11000; } }
-        private static IPAddress LocalIPAddress
+        internal static ServiceHost SelectionHost { get; set; }
+        internal static ServiceHost FileHost { get; set; }
+        internal static int ServerPort { get { return 11000; } }
+        internal static IPAddress LocalIPAddress
         {
             get
             {
@@ -45,7 +48,7 @@ namespace AppEvaluatorServer
         public static void ListenMulticastGroup()
         {
             StartMulticastGroup();
-            Thread receiveThread = new(ReceiveMcastMessage);
+            Thread receiveThread = new Thread(ReceiveMcastMessage);
             receiveThread.Start();
         }
 
@@ -57,7 +60,7 @@ namespace AppEvaluatorServer
             McastSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             EndPoint endPoint = new IPEndPoint(LocalIPAddress, ServerPort);
             McastSocket.Bind(endPoint);
-            MulticastOption McastOption = new(McastIPAddress, LocalIPAddress);
+            MulticastOption McastOption = new MulticastOption(McastIPAddress, LocalIPAddress);
             McastSocket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, McastOption);
         }
 
@@ -111,7 +114,7 @@ namespace AppEvaluatorServer
         /// </summary>
         public static void ListenTcpRequests()
         {
-            Thread listenThread = new(StartServerTcpListener)
+            Thread listenThread = new Thread(StartServerTcpListener)
             {
                 IsBackground = true
             };
@@ -145,7 +148,7 @@ namespace AppEvaluatorServer
                     client = TcpServerListener.AcceptTcpClient();
                     stream = client.GetStream();
 
-                    ///It reads the first 4 bytes that tells what type of request was sent
+                    ///It reads the first byte that tells what type of request was sent
                     if ((i = stream.Read(bytes, 0, 1)) != 0)
                     {
                         requestmode = int.Parse(Encoding.ASCII.GetString(bytes, 0, 1));
@@ -198,10 +201,10 @@ namespace AppEvaluatorServer
                                     SQLiteMethods.InsertTest(Encoding.ASCII.GetString(bytes, 0, 100).Trim(),
                                                              Encoding.ASCII.GetString(bytes, 100, i - 100).Trim());
                                     break;
-                                case "save assingment":
-                                    i = stream.Read(bytes, 0, 8);
-                                    SQLiteMethods.InsertAssignment(BitConverter.ToInt32(bytes, 0),
-                                                                   BitConverter.ToInt32(bytes, 4));
+                                case "save assignment":
+                                    i = stream.Read(bytes, 0, 2);
+                                    SQLiteMethods.InsertAssignment(int.Parse(Encoding.ASCII.GetString(bytes, 0, 1)),
+                                                                   int.Parse(Encoding.ASCII.GetString(bytes, 1, 1)));
                                     break;
                                 case "save user":
                                     i = stream.Read(bytes, 0, 111);
@@ -252,7 +255,25 @@ namespace AppEvaluatorServer
                         ///Database select requests
                         else if (requestmode == 5)
                         {
-
+                            i = stream.Read(bytes, 0, 30);
+                            request = Encoding.ASCII.GetString(bytes, 0, 30).Trim();
+                            switch (request.ToLower())
+                            {
+                                case "get subjects":
+                                    
+                                    break;
+                                case "get tests":
+                                    
+                                    break;
+                                case "get assingments":
+                                    
+                                    break;
+                                case "get users":
+                                    
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         
                         /*// Loop to receive all the data sent by the client.
@@ -308,7 +329,7 @@ namespace AppEvaluatorServer
             {
 
             }
-            string data = null;
+            //string data = null;
             //byte[] msg = Encoding.ASCII.GetBytes(data);
             //stream.Write(msg, 0, msg.Length);
         }

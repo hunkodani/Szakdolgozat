@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppEvaluator.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,24 @@ namespace AppEvaluator.Views.Teacher
         public ManageTests()
         {
             InitializeComponent();
+        }
+
+        private void SubjectSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                Subject subject = (Subject)e.AddedItems[0];
+                ((dynamic)this.DataContext).SubjectCode = subject.SubjectCode;
+            }
+        }
+
+        private void CBSubjectSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                Subject subject = (Subject)e.AddedItems[0];
+                ((dynamic)this.DataContext).CBSubjectCode = subject.SubjectCode;
+            }
         }
     }
 }

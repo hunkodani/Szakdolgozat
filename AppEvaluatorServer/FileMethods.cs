@@ -11,23 +11,26 @@ namespace AppEvaluatorServer
     {
         #region Settings
 
-        public static List<string[]> Settings = new();
-        private static string SettingsFilePath
+        public static string DataRoot { get; set; }
+        internal static string SettingsFilePath
         {
             get
             {
                 //string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string path = Environment.CurrentDirectory;
-                path = Path.Combine(path, AppDomain.CurrentDomain.FriendlyName);
+                //path = Path.Combine(path, AppDomain.CurrentDomain.FriendlyName);
+                path = Path.Combine(path, System.Diagnostics.Process.GetCurrentProcess().ProcessName);
                 return path;
             }
         }
         private static string SettingsFile => Path.Combine(SettingsFilePath, "settings.txt");
         public static string DataDirectoryName => "AppEvaluator_Data";
 
+        public static List<string[]> Settings = new List<string[]>();
+
         public static void SaveSettingsToFile()
         {
-            List<string> tmp = new();
+            List<string> tmp = new List<string>();
             Settings.ForEach(item => tmp.Add(item[0] + "=" + item[1]));
             if (File.Exists(SettingsFile))
             {
@@ -48,7 +51,7 @@ namespace AppEvaluatorServer
                 List<string> tmp = File.ReadAllLines(SettingsFile).ToList();
                 foreach (string item in tmp)
                 {
-                    Settings.Add(item.Split("="));
+                    Settings.Add(item.Split('='));
                 }
             }
             else

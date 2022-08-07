@@ -5,9 +5,11 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEvaluator", "AppEvaluator\AppEvaluator.csproj", "{4159A0BD-AF5E-4DDA-AA8F-0372594AE40F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup Test", "Setup Test\Setup Test.vdproj", "{FD3428BF-248D-487A-99AB-1DF46CD0C902}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AppEvaluator Setup", "Setups\AppEvaluatorSetup.vdproj", "{FD3428BF-248D-487A-99AB-1DF46CD0C902}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppEvaluatorServer", "AppEvaluatorServer\AppEvaluatorServer.csproj", "{AA8D425D-A17B-4931-BC4C-2AD45A4FEEDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEvaluatorServer", "AppEvaluatorServer\AppEvaluatorServer.csproj", "{F3559FB6-C400-43AB-ACD2-1A00DA2F25AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerContracts", "ServerContracts\ServerContracts.csproj", "{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +23,14 @@ Global
 		{4159A0BD-AF5E-4DDA-AA8F-0372594AE40F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD3428BF-248D-487A-99AB-1DF46CD0C902}.Debug|Any CPU.ActiveCfg = Debug
 		{FD3428BF-248D-487A-99AB-1DF46CD0C902}.Release|Any CPU.ActiveCfg = Release
-		{AA8D425D-A17B-4931-BC4C-2AD45A4FEEDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA8D425D-A17B-4931-BC4C-2AD45A4FEEDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA8D425D-A17B-4931-BC4C-2AD45A4FEEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA8D425D-A17B-4931-BC4C-2AD45A4FEEDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3559FB6-C400-43AB-ACD2-1A00DA2F25AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3559FB6-C400-43AB-ACD2-1A00DA2F25AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3559FB6-C400-43AB-ACD2-1A00DA2F25AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3559FB6-C400-43AB-ACD2-1A00DA2F25AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
