@@ -29,6 +29,7 @@ namespace AppEvaluator
             NetworkMethods.GetServerAddress();
 
             _navigationStore.CurrentViewModel = new AuthenticationViewModel(_navigationStore);
+            //_navigationStore.CurrentViewModel = new MenuViewModel(_navigationStore, null);
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_navigationStore)

@@ -100,18 +100,16 @@
                                    VerticalAlignment="Center"
                                    Text="Subject:"/>
 
-                        <!--<TextBox Grid.Column="1"
-                             Text="{Binding SubjectCode, UpdateSourceTrigger=PropertyChanged}"/>-->
                         <ComboBox Grid.Column="1"
                                   ItemsSource="{Binding CBSubjects}"
-                                  SelectionChanged="SubjectSelected">
+                                  SelectedItem="{Binding SelectedSubject}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock>
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} -- {1}">
-                                                <Binding Path="SubjectCode"/>
-                                                <Binding Path="SubjectName"/>
+                                                <Binding Path="Code"/>
+                                                <Binding Path="Name"/>
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
@@ -218,21 +216,20 @@
             <StackPanel Orientation="Vertical"
                         Grid.Column="1"
                         Grid.Row="1"
-                        Grid.RowSpan="2"
                         Margin="0 5 0 0">
 
                 <StackPanel Orientation="Horizontal"
                             Margin="5 5">
                     <ComboBox ItemsSource="{Binding CBSubjects}"
-                              SelectionChanged="CBSubjectSelected"
+                              SelectedItem="{Binding CBSelectedSubject}"
                               Width="200">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock>
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} -- {1}">
-                                            <Binding Path="SubjectCode"/>
-                                            <Binding Path="SubjectName"/>
+                                            <Binding Path="Code"/>
+                                            <Binding Path="Name"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
@@ -261,15 +258,16 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-
-                <Button Content="Delete Test"
-                        Width="100"
-                        Height="25"
-                        Margin="0 10 0 0"
-                        HorizontalAlignment="Center"
-                        Command="{Binding DeleteTestCmd}"/>
-
             </StackPanel>
+
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Content="Delete Test"
+                    Width="100"
+                    Height="25"
+                    Margin="0 5 0 5"
+                    HorizontalAlignment="Center"
+                    Command="{Binding DeleteTestCmd}"/>
 
             <Button Grid.Row="2"
                     Grid.Column="0"
@@ -277,7 +275,7 @@
                     Width="100"
                     Height="25"
                     HorizontalAlignment="Left"
-                    Margin="10 0 0 10"
+                    Margin="10 5 0 5"
                     Command="{Binding BackToMenuCmd}"/>
         </Grid>
     </Grid>

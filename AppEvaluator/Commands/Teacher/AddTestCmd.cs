@@ -23,9 +23,8 @@ namespace AppEvaluator.Commands.Teacher
         public async override void Execute(object parameter)
         {
             if (_manageTestsViewModel.TestName == null ||
-                _manageTestsViewModel.SubjectCode == null ||
-                _manageTestsViewModel.TestName == String.Empty ||
-                _manageTestsViewModel.SubjectCode == String.Empty)
+                _manageTestsViewModel.SelectedSubject == null ||
+                _manageTestsViewModel.TestName == String.Empty)
             {
                 _manageTestsViewModel.AddMessage = "Not all fields are filled, please fill in everything.";
                 _manageTestsViewModel.AddMessageColor = Brushes.Red;
@@ -37,7 +36,7 @@ namespace AppEvaluator.Commands.Teacher
                 {
                     NetworkMethods.SendInsertTest(
                     testName: _manageTestsViewModel.TestName,
-                    subjectCode: _manageTestsViewModel.SubjectCode
+                    subjectCode: _manageTestsViewModel.SelectedSubject.Code
                     );
                     if (_manageTestsViewModel.DescFile != null)
                     {

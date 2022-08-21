@@ -42,6 +42,11 @@ namespace AppEvaluatorServer.WcfServices
         {
             return SQLiteMethods.GetTests(subjectCode);
         }
+
+        public List<Test> GetUserAvailableTest(string subjectCode, int userId)
+        {
+            return SQLiteMethods.GetUserAvailableTests(subjectCode, userId);
+        }
     }
 
 }

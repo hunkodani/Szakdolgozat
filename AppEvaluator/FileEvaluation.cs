@@ -10,10 +10,11 @@ namespace AppEvaluator
 {
     internal class FileEvaluation
     {
-        public Process Process { get; private set; } = new Process();
+        public Process Process { get; private set; }
 
         public FileEvaluation(string path, string filename)
         {
+            Process = new Process();
             Process.StartInfo.FileName = path + filename;
             Process.StartInfo.UseShellExecute = false;
             Process.StartInfo.RedirectStandardOutput = true;

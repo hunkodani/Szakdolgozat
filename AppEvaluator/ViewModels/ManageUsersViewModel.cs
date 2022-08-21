@@ -16,7 +16,7 @@ namespace AppEvaluator.ViewModels
 {
     internal class ManageUsersViewModel : ViewModelBase
     {
-        private ObservableCollection<UserViewModel> _users;
+        private readonly ObservableCollection<UserViewModel> _users;
 
         public IEnumerable<UserViewModel> Users => _users;
 

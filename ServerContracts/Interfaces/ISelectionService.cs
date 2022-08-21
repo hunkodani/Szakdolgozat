@@ -29,5 +29,8 @@ namespace ServerContracts.Interfaces
 
         [OperationContract]
         List<Test> GetTests(string subjectCode);
+
+        [OperationContract]
+        List<Test> GetUserAvailableTest(string subjectCode, int userId);
     }
 }

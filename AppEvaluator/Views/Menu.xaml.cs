@@ -39,6 +39,7 @@ namespace AppEvaluator.Views
                 }
 
                 tag = child.Tag.ToString();
+                //for debug purposes: ? added to AccessLevel. then delete it
                 switch (AccessLevel.ToLower())
                 {
                     case "user":
@@ -85,25 +86,7 @@ namespace AppEvaluator.Views
         private void SettingsBtn_Click(object sender, RoutedEventArgs e)
         {
             //Main.Content = new Teacher_AddTest(Main);
-        }
-
-        #region Teacher
-
-        private void ViewTestsBtn_Click(object sender, RoutedEventArgs e)
-        {
             //NetworkMethods.SendTcpMessage("unkown", "send testfiles", "TestSuccess");
         }
-
-        #endregion
-
-        #region Student
-
-        private void RunTestBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        #endregion
     }
 }

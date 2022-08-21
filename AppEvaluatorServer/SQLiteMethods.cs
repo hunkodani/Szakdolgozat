@@ -525,7 +525,6 @@ namespace AppEvaluatorServer
             return list;
         }
 
-
         internal static string GetTestFolderLocation(int testId)
         {
             string location = "";
@@ -648,6 +647,38 @@ namespace AppEvaluatorServer
                 cmd?.Dispose();
             }
             return roleName;
+        }
+
+        internal static List<Test> GetUserAvailableTests(string subjectCode, int userId)
+        {
+            List<Test> tests = new List<Test>();
+            SQLiteDataReader dataReader = null;
+            SQLiteCommand cmd = null;
+            try
+            {
+                cmd = _conn.CreateCommand();
+
+                cmd.CommandText = "SELECT * FROM Tests as t INNER JOIN Assignments as a ON t.TestId = a.TestId WHERE t.SubjectCode = @code AND a.UserId = @userId";
+                cmd.Parameters.AddWithValue("code", subjectCode);
+                cmd.Parameters.AddWithValue("userId", userId);
+                dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    tests.Add(new Test(dataReader.GetInt32(0),
+                                        dataReader.GetString(1),
+                                        dataReader.GetString(2)));
+                }
+                dataReader.Close();
+            }
+            catch (Exception)
+            {
+                if (dataReader != null)
+                {
+                    dataReader.Close();
+                }
+                cmd?.Dispose();
+            }
+            return tests;
         }
         #endregion
 

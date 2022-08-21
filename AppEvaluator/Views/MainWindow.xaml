@@ -7,7 +7,10 @@
         xmlns:views="clr-namespace:AppEvaluator.Views"
         xmlns:viewsAdmin="clr-namespace:AppEvaluator.Views.Admin"
         xmlns:viewsTeacher="clr-namespace:AppEvaluator.Views.Teacher"
+        xmlns:viewsUser="clr-namespace:AppEvaluator.Views.User"
         xmlns:vms="clr-namespace:AppEvaluator.ViewModels"
+        xmlns:vmsUser="clr-namespace:AppEvaluator.ViewModels.UserVMs"
+        xmlns:vmsTeacher="clr-namespace:AppEvaluator.ViewModels.TeacherVMs"
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="720" 
@@ -31,6 +34,15 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:MenuViewModel}">
                 <views:Menu/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:RunTestsViewModel}">
+                <viewsUser:RunTests/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmsUser:ViewTestResultsViewModel}">
+                <viewsUser:ViewTestResults/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vmsTeacher:ViewUserTestResultsViewModel}">
+                <viewsTeacher:ViewUserTestResult/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:ManageUsersViewModel}">
                 <viewsAdmin:ManageUsers/>

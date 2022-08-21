@@ -22,7 +22,7 @@ namespace AppEvaluator.Commands.Teacher
 
         public override void Execute(object parameter)
         {
-            if (_addAssignmentssViewModel.Tests.CurrentItem == null ||
+            if (_addAssignmentssViewModel.SelectedTest == null ||
                 _addAssignmentssViewModel.Users.Count() == 0)
             {
                 _addAssignmentssViewModel.AddMessage = "Selection incomplete, please select one test and one or multiple user(s).";
@@ -32,19 +32,29 @@ namespace AppEvaluator.Commands.Teacher
             {
                 try
                 {
+                    bool isUserSelected = false;
                     foreach (var user in _addAssignmentssViewModel.Users)
                     {
                         if (user.Selected)
                         {
                             NetworkMethods.SendInsertAssignment(
                                 userId: user.UserId ?? default,
-                                testId: ((TestViewModel)_addAssignmentssViewModel.Tests.CurrentItem).TestId
+                                testId: _addAssignmentssViewModel.SelectedTest.TestId
                                 );
+                            isUserSelected = true;
                         }
                     }
                     
-                    _addAssignmentssViewModel.AddMessage = "Assignment creation requests sent.";
-                    _addAssignmentssViewModel.AddMessageColor = Brushes.Green;
+                    if (isUserSelected)
+                    {
+                        _addAssignmentssViewModel.AddMessage = "Assignment creation requests sent.";
+                        _addAssignmentssViewModel.AddMessageColor = Brushes.Green;
+                    }
+                    else
+                    {
+                        _addAssignmentssViewModel.AddMessage = "Assignment creation aborted. No user selected";
+                        _addAssignmentssViewModel.AddMessageColor = Brushes.Red;
+                    }
                 }
                 catch (Exception e)
                 {

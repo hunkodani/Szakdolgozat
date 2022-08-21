@@ -16,15 +16,15 @@ namespace AppEvaluator.ViewModels
 {
     internal class ManageTestsViewModel: ViewModelBase
     {
-        private ObservableCollection<TestViewModel> _tests;
+        private readonly ObservableCollection<TestViewModel> _tests;
         private ObservableCollection<FileStructure> _files;
-        private readonly List<Subject> _cBSubjects;
+        private readonly List<SubjectViewModel> _cBSubjects;
 
         internal ObservableCollection<FileStructure> TestFiles { get => _files; set => _files = value; }
 
         public IEnumerable<TestViewModel> Tests => _tests;
         public IEnumerable<FileStructure> Files => _files;
-        public IEnumerable<Subject> CBSubjects => _cBSubjects;
+        public IEnumerable<SubjectViewModel> CBSubjects => _cBSubjects;
 
         public ManageTestsViewModel(NavigationService navigationService)
         {
@@ -37,7 +37,7 @@ namespace AppEvaluator.ViewModels
             BackToMenuCmd = new NavigateCmd(navigationService);
             _tests = new ObservableCollection<TestViewModel>();
             _files = new ObservableCollection<FileStructure>();
-            _cBSubjects = new List<Subject>();
+            _cBSubjects = new List<SubjectViewModel>();
 
             LoadSubjects();
         }
@@ -126,33 +126,33 @@ namespace AppEvaluator.ViewModels
             }
         }
 
-        private string _subjectCode;
+        private SubjectViewModel _selectedSubject;
 
-        public string SubjectCode
+        public SubjectViewModel SelectedSubject
         {
             get
             {
-                return _subjectCode;
+                return _selectedSubject;
             }
             set
             {
-                _subjectCode = value;
-                OnPropertyChanged(nameof(SubjectCode));
+                _selectedSubject = value;
+                OnPropertyChanged(nameof(SelectedSubject));
             }
         }
 
-        private string _cBSubjectCode;
+        private SubjectViewModel _cBSelectedSubject;
 
-        public string CBSubjectCode
+        public SubjectViewModel CBSelectedSubject
         {
             get 
             { 
-                return _cBSubjectCode; 
+                return _cBSelectedSubject; 
             }
             set 
-            { 
-                _cBSubjectCode = value;
-                OnPropertyChanged(nameof(CBSubjectCode));
+            {
+                _cBSelectedSubject = value;
+                OnPropertyChanged(nameof(CBSelectedSubject));
             }
         }
 
@@ -174,10 +174,9 @@ namespace AppEvaluator.ViewModels
         internal void LoadTests()
         {
             List<Test> tests = null;
-            if (_cBSubjectCode != null ||
-                _cBSubjectCode != String.Empty)
+            if (_cBSelectedSubject != null)
             {
-                tests = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests(_cBSubjectCode));
+                tests = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests(_cBSelectedSubject.Code));
             }
             _tests.Clear();
             if (tests != null)
@@ -197,7 +196,7 @@ namespace AppEvaluator.ViewModels
             {
                 foreach (Subject subject in subjects)
                 {
-                    _cBSubjects.Add(subject);
+                    _cBSubjects.Add(new SubjectViewModel(subject));
                 }
             }
         }

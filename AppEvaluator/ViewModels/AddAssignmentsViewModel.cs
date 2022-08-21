@@ -29,22 +29,40 @@ namespace AppEvaluator.ViewModels
 
         private readonly ObservableCollection<UserAssignmentViewModel> _users;
         private readonly ObservableCollection<TestViewModel> _tests;
+        private readonly List<SubjectViewModel> _cBSubjects;
 
         public IEnumerable<UserAssignmentViewModel> Users => _users;
+        public IEnumerable<TestViewModel> Tests => _tests;
+        public IEnumerable<SubjectViewModel> CBSubjects => _cBSubjects;
 
-        public ICollectionView Tests
+        public ICommand CreateAssignmentCmd { get; }
+        public ICommand LoadTestsCmd { get; }
+        public ICommand ToDeleteAssignmentCmd { get; }
+        public ICommand BackToMenuCmd { get; }
+
+        private TestViewModel _selectedTest;
+
+        public TestViewModel SelectedTest
         {
-            get
+            get { return _selectedTest; }
+            set 
             {
-                var source = CollectionViewSource.GetDefaultView(_tests);
-                source.GroupDescriptions.Add(new PropertyGroupDescription("SubjectCode"));
-                return source;
+                _selectedTest = value;
+                OnPropertyChanged(nameof(SelectedTest));
             }
         }
 
-        public ICommand CreateAssignmentCmd { get; }
-        public ICommand ToDeleteAssignmentCmd { get; }
-        public ICommand BackToMenuCmd { get; }
+        private SubjectViewModel _selectedSubject;
+
+        public SubjectViewModel SelectedSubject
+        {
+            get { return _selectedSubject; }
+            set
+            {
+                _selectedSubject = value;
+                OnPropertyChanged(nameof(SelectedSubject));
+            }
+        }
 
         #region Messages And Brushes
 
@@ -81,18 +99,24 @@ namespace AppEvaluator.ViewModels
         public AddAssignmentsViewModel(NavigationService navigationService)
         {
             CreateAssignmentCmd = new CreateAssignmentCmd(this);
+            LoadTestsCmd = new LoadTestsCmd(this);
             ToDeleteAssignmentCmd = new ToDeleteAssignmentCmd();
             BackToMenuCmd = new NavigateCmd(navigationService);
             _users = new ObservableCollection<UserAssignmentViewModel>();
             _tests = new ObservableCollection<TestViewModel>();
+            _cBSubjects = new List<SubjectViewModel>();
 
-            LoadTests();
+            LoadSubjects();
             LoadUsers();
         }
 
         internal void LoadTests()
         {
-            List<Test> tests = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests("Info-123"));
+            List<Test> tests = null;
+            if (SelectedSubject != null)
+            {
+                tests = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests(SelectedSubject.Code));
+            }
             _tests.Clear();
             if (tests != null)
             {
@@ -112,6 +136,19 @@ namespace AppEvaluator.ViewModels
                 foreach (User user in users)
                 {
                     _users.Add(new UserAssignmentViewModel(user));
+                }
+            }
+        }
+
+        internal void LoadSubjects()
+        {
+            List<Subject> subjects = WcfDataParser.SubjectsParse(WcfService.MainProxy?.GetSubjects());
+            _cBSubjects.Clear();
+            if (subjects != null)
+            {
+                foreach (Subject subject in subjects)
+                {
+                    _cBSubjects.Add(new SubjectViewModel(subject));
                 }
             }
         }

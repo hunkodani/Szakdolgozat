@@ -1,5 +1,4 @@
-﻿using AppEvaluator.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +16,11 @@ using System.Windows.Shapes;
 namespace AppEvaluator.Views.Teacher
 {
     /// <summary>
-    /// Interaction logic for AddAssignments.xaml
+    /// Interaction logic for ViewUserTestResult.xaml
     /// </summary>
-    public partial class AddAssignments : UserControl
+    public partial class ViewUserTestResult : UserControl
     {
-        public AddAssignments()
+        public ViewUserTestResult()
         {
             InitializeComponent();
         }
