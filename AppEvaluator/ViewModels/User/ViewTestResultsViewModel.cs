@@ -115,7 +115,7 @@ namespace AppEvaluator.ViewModels.UserVMs
         public ViewTestResultsViewModel(NavigationService navigationService)
         {
             ReadDescriptionCmd = new ReadDescriptionCmd(this);
-            //ReadResultCmd = new RunTestCmd(this);
+            ReadResultCmd = new RunTestCmd(this);
             BackToMenuCmd = new NavigateCmd(navigationService);
             _subjects = new List<SubjectViewModel>();
             _tests = new ObservableCollection<TestViewModel>();

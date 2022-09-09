@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace AppEvaluator.ViewModels.TeacherVMs
+namespace AppEvaluator.ViewModels.Teacher
 {
     internal class ViewUserTestResultsViewModel : ViewModelBase
     {
@@ -57,9 +57,9 @@ namespace AppEvaluator.ViewModels.TeacherVMs
             }
         }
 
-        private TestViewModel _selectedUser;
+        private UserViewModel _selectedUser;
 
-        public TestViewModel SelectedUser
+        public UserViewModel SelectedUser
         {
             get { return _selectedUser; }
             set
@@ -129,7 +129,7 @@ namespace AppEvaluator.ViewModels.TeacherVMs
         public ViewUserTestResultsViewModel(NavigationService navigationService)
         {
             ReadDescriptionCmd = new ReadDescriptionCmd(this);
-            //ReadResultCmd = new RunTestCmd(this);
+            ReadResultCmd = new RunTestCmd(this);
             BackToMenuCmd = new NavigateCmd(navigationService);
             _subjects = new List<SubjectViewModel>();
             _tests = new ObservableCollection<TestViewModel>();
@@ -148,6 +148,8 @@ namespace AppEvaluator.ViewModels.TeacherVMs
                     _subjects.Add(new SubjectViewModel(subject));
                 }
             }
+            _tests.Clear();
+            _users.Clear();
         }
 
         internal void LoadTests()
@@ -155,7 +157,7 @@ namespace AppEvaluator.ViewModels.TeacherVMs
             List<Test> tests = null;
             if (_selectedSubject != null)
             {
-                //tests = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests(_selectedSubject.Code));
+                tests = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests(_selectedSubject.Code));
             }
             _tests.Clear();
             if (tests != null)
@@ -165,6 +167,7 @@ namespace AppEvaluator.ViewModels.TeacherVMs
                     _tests.Add(new TestViewModel(test));
                 }
             }
+            _users.Clear();
         }
 
         internal void LoadUsers()
@@ -172,7 +175,7 @@ namespace AppEvaluator.ViewModels.TeacherVMs
             List<User> users = null;
             if (_selectedSubject != null && _selectedTest != null)
             {
-                //users = WcfDataParser.TestsParse(WcfService.MainProxy?.GetTests(_selectedSubject.Code));
+                users = WcfDataParser.UsersParse(WcfService.MainProxy?.GetUsersOnTest(_selectedTest.TestId));
             }
             _users.Clear();
             if (users != null)

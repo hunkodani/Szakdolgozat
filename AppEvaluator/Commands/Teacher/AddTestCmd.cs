@@ -1,11 +1,7 @@
 ﻿using AppEvaluator.NetworkingAndWCF;
-using AppEvaluator.ViewModels;
+using AppEvaluator.ViewModels.Teacher;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -42,7 +38,7 @@ namespace AppEvaluator.Commands.Teacher
                     {
                         using (stream = File.OpenRead(_manageTestsViewModel.DescFile.Location))
                         {
-                            await NetworkingAndWCF.WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.TestFileUpload(
+                            await NetworkingAndWCF.WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.FileUpload(
                                 _manageTestsViewModel.TestName,
                                 _manageTestsViewModel.DescFile.Name,
                                 stream));
@@ -53,7 +49,7 @@ namespace AppEvaluator.Commands.Teacher
                     {
                         using (stream = File.OpenRead(item.Location))
                         {
-                            await NetworkingAndWCF.WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.TestFileUpload(
+                            await NetworkingAndWCF.WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.FileUpload(
                                 _manageTestsViewModel.TestName,
                                 item.Name,
                                 stream));

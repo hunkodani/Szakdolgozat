@@ -1,15 +1,10 @@
 ﻿using AppEvaluator.Commands;
 using AppEvaluator.Services;
 using AppEvaluator.Stores;
-using AppEvaluator.ViewModels.TeacherVMs;
+using AppEvaluator.ViewModels.Admin;
+using AppEvaluator.ViewModels.Teacher;
 using AppEvaluator.ViewModels.UserVMs;
 using AppEvaluator.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace AppEvaluator.ViewModels
@@ -42,6 +37,7 @@ namespace AppEvaluator.ViewModels
             ToManageSubjectsCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateManageSubjectsViewModel));
             ToManageTestsCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateManageTestsViewModel));
             ToAddAssignmentsCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateAddAssingmentsViewModel));
+            ToSettingsCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateSettingsVIewModel));
             LogoutCmd = new NavigateCmd(navigationService);
             ExitCmd = new ExitCmd();
         }
@@ -79,6 +75,11 @@ namespace AppEvaluator.ViewModels
         private AddAssignmentsViewModel CreateAddAssingmentsViewModel()
         {
             return new AddAssignmentsViewModel(new NavigationService(_navigationStore, CreateMenuViewModel));
+        }
+
+        private SettingsViewModel CreateSettingsVIewModel()
+        {
+            return new SettingsViewModel(new NavigationService(_navigationStore, CreateMenuViewModel));
         }
 
         private MenuViewModel CreateMenuViewModel()

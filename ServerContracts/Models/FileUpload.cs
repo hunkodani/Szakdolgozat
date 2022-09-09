@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ServerContracts.Models
 {
     [MessageContract]
-    public class TestFileUpload
+    public class FileUpload
     {
         [MessageHeader(MustUnderstand = true)]
         public int TestId { get; set; }
@@ -20,21 +20,21 @@ namespace ServerContracts.Models
         [MessageBodyMember]
         public Stream FileStreamer { get; set; }
 
-        public TestFileUpload(int testId, string fileName, Stream fileStreamer)
+        public FileUpload(int testId, string fileName, Stream fileStreamer)
         {
             TestId = testId;
             FileName = fileName;
             FileStreamer = fileStreamer;
         }
 
-        public TestFileUpload(string testName, string fileName, Stream fileStreamer)
+        public FileUpload(string testName, string fileName, Stream fileStreamer)
         {
             TestName = testName;
             FileName = fileName;
             FileStreamer = fileStreamer;
         }
 
-        public TestFileUpload()
+        public FileUpload()
         {
         }
     }

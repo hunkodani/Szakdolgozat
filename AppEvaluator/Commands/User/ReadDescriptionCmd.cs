@@ -1,11 +1,9 @@
-﻿using AppEvaluator.ViewModels;
-using AppEvaluator.ViewModels.TeacherVMs;
+﻿using AppEvaluator.ViewModels.Teacher;
 using AppEvaluator.ViewModels.UserVMs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AppEvaluator.NetworkingAndWCF;
+using System.IO;
+using System.Windows.Media;
 
 namespace AppEvaluator.Commands.User
 {
@@ -14,6 +12,7 @@ namespace AppEvaluator.Commands.User
         private readonly RunTestsViewModel _runTestsViewModel;
         private readonly ViewUserTestResultsViewModel _viewUserTestResultsViewModel;
         private readonly ViewTestResultsViewModel _viewTestResultsViewModel;
+        private readonly static string descPrefix = "Desc_";
 
         public ReadDescriptionCmd(RunTestsViewModel runTestsViewModel)
         {
@@ -34,40 +33,118 @@ namespace AppEvaluator.Commands.User
         {
             if (_runTestsViewModel != null)
             {
-                try
-                {
-                    _runTestsViewModel.FileContent = "";
-                }
-                catch (Exception e)
-                {
-                    _runTestsViewModel.FileContent = "Error loading description: " + e.Message;
-                }
-                _runTestsViewModel.ContentType = "Description:";
+                ExecuteRunTestsViewModel();
             }
             else if (_viewUserTestResultsViewModel != null)
             {
-                try
-                {
-                    _viewUserTestResultsViewModel.FileContent = "";
-                }
-                catch (Exception e)
-                {
-                    _viewUserTestResultsViewModel.FileContent = "Error loading description: " + e.Message;
-                }
-                _viewUserTestResultsViewModel.ContentType = "Description:";
+                ExecuteViewUserTestResultsViewModel();
             }
             else if (_viewTestResultsViewModel != null)
             {
-                try
-                {
-                    _viewTestResultsViewModel.FileContent = "";
-                }
-                catch (Exception e)
-                {
-                    _viewTestResultsViewModel.FileContent = "Error loading description: " + e.Message;
-                }
-                _viewTestResultsViewModel.ContentType = "Description:";
+                ExecuteViewTestResultsViewModel();
             }
+        }
+
+        private async void ExecuteRunTestsViewModel()
+        {
+            if (_runTestsViewModel.SelectedTest == null)
+            {
+                _runTestsViewModel.Message = "No selected test, please select one after selecting a subject.";
+                _runTestsViewModel.MessageColor = Brushes.Red;
+                return;
+            }
+            try
+            {
+                _runTestsViewModel.FileContent = "";
+                using (Stream stream = await WcfService.FileProxy.DownloadDescription(_runTestsViewModel.SelectedTest.TestId))
+                {
+                    if (stream != null && stream.CanRead)
+                    {
+                        using (FileStream fs = new FileStream(descPrefix + _runTestsViewModel.SelectedTest.TestName, FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            await stream.CopyToAsync(fs);
+                            fs.Close();
+                        }
+                    }
+                }
+                string textFile = File.ReadAllText(descPrefix + _runTestsViewModel.SelectedTest.TestName);
+                _runTestsViewModel.FileContent = textFile;
+                File.Delete(descPrefix + _runTestsViewModel.SelectedTest.TestName);
+            }
+            catch (Exception e)
+            {
+                _runTestsViewModel.FileContent = "Error loading description: " + e.Message;
+            }
+            _runTestsViewModel.Message = "";
+            _runTestsViewModel.ContentType = "Description:";
+        }
+
+        private async void ExecuteViewUserTestResultsViewModel()
+        {
+            if (_viewUserTestResultsViewModel.SelectedTest == null)
+            {
+                _viewUserTestResultsViewModel.Message = "No selected test, please select one after selecting a subject.";
+                _viewUserTestResultsViewModel.MessageColor = Brushes.Red;
+                return;
+            }
+            try
+            {
+                _viewUserTestResultsViewModel.FileContent = "";
+                using (Stream stream = await WcfService.FileProxy.DownloadDescription(_viewUserTestResultsViewModel.SelectedTest.TestId))
+                {
+                    if (stream != null && stream.CanRead)
+                    {
+                        using (FileStream fs = new FileStream(descPrefix + _viewUserTestResultsViewModel.SelectedTest.TestName, FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            await stream.CopyToAsync(fs);
+                            fs.Close();
+                        }
+                    }
+                }
+                string textFile = File.ReadAllText(descPrefix + _viewUserTestResultsViewModel.SelectedTest.TestName);
+                _viewUserTestResultsViewModel.FileContent = textFile;
+                File.Delete(descPrefix + _viewUserTestResultsViewModel.SelectedTest.TestName);
+            }
+            catch (Exception e)
+            {
+                _viewUserTestResultsViewModel.FileContent = "Error loading description: " + e.Message;
+            }
+            _viewUserTestResultsViewModel.Message = "";
+            _viewUserTestResultsViewModel.ContentType = "Description:";
+        }
+
+        private async void ExecuteViewTestResultsViewModel()
+        {
+            if (_viewTestResultsViewModel.SelectedTest == null)
+            {
+                _viewTestResultsViewModel.Message = "No selected test, please select one after selecting a subject.";
+                _viewTestResultsViewModel.MessageColor = Brushes.Red;
+                return;
+            }
+            try
+            {
+                _viewTestResultsViewModel.FileContent = "";
+                using (Stream stream = await WcfService.FileProxy.DownloadDescription(_viewTestResultsViewModel.SelectedTest.TestId))
+                {
+                    if (stream != null && stream.CanRead)
+                    {
+                        using (FileStream fs = new FileStream(descPrefix + _viewTestResultsViewModel.SelectedTest.TestName, FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            await stream.CopyToAsync(fs);
+                            fs.Close();
+                        }
+                    }
+                }
+                string textFile = File.ReadAllText(descPrefix + _viewTestResultsViewModel.SelectedTest.TestName);
+                _viewTestResultsViewModel.FileContent = textFile;
+                File.Delete(descPrefix + _viewTestResultsViewModel.SelectedTest.TestName);
+            }
+            catch (Exception e)
+            {
+                _viewTestResultsViewModel.FileContent = "Error loading description: " + e.Message;
+            }
+            _viewTestResultsViewModel.Message = "";
+            _viewTestResultsViewModel.ContentType = "Description:";
         }
     }
 }

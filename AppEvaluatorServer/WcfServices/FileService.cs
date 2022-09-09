@@ -13,7 +13,7 @@ namespace AppEvaluatorServer.WcfServices
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]//for debug: , IncludeExceptionDetailInFaults = true)]
     public class FileService : IFileService
     {
-        public async Task SaveTestFilesToServer(TestFileUpload testFileUpload)
+        public async Task SaveTestFilesToServer(FileUpload testFileUpload)
         {
             string path = null;
             try
@@ -36,7 +36,7 @@ namespace AppEvaluatorServer.WcfServices
             }
         }
 
-        public async Task SaveTestFilesToServerByName(TestFileUpload testFileUpload)
+        public async Task SaveTestFilesToServerByName(FileUpload testFileUpload)
         {
             string path = null;
             try
@@ -59,6 +59,96 @@ namespace AppEvaluatorServer.WcfServices
             }
         }
 
+        public async Task<Stream> DownloadDescription(int testId)
+        {
+            string path = null;
+            try
+            {
+                path = FileMethods.DataRoot;
+                path = Path.Combine(path, SQLiteMethods.GetTestFolderLocation(testId));
+                string fileName = null;
+                if (!Directory.Exists(path))
+                {
+                    return Stream.Null;
+                }
+                foreach (string item in Directory.EnumerateFiles(path))
+                {
+                    string name = Path.GetFileName(item);
+                    if (name.StartsWith("Desc_"))
+                    {
+                        fileName = name;
+                    }
+                }
+                if (fileName == null)
+                {
+                    return null;
+                }
+                var task = Task.Run(() => { return DownloadFileStream(path, fileName); });
+                return await task.ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                if (path == null || path == String.Empty)
+                {
+                    Logging.WriteToLog(LogTypes.Error, "No DataRoot was set, no file movemement can happen.");
+                }
+                else
+                {
+                    Logging.WriteToLog(LogTypes.Error, e.Message);
+                }
+                return null;
+            }
+        }
+
+        public async Task<Stream> DownloadTestFile(string path)
+        {
+            try
+            {
+                var task = Task.Run(() => { return DownloadFileStream(path); });
+                return await task.ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                Logging.WriteToLog(LogTypes.Error, e.Message);
+                return null;
+            }
+        }
+
+        public List<string> GetTestFileNames(int testId)
+        {
+            List<string> testFileNames = new List<string>();
+            string path = null;
+            try
+            {
+                path = FileMethods.DataRoot;
+                path = Path.Combine(path, SQLiteMethods.GetTestFolderLocation(testId));
+                if (!Directory.Exists(path))
+                {
+                    return testFileNames;
+                }
+                foreach (string item in Directory.EnumerateFiles(path))
+                {
+                    string name = Path.GetFileName(item);
+                    if (!name.StartsWith("Desc_"))
+                    {
+                        testFileNames.Add(item);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                if (path == null || path == String.Empty)
+                {
+                    Logging.WriteToLog(LogTypes.Error, "No DataRoot was set, no file movemement can happen.");
+                }
+                else
+                {
+                    Logging.WriteToLog(LogTypes.Error, e.Message);
+                }
+            }
+            return testFileNames;
+        }
+
         private async Task SaveFileStreamAsync(Stream stream, string path, string fileName) 
         {
             try
@@ -79,6 +169,24 @@ namespace AppEvaluatorServer.WcfServices
             catch (Exception e)
             {
                 Logging.WriteToLog(LogTypes.Error, e.Message);
+            }
+        }
+
+        private Stream DownloadFileStream(string path, string fileName = null)
+        {
+            try
+            {
+                if (fileName != null)
+                {
+                    path = Path.Combine(path, fileName);
+                }
+                FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read, FileShare.Read);
+                return fs;
+            }
+            catch (Exception e)
+            {
+                Logging.WriteToLog(LogTypes.Error, e.Message);
+                return null;
             }
         }
     }

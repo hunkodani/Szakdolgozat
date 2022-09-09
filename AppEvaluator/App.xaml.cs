@@ -2,12 +2,7 @@
 using AppEvaluator.Stores;
 using AppEvaluator.ViewModels;
 using AppEvaluator.Views;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
 
 namespace AppEvaluator
@@ -26,10 +21,20 @@ namespace AppEvaluator
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            NetworkMethods.GetServerAddress();
+            if (AppEvaluator.Properties.Settings.Default.IsMulticast)
+            {
+                NetworkMethods.GetServerAddress();
+            }
+            else if (AppEvaluator.Properties.Settings.Default.IsStaticIP && 
+                     (AppEvaluator.Properties.Settings.Default.IPAddress != "" &&
+                     AppEvaluator.Properties.Settings.Default.IPAddress != string.Empty))
+            {
+                WcfService.ConnectToServices(IPAddress.Parse(AppEvaluator.Properties.Settings.Default.IPAddress), 
+                                                             AppEvaluator.Properties.Settings.Default.ClientPort - 1);
+            }
 
             _navigationStore.CurrentViewModel = new AuthenticationViewModel(_navigationStore);
-            //_navigationStore.CurrentViewModel = new MenuViewModel(_navigationStore, null);
+
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_navigationStore)
@@ -46,8 +51,8 @@ namespace AppEvaluator
             {
                 NetworkMethods.McastSocket.Close();
             }
-            NetworkingAndWCF.WcfService.MainCommunicationChannel?.Close();
-            NetworkingAndWCF.WcfService.FileChannel?.Close();
+            WcfService.MainCommunicationChannel?.Close();
+            WcfService.FileChannel?.Close();
 
             base.OnExit(e);
         }

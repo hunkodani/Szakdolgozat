@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace AppEvaluator.ViewModels
+namespace AppEvaluator.ViewModels.Admin
 {
     internal class ManageSubjectsViewModel: ViewModelBase
     {

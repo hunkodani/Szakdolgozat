@@ -1,9 +1,4 @@
-﻿using AppEvaluator.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppEvaluator.ViewModels.Teacher;
 using System.Windows.Forms;
 
 namespace AppEvaluator.Commands.Teacher

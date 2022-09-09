@@ -1,9 +1,5 @@
-﻿using AppEvaluator.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppEvaluator.ViewModels.Teacher;
+using AppEvaluator.ViewModels.UserVMs;
 using System.Windows.Forms;
 
 namespace AppEvaluator.Commands.User
@@ -14,7 +10,7 @@ namespace AppEvaluator.Commands.User
 
         public SelectExecutableFileCmd(RunTestsViewModel runTestsViewModel)
         {
-            this._runTestsViewModel = runTestsViewModel;
+            _runTestsViewModel = runTestsViewModel;
         }
 
         public override void Execute(object parameter)

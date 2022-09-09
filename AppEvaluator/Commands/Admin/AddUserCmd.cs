@@ -1,5 +1,5 @@
 ﻿using AppEvaluator.NetworkingAndWCF;
-using AppEvaluator.ViewModels;
+using AppEvaluator.ViewModels.Admin;
 using ServerContracts;
 using System;
 using System.Windows;

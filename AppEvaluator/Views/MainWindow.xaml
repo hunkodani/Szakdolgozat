@@ -10,9 +10,10 @@
         xmlns:viewsUser="clr-namespace:AppEvaluator.Views.User"
         xmlns:vms="clr-namespace:AppEvaluator.ViewModels"
         xmlns:vmsUser="clr-namespace:AppEvaluator.ViewModels.UserVMs"
-        xmlns:vmsTeacher="clr-namespace:AppEvaluator.ViewModels.TeacherVMs"
+        xmlns:vmsTeacher="clr-namespace:AppEvaluator.ViewModels.Teacher"
+        xmlns:vmsAdmin="clr-namespace:AppEvaluator.ViewModels.Admin"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="App evaluator" 
         Height="720" 
         Width="1000" 
         Visibility="Visible" 
@@ -35,7 +36,7 @@
             <DataTemplate DataType="{x:Type vms:MenuViewModel}">
                 <views:Menu/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:RunTestsViewModel}">
+            <DataTemplate DataType="{x:Type vmsUser:RunTestsViewModel}">
                 <viewsUser:RunTests/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vmsUser:ViewTestResultsViewModel}">
@@ -44,21 +45,24 @@
             <DataTemplate DataType="{x:Type vmsTeacher:ViewUserTestResultsViewModel}">
                 <viewsTeacher:ViewUserTestResult/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:ManageUsersViewModel}">
+            <DataTemplate DataType="{x:Type vmsAdmin:ManageUsersViewModel}">
                 <viewsAdmin:ManageUsers/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:ManageSubjectsViewModel}">
+            <DataTemplate DataType="{x:Type vmsAdmin:ManageSubjectsViewModel}">
                 <viewsAdmin:ManageSubjects/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:ManageTestsViewModel}">
+            <DataTemplate DataType="{x:Type vmsTeacher:ManageTestsViewModel}">
                 <viewsTeacher:ManageTests/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:AddAssignmentsViewModel}">
+            <DataTemplate DataType="{x:Type vmsTeacher:AddAssignmentsViewModel}">
                 <viewsTeacher:AddAssignments/>
             </DataTemplate>
             <!--<DataTemplate DataType="{x:Type vms:AddAssignmentsViewModel}">
                 <viewsTeacher:DeleteAssignments/>
             </DataTemplate>-->
+            <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
+                <views:Settings/>
+            </DataTemplate>
         </Grid.Resources>
 
         <Grid>

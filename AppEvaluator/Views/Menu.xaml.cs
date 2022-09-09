@@ -5,13 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AppEvaluator.Views
 {
@@ -39,7 +33,6 @@ namespace AppEvaluator.Views
                 }
 
                 tag = child.Tag.ToString();
-                //for debug purposes: ? added to AccessLevel. then delete it
                 switch (AccessLevel.ToLower())
                 {
                     case "user":
@@ -81,12 +74,6 @@ namespace AppEvaluator.Views
                 if (ithChild is T t) yield return t;
                 foreach (T childOfChild in FindVisualChilds<T>(ithChild)) yield return childOfChild;
             }
-        }
-
-        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            //Main.Content = new Teacher_AddTest(Main);
-            //NetworkMethods.SendTcpMessage("unkown", "send testfiles", "TestSuccess");
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using AppEvaluator.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppEvaluator.ViewModels.Teacher;
 
 namespace AppEvaluator.Commands.Teacher
 {
@@ -14,12 +9,12 @@ namespace AppEvaluator.Commands.Teacher
 
         public LoadTestsCmd(ManageTestsViewModel manageTestsViewModel)
         {
-            this._manageTestsViewModel = manageTestsViewModel;
+            _manageTestsViewModel = manageTestsViewModel;
         }
 
         public LoadTestsCmd(AddAssignmentsViewModel addAssignmentsViewModel)
         {
-            this._addAssignmentsViewModel = addAssignmentsViewModel;
+            _addAssignmentsViewModel = addAssignmentsViewModel;
         }
 
         public override void Execute(object parameter)

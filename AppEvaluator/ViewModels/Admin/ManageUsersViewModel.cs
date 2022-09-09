@@ -1,18 +1,14 @@
 ﻿using AppEvaluator.Commands;
 using AppEvaluator.Commands.Admin;
 using AppEvaluator.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using AppEvaluator.NetworkingAndWCF;
 using AppEvaluator.Services;
 
-namespace AppEvaluator.ViewModels
+namespace AppEvaluator.ViewModels.Admin
 {
     internal class ManageUsersViewModel : ViewModelBase
     {

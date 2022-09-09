@@ -1,9 +1,5 @@
-﻿using AppEvaluator.ViewModels;
+﻿using AppEvaluator.ViewModels.Admin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace AppEvaluator.Commands.Admin
@@ -14,7 +10,7 @@ namespace AppEvaluator.Commands.Admin
 
         public DeleteSubjectCmd(ManageSubjectsViewModel manageSubjectsViewModel)
         {
-            this._manageSubjectsViewModel = manageSubjectsViewModel;
+            _manageSubjectsViewModel = manageSubjectsViewModel;
         }
 
         public override void Execute(object parameter)

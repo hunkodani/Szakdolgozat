@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Security;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Diagnostics;
 
 namespace AppEvaluator.NetworkingAndWCF
 {
     internal class NetworkMethods
     {
         private static IPAddress McastIPAddress { get { return IPAddress.Parse("224.168.100.2"); } }
-        internal static int ClientPort { get { return 11001; } }
         internal static IPAddress ServerIPAddress { get; set; }
         public static Socket McastSocket { get; set; }
         public static IPAddress LocalIPAddress
@@ -36,9 +31,7 @@ namespace AppEvaluator.NetworkingAndWCF
                 return address;
             }
         }
-        private static Thread receiveThread;
-        public static string RecievedInformationLocation { get; set; }
-        public static string SqlResponse { get; set; }
+        public static Thread receiveThread;
 
         #region MulticastFunctions
 
@@ -59,7 +52,7 @@ namespace AppEvaluator.NetworkingAndWCF
         private static void JoinMulticastGroup()
         {
             McastSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPEndPoint IPendPoint = new IPEndPoint(LocalIPAddress, ClientPort);
+            IPEndPoint IPendPoint = new IPEndPoint(LocalIPAddress, Properties.Settings.Default.ClientPort);
             McastSocket.Bind(IPendPoint);
             MulticastOption McastOption = new MulticastOption(McastIPAddress, LocalIPAddress);
             McastSocket.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, McastOption);
@@ -72,7 +65,7 @@ namespace AppEvaluator.NetworkingAndWCF
         {
             bool done = false;
             byte[] bytes = new byte[100];
-            EndPoint remoteEP = new IPEndPoint(IPAddress.Any, ClientPort - 1);
+            EndPoint remoteEP = new IPEndPoint(IPAddress.Any, Properties.Settings.Default.ClientPort - 1);
             try
             {
                 while (!done)
@@ -84,7 +77,7 @@ namespace AppEvaluator.NetworkingAndWCF
                         done = true;
                     }
                 }
-                NetworkingAndWCF.WcfService.ConnectToSelectionService(ServerIPAddress, ClientPort - 1);
+                WcfService.ConnectToServices(ServerIPAddress, Properties.Settings.Default.ClientPort - 1);
             }
             catch (Exception e)
             {
@@ -103,7 +96,7 @@ namespace AppEvaluator.NetworkingAndWCF
             IPEndPoint endPoint;
             try
             {
-                endPoint = new IPEndPoint(McastIPAddress, ClientPort - 1);
+                endPoint = new IPEndPoint(McastIPAddress, Properties.Settings.Default.ClientPort - 1);
                 _ = McastSocket.SendTo(Encoding.ASCII.GetBytes("Need Server IP"), endPoint);
             }
             catch (Exception e)
@@ -142,34 +135,10 @@ namespace AppEvaluator.NetworkingAndWCF
                     container = Encoding.ASCII.GetBytes(1 + new string(name) + new string(req));
                 }
                 
-                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                client = new TcpClient(ServerIPAddress.ToString(), Properties.Settings.Default.ClientPort);
                 stream = client.GetStream();
                 
                 stream.Write(container, 0, container.Length);
-
-                /*After sending the message it have to wait for the response */
-                
-                switch (request)
-                {
-                    case "send descriptionfile":
-                        ListenAndSaveDescription();
-                        break;
-                    case "send testfiles":
-                        ListenAndSaveTestFiles();
-                        break;
-                    case "sql command":
-                        ListenSqlResponse();
-                        break;
-                    /*
-                    case "save testfile":
-                        break;
-                    case "save assingment":
-                        break;
-                    case "save user":
-                        break;*/
-                    default:
-                        break;
-                }
 
                 stream.Dispose();
                 client.Close();
@@ -194,21 +163,6 @@ namespace AppEvaluator.NetworkingAndWCF
                 array[i] = ' ';
             }
             return array;
-        }
-
-        private static void ListenAndSaveDescription()
-        {
-            RecievedInformationLocation = "";
-        }
-
-        private static void ListenAndSaveTestFiles()
-        {
-            RecievedInformationLocation = "";
-        }
-
-        private static void ListenSqlResponse()
-        {
-            SqlResponse = "";
         }
 
         /* public static void TcpListener()
@@ -296,7 +250,7 @@ namespace AppEvaluator.NetworkingAndWCF
 
                 container = Encoding.ASCII.GetBytes(2 + new string(req) + new string(code) + new string(name));
 
-                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                client = new TcpClient(ServerIPAddress.ToString(), Properties.Settings.Default.ClientPort);
                 stream = client.GetStream();
 
                 stream.Write(container, 0, container.Length);
@@ -336,7 +290,7 @@ namespace AppEvaluator.NetworkingAndWCF
 
                 container = Encoding.ASCII.GetBytes(2 + new string(req) + new string(name) + new string(code));
 
-                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                client = new TcpClient(ServerIPAddress.ToString(), Properties.Settings.Default.ClientPort);
                 stream = client.GetStream();
 
                 stream.Write(container, 0, container.Length);
@@ -381,7 +335,7 @@ namespace AppEvaluator.NetworkingAndWCF
 
                 container = Encoding.ASCII.GetBytes(2 + new string(req) + new string(name) + new string(codechar) + role);
 
-                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                client = new TcpClient(ServerIPAddress.ToString(), Properties.Settings.Default.ClientPort);
                 stream = client.GetStream();
                 stream.Write(container, 0, container.Length);
 
@@ -418,7 +372,7 @@ namespace AppEvaluator.NetworkingAndWCF
 
                 container = Encoding.ASCII.GetBytes(2 + new string(req) + userId + testId);
 
-                client = new TcpClient(ServerIPAddress.ToString(), ClientPort);
+                client = new TcpClient(ServerIPAddress.ToString(), Properties.Settings.Default.ClientPort);
                 stream = client.GetStream();
                 stream.Write(container, 0, container.Length);
                 

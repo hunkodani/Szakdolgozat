@@ -81,10 +81,12 @@
     <Compile Include="Commands\Admin\LoadSubjectsCmd.cs" />
     <Compile Include="Commands\Admin\LoadUsersCmd.cs" />
     <Compile Include="Commands\Admin\UpdateUserCmd.cs" />
+    <Compile Include="Commands\ApplySettingsCmd.cs" />
     <Compile Include="Commands\AuthenticateUserCmd.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\ExitCmd.cs" />
     <Compile Include="Commands\NavigateCmd.cs" />
+    <Compile Include="Commands\SaveNewPassCmd.cs" />
     <Compile Include="Commands\Teacher\AddDescFileCmd.cs" />
     <Compile Include="Commands\Teacher\AddTestCmd.cs" />
     <Compile Include="Commands\Teacher\AddTestFileCmd.cs" />
@@ -92,12 +94,13 @@
     <Compile Include="Commands\Teacher\DeleteTestCmd.cs" />
     <Compile Include="Commands\Teacher\LoadTestsCmd.cs" />
     <Compile Include="Commands\Teacher\RemoveTestFileCmd.cs" />
-    <Compile Include="Commands\Teacher\ToDeleteAssignmentCmd.cs" />
     <Compile Include="Commands\User\ReadDescriptionCmd.cs" />
     <Compile Include="Commands\User\RunTestCmd.cs" />
     <Compile Include="Commands\User\SelectExecutableFileCmd.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Stores\ConnectionStore.cs" />
     <Compile Include="Stores\LoginDataStore.cs" />
     <Compile Include="ViewModels\AuthenticationViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
@@ -115,12 +118,13 @@
     <Compile Include="Student_RunTest.xaml.cs">
       <DependentUpon>Student_RunTest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AddAssignmentsViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\AddAssignmentsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\ManageSubjectsViewModel.cs" />
-    <Compile Include="ViewModels\ManageTestsViewModel.cs" />
-    <Compile Include="ViewModels\ManageUsersViewModel.cs" />
-    <Compile Include="ViewModels\RunTestsViewModel.cs" />
+    <Compile Include="ViewModels\Admin\ManageSubjectsViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\ManageTestsViewModel.cs" />
+    <Compile Include="ViewModels\Admin\ManageUsersViewModel.cs" />
+    <Compile Include="ViewModels\User\RunTestsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SubjectViewModel.cs" />
     <Compile Include="ViewModels\Teacher\ViewUserTestResultsViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
@@ -138,6 +142,9 @@
     </Compile>
     <Compile Include="Views\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Teacher\AddAssignments.xaml.cs">
       <DependentUpon>AddAssignments.xaml</DependentUpon>
@@ -192,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,9 +272,7 @@
   <ItemGroup>
     <Resource Include="Suggestions and ToDo.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>

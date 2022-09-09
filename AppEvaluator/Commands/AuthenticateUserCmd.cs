@@ -11,7 +11,7 @@ namespace AppEvaluator.Commands
     internal class AuthenticateUserCmd : CommandBase
     {
         private readonly AuthenticationViewModel _authenticationViewModel;
-        private readonly Stores.NavigationStore _navigationStore;
+        private readonly NavigationStore _navigationStore;
 
         public AuthenticateUserCmd(AuthenticationViewModel authenticationViewModel, Stores.NavigationStore navigationStore)
         {
@@ -33,7 +33,7 @@ namespace AppEvaluator.Commands
             else
             {
                 _authenticationViewModel.ErrorMsgVis = System.Windows.Visibility.Collapsed;
-                bool success = WcfDataParser.LoginDataParser(WcfService.MainProxy.Login(_authenticationViewModel.Username, 
+                bool success = WcfDataParser.LoginDataParser(WcfService.MainProxy?.Login(_authenticationViewModel.Username, 
                                                                                         EncrypterDecrypterService.Encrypt(_authenticationViewModel.Password, EncrypterDecrypterService.Key)));
                 if (success)
                 {

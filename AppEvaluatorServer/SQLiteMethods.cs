@@ -349,7 +349,7 @@ namespace AppEvaluatorServer
                 while (dataReader.Read())
                 {
                     list.Add(new User(username: dataReader.GetString(1),
-                                      password: dataReader.GetString(2),
+                                      password: "",
                                       code: dataReader.GetString(3),
                                       roleId: dataReader.GetInt32(4),
                                       folderLocation: dataReader.GetString(5),
@@ -509,8 +509,8 @@ namespace AppEvaluatorServer
                 while (dataReader.Read())
                 {
                     list.Add(new Test(dataReader.GetInt32(0),
-                                            dataReader.GetString(1),
-                                            null));
+                                      dataReader.GetString(1),
+                                      null));
                 }
                 dataReader.Close();
             }
@@ -679,6 +679,39 @@ namespace AppEvaluatorServer
                 cmd?.Dispose();
             }
             return tests;
+        }
+
+        internal static List<User> GetUsersOnTest(int testId)
+        {
+            List<User> users = new List<User>();
+            SQLiteDataReader dataReader = null;
+            SQLiteCommand cmd = null;
+            try
+            {
+                cmd = _conn.CreateCommand();
+                cmd.CommandText = "Select * from Users Where UserId In (SELECT UserId FROM Assignments WHERE TestId = @test)";
+                cmd.Parameters.AddWithValue("test", testId);
+                dataReader = cmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    users.Add(new User(username: dataReader.GetString(1),
+                                       password: "",
+                                       code: dataReader.GetString(3),
+                                       roleId: dataReader.GetInt32(4),
+                                       folderLocation: dataReader.GetString(5),
+                                       userId: dataReader.GetInt32(0)));
+                }
+                dataReader.Close();
+            }
+            catch (Exception)
+            {
+                if (dataReader != null)
+                {
+                    dataReader.Close();
+                }
+                cmd?.Dispose();
+            }
+            return users;
         }
         #endregion
 

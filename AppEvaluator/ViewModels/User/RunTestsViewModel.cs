@@ -4,16 +4,13 @@ using AppEvaluator.Models;
 using AppEvaluator.NetworkingAndWCF;
 using AppEvaluator.Services;
 using AppEvaluator.Stores;
-using System;
+using AppEvaluator.ViewModels.Teacher;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace AppEvaluator.ViewModels
+namespace AppEvaluator.ViewModels.UserVMs
 {
     internal class RunTestsViewModel : ViewModelBase
     {

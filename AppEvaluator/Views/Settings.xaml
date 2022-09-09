@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="AppEvaluator.Views.Settings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppEvaluator.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450"
+             d:DesignWidth="800" 
+             FontSize="16"
+             MinWidth="850"
+             MinHeight="650"
+             Loaded="ViewLoaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Server connection type:"
+                       FontSize="20"
+                       Margin="0 0 0 10"/>
+
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        Orientation="Vertical"
+                        Margin="0 0 0 20">
+                <RadioButton Content="TCP Multicast (local server)"
+                             IsChecked="{Binding IsMulticastEna}"
+                             GroupName="ServerConnection"
+                             Margin="0 0 0 10"/>
+                <RadioButton Content="Static IP (global server)"
+                             GroupName="ServerConnection"
+                             IsChecked="{Binding IsStaticIPEna}"
+                             Margin="0 0 0 10"/>
+                <TextBox Text="{Binding IPAddress}"
+                         IsEnabled="{Binding IsStaticIPEna}"
+                         Margin="10 0 10 10"/>
+                <Button Content="Save changes"
+                        Width="150"
+                        Command="{Binding SaveServerConnCmd}"/>
+                <Label Content= "{Binding ConnErrorMsg}"
+                       Margin="0 10 0 0"
+                       HorizontalAlignment="Center"
+                       Foreground="{Binding ConnErrorMsgColor}"
+                       FontSize="14"
+                       Visibility="{Binding ConnErrorMsgVis}"/>
+            </StackPanel>
+
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Server connection status:"
+                       Margin="0 0 0 20"/>
+
+            <CheckBox Grid.Row="2"
+                      Grid.Column="1"
+                      IsEnabled="False"
+                      IsChecked="{Binding IsServerConnected}"
+                      Content="{Binding IsServerConnectedText}"
+                      FontSize="12"
+                      Margin="0 0 0 20"/>
+
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Change password:"
+                       FontSize="20"
+                       Margin="0 0 0 10"
+                       Visibility="{Binding IsAuthOK}"/>
+
+            <StackPanel Grid.Row="4"
+                        Grid.Column="0"
+                        Orientation="Vertical"
+                        Margin="0 0 0 20"
+                        Visibility="{Binding IsAuthOK}">
+                <TextBlock Text="New password:"
+                           Margin="0 0 0 10"/>
+                <TextBlock Text="New password again:"
+                           Margin="0 0 0 10"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4"
+                        Grid.Column="1"
+                        Orientation="Vertical"
+                        Visibility="{Binding IsAuthOK}">
+                <PasswordBox PasswordChanged="NewPassChanged"
+                             Margin="10 0 10 10"/>
+                <PasswordBox PasswordChanged="NewPassAgainChanged"
+                             Margin="10 0 10 10"/>
+                <Button Content="Save password"
+                        Width="150"
+                        Command="{Binding SaveNewPassCmd}"/>
+                <Label Content= "{Binding PassErrorMsg}"
+                       Margin="0 10 0 0"
+                       HorizontalAlignment="Center"
+                       Foreground="{Binding PassErrorMsgColor}"
+                       FontSize="14"
+                       Visibility="{Binding PassErrorMsgVis}"/>
+            </StackPanel>
+        </Grid>
+
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                Content="Back"
+                Width="100"
+                Height="25"
+                HorizontalAlignment="Left"
+                Margin="10 0 0 10"
+                Command="{Binding BackToMenuCmd}"/>
+    </Grid>
+</UserControl>

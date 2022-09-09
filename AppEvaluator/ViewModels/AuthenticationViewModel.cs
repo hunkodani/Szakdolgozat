@@ -1,4 +1,5 @@
 ﻿using AppEvaluator.Commands;
+using AppEvaluator.Services;
 using AppEvaluator.Stores;
 using AppEvaluator.Views;
 using System;
@@ -14,6 +15,9 @@ namespace AppEvaluator.ViewModels
     internal class AuthenticationViewModel : ViewModelBase
     {
         public ICommand AuthenticateUserCmd { get; }
+        public ICommand ToSettingsCmd { get; }
+
+        private readonly NavigationStore _navigationStore;
 
         private string _username;
 
@@ -77,8 +81,21 @@ namespace AppEvaluator.ViewModels
 
         public AuthenticationViewModel(NavigationStore navigationStore)
         {
+            LoginDataStore.ClearLoginData();
+            _navigationStore = navigationStore;
             MainWindow.Instance?.HideLoginInformations();
             AuthenticateUserCmd = new AuthenticateUserCmd(this, navigationStore);
+            ToSettingsCmd = new NavigateCmd(new NavigationService(navigationStore, CreateSettingsVIewModel));
+        }
+
+        private SettingsViewModel CreateSettingsVIewModel()
+        {
+            return new SettingsViewModel(new NavigationService(_navigationStore, CreateAuthenticationViewModel));
+        }
+
+        private AuthenticationViewModel CreateAuthenticationViewModel()
+        {
+            return new AuthenticationViewModel(_navigationStore);
         }
     }
 }

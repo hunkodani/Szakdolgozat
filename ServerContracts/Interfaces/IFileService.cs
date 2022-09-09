@@ -13,8 +13,14 @@ namespace ServerContracts.Interfaces
     public interface IFileService
     {
         [OperationContract]
-        Task SaveTestFilesToServer(TestFileUpload testFileUpload);
+        Task SaveTestFilesToServer(FileUpload testFileUpload);
         [OperationContract]
-        Task SaveTestFilesToServerByName(TestFileUpload testFileUpload);
+        Task SaveTestFilesToServerByName(FileUpload testFileUpload);
+        [OperationContract]
+        Task<Stream> DownloadDescription(int testId);
+        [OperationContract]
+        Task<Stream> DownloadTestFile(string path);
+        [OperationContract]
+        List<string> GetTestFileNames(int testId);
     }
 }

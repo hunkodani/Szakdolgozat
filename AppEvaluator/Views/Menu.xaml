@@ -26,7 +26,7 @@
                     BorderBrush="#FFDDDDDD" 
                     MinWidth="100"
                     Tag="User">
-                <Button Content="Run Test" 
+                <Button Content="Run evaluation" 
                         Background="#FFDDDDDD" 
                         BorderThickness="0"
                         Command="{Binding ToRunTestsCmd}"/>
@@ -46,20 +46,6 @@
                         Command="{Binding ToViewTestResultsCmd}"/>
             </Border>
 
-            <Border Margin="0,10,0,0"
-                    CornerRadius="5"
-                    BorderThickness="2"
-                    BorderBrush="#FFDDDDDD"
-                    MinWidth="100"
-                    Padding="0" 
-                    VerticalAlignment="Top"
-                    Tag="Teacher">
-                <Button Content="Manage tests" 
-                        Background="#FFDDDDDD" 
-                        BorderThickness="0" 
-                        Command="{Binding ToManageTestsCmd}"/>
-            </Border>
-            
             <Border Margin="0,10,0,0" 
                     VerticalAlignment="Top" 
                     Height="30" 
@@ -74,6 +60,20 @@
                         Command="{Binding ToViewUserTestResultsCmd}"/>
             </Border>
 
+            <Border Margin="0,10,0,0"
+                    CornerRadius="5"
+                    BorderThickness="2"
+                    BorderBrush="#FFDDDDDD"
+                    MinWidth="100"
+                    Padding="0" 
+                    VerticalAlignment="Top"
+                    Tag="Teacher">
+                <Button Content="Manage tests" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0" 
+                        Command="{Binding ToManageTestsCmd}"/>
+            </Border>
+
             <Border Margin="0,10,0,0" 
                     VerticalAlignment="Top" 
                     Height="30" 
@@ -86,6 +86,20 @@
                         Background="#FFDDDDDD" 
                         BorderThickness="0" 
                         Command="{Binding ToAddAssignmentsCmd}"/>
+            </Border>
+            
+            <Border Margin="0,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Height="30" 
+                    CornerRadius="5" 
+                    BorderThickness="2" 
+                    BorderBrush="#FFDDDDDD" 
+                    MinWidth="100"
+                    Tag="Admin">
+                <Button Content="Manage subjects" 
+                        Background="#FFDDDDDD" 
+                        BorderThickness="0"
+                        Command="{Binding ToManageSubjectsCmd}"/>
             </Border>
 
             <Border Margin="0,10,0,0" 
@@ -108,25 +122,11 @@
                     CornerRadius="5" 
                     BorderThickness="2" 
                     BorderBrush="#FFDDDDDD" 
-                    MinWidth="100"
-                    Tag="Admin">
-                <Button Content="Manage subjects" 
-                        Background="#FFDDDDDD" 
-                        BorderThickness="0"
-                        Command="{Binding ToManageSubjectsCmd}"/>
-            </Border>
-            
-            <Border Margin="0,10,0,0" 
-                    VerticalAlignment="Top" 
-                    Height="30" 
-                    CornerRadius="5" 
-                    BorderThickness="2" 
-                    BorderBrush="#FFDDDDDD" 
                     MinWidth="100">
                 <Button Content="Settings" 
                         Background="#FFDDDDDD" 
                         BorderThickness="0"
-                        Click="SettingsBtn_Click"/>
+                        Command="{Binding ToSettingsCmd}"/>
             </Border>
 
             <Border Margin="0,10,0,0" 

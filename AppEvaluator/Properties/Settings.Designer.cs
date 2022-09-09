@@ -22,5 +22,53 @@ namespace AppEvaluator.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsMulticast {
+            get {
+                return ((bool)(this["IsMulticast"]));
+            }
+            set {
+                this["IsMulticast"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsStaticIP {
+            get {
+                return ((bool)(this["IsStaticIP"]));
+            }
+            set {
+                this["IsStaticIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IPAddress {
+            get {
+                return ((string)(this["IPAddress"]));
+            }
+            set {
+                this["IPAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("11001")]
+        public int ClientPort {
+            get {
+                return ((int)(this["ClientPort"]));
+            }
+            set {
+                this["ClientPort"] = value;
+            }
+        }
     }
 }

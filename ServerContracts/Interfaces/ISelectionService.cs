@@ -1,17 +1,14 @@
 ﻿using ServerContracts.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerContracts.Interfaces
 {
     [ServiceContract]
     public interface ISelectionService
     {
+        [OperationContract]
+        bool ConnectionTest();
         [OperationContract]
         User Login(string name, string password);
 
@@ -32,5 +29,8 @@ namespace ServerContracts.Interfaces
 
         [OperationContract]
         List<Test> GetUserAvailableTest(string subjectCode, int userId);
+
+        [OperationContract]
+        List<User> GetUsersOnTest(int testId);
     }
 }

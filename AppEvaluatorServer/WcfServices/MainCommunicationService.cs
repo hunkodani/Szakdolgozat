@@ -13,6 +13,10 @@ namespace AppEvaluatorServer.WcfServices
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class MainCommunicationService : ISelectionService
     {
+        public bool ConnectionTest()
+        {
+            return true;
+        }
         public User Login(string name, string password)
         {
             return SQLiteMethods.GetLoginData(name, password);
@@ -46,6 +50,11 @@ namespace AppEvaluatorServer.WcfServices
         public List<Test> GetUserAvailableTest(string subjectCode, int userId)
         {
             return SQLiteMethods.GetUserAvailableTests(subjectCode, userId);
+        }
+
+        public List<User> GetUsersOnTest(int testId)
+        {
+            return SQLiteMethods.GetUsersOnTest(testId);
         }
     }
 

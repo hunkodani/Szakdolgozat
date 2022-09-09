@@ -3,19 +3,12 @@ using AppEvaluator.Commands.Teacher;
 using AppEvaluator.Models;
 using AppEvaluator.NetworkingAndWCF;
 using AppEvaluator.Services;
-using AppEvaluator.Stores;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace AppEvaluator.ViewModels
+namespace AppEvaluator.ViewModels.Teacher
 {
     internal class AddAssignmentsViewModel : ViewModelBase
     {
@@ -100,7 +93,7 @@ namespace AppEvaluator.ViewModels
         {
             CreateAssignmentCmd = new CreateAssignmentCmd(this);
             LoadTestsCmd = new LoadTestsCmd(this);
-            ToDeleteAssignmentCmd = new ToDeleteAssignmentCmd();
+            //ToDeleteAssignmentCmd = new ToDeleteAssignmentCmd();
             BackToMenuCmd = new NavigateCmd(navigationService);
             _users = new ObservableCollection<UserAssignmentViewModel>();
             _tests = new ObservableCollection<TestViewModel>();

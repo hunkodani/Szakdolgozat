@@ -35,7 +35,7 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -151,8 +151,7 @@
                 <ColumnDefinition SharedSizeGroup="SecondColumn"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="2"
-                    Grid.Column="0"
+            <Button Grid.Column="0"
                     Content="Back"
                     Width="100"
                     Height="25"

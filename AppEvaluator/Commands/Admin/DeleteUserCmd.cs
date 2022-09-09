@@ -1,4 +1,4 @@
-﻿using AppEvaluator.ViewModels;
+﻿using AppEvaluator.ViewModels.Admin;
 using System;
 using System.Windows;
 using System.Windows.Media;
@@ -11,7 +11,7 @@ namespace AppEvaluator.Commands.Admin
 
         public DeleteUserCmd(ManageUsersViewModel manageUsersViewModel)
         {
-            this._manageUsersViewModel = manageUsersViewModel;
+            _manageUsersViewModel = manageUsersViewModel;
         }
 
         public override void Execute(object parameter)
