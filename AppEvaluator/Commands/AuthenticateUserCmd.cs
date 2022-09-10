@@ -34,7 +34,7 @@ namespace AppEvaluator.Commands
             {
                 _authenticationViewModel.ErrorMsgVis = System.Windows.Visibility.Collapsed;
                 bool success = WcfDataParser.LoginDataParser(WcfService.MainProxy?.Login(_authenticationViewModel.Username, 
-                                                                                        EncrypterDecrypterService.Encrypt(_authenticationViewModel.Password, EncrypterDecrypterService.Key)));
+                                                                                         EncrypterDecrypterService.Encrypt(_authenticationViewModel.Password, EncrypterDecrypterService.Key)));
                 if (success)
                 {
                     LoginDataStore.RoleName = WcfService.MainProxy.GetRoleName(LoginDataStore.UserLoginData.RoleId);

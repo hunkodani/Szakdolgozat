@@ -9,6 +9,7 @@ namespace ServerContracts.Interfaces
     {
         [OperationContract]
         bool ConnectionTest();
+
         [OperationContract]
         User Login(string name, string password);
 
@@ -32,5 +33,8 @@ namespace ServerContracts.Interfaces
 
         [OperationContract]
         List<User> GetUsersOnTest(int testId);
+
+        [OperationContract]
+        bool SaveNewPassword(int userId, string newPass);
     }
 }

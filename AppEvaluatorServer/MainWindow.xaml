@@ -1,13 +1,19 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AppEvaluatorServer"
-        xmlns:AppEvaluatorServer="clr-namespace:AppEvaluatorServer" x:Class="AppEvaluatorServer.MainWindow"
-        mc:Ignorable="d"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:AppEvaluatorServer"
+    xmlns:AppEvaluatorServer="clr-namespace:AppEvaluatorServer" x:Class="AppEvaluatorServer.MainWindow"
+    mc:Ignorable="d"
     x:Name="mainwindow"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Background="#FF746B58" Closing="DisposeElements">
+    Title="App evaluator server" 
+    Height="450" 
+    Width="800" 
+    ResizeMode="CanMinimize" 
+    WindowStartupLocation="CenterScreen" 
+    Background="#FF746B58" 
+    Closing="DisposeElements">
     <Grid>
         <StackPanel>
             <Label Content="Pick a folder that will contain all of the data" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" Height="32"/>
@@ -29,10 +35,11 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Margin="0,30,0,0">
-                <Label Content="Connected to database?:"
+                <Label Content="Database connection status:"
                        Margin="10,0,0,0"/>
                 <CheckBox IsChecked="{Binding ElementName=mainwindow, Path=SqlConnectionStatus}"
                           VerticalAlignment="Center"
+                          IsEnabled="False"
                           Margin="10,0,0,0"/>
             </StackPanel>
 

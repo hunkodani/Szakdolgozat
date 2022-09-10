@@ -3,12 +3,14 @@ using AppEvaluator.NetworkingAndWCF;
 using AppEvaluator.Properties;
 using System.Net;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
 
 namespace AppEvaluator.Commands
 {
     internal class ApplySettingsCmd : CommandBase
     {
         private readonly SettingsViewModel _settingsViewModel;
+        private static readonly Regex _iPRegex = new Regex(@"^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\.(?!$)|$)){4}$");
 
         public ApplySettingsCmd(SettingsViewModel settingsViewModel)
         {
@@ -17,17 +19,16 @@ namespace AppEvaluator.Commands
 
         public override void Execute(object parameter)
         {
-            Settings.Default.IsMulticast = _settingsViewModel.IsMulticastEna;
-            Settings.Default.IsStaticIP = _settingsViewModel.IsStaticIPEna;
-            Settings.Default.IPAddress = _settingsViewModel.IPAddress;
-            if (_settingsViewModel.IsStaticIPEna && (_settingsViewModel.IPAddress == "" || _settingsViewModel.IPAddress == string.Empty))
+            if (!_iPRegex.IsMatch(_settingsViewModel.IPAddress))
             {
-                Stores.ConnectionStore.ConnectionStatus = false;
-                _settingsViewModel.ConnErrorMsg = "Missing IP address.";
+                _settingsViewModel.ConnErrorMsg = "Invalid IP address. Changes discarded.";
                 _settingsViewModel.ConnErrorMsgColor = Brushes.Red;
                 _settingsViewModel.ConnErrorMsgVis = System.Windows.Visibility.Visible;
                 return;
             }
+            Settings.Default.IsMulticast = _settingsViewModel.IsMulticastEna;
+            Settings.Default.IsStaticIP = _settingsViewModel.IsStaticIPEna;
+            Settings.Default.IPAddress = _settingsViewModel.IPAddress;
             Settings.Default.Save();
             NetworkMethods.receiveThread?.Abort();
             NetworkMethods.McastSocket?.Dispose();

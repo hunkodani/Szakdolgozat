@@ -56,6 +56,11 @@ namespace AppEvaluatorServer.WcfServices
         {
             return SQLiteMethods.GetUsersOnTest(testId);
         }
+
+        public bool SaveNewPassword(int userId, string newPass)
+        {
+            return SQLiteMethods.UpdatePassword(userId, newPass);
+        }
     }
 
 }

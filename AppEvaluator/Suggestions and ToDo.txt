@@ -11,8 +11,6 @@
 
 ToDo:
 	-Kiértékelés kigondolása, megvalósítási ötletek
-	-Biztonságos fájlátvitel megvalósítása (SSH.net féle sftp pl.) --> Először udp-vel multicast keresés, majd aztán befodulnak egymás felé, és tcp-vel kapcsolatba állnak. A szerver folyamatosan hallgatja a kérést, a kliens amikor elindul, és amikor elveszti a szervert (lehal a szerver, és újra kell majd csatlakoznia--> bár ez lehet, hogy gombra fog történni).
-	-
 
 2022.01.07
 Server Todo:

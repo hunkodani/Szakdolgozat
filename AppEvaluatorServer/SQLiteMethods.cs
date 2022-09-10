@@ -258,6 +258,26 @@ namespace AppEvaluatorServer
             cmd?.Dispose();
         }
 
+        internal static bool UpdatePassword(int userId, string newPass)
+        {
+            SQLiteCommand cmd = null;
+            try
+            {
+                cmd = _conn.CreateCommand();
+                cmd.CommandText = "Update Users SET Password = @pass WHERE UserId = @id";
+                cmd.Parameters.AddWithValue("id", userId);
+                cmd.Parameters.AddWithValue("pass", newPass);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                cmd?.Dispose();
+                return false;
+            }
+            cmd?.Dispose();
+            return true;
+        }
+
         #endregion
 
         #region Delete Methods
