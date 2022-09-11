@@ -5,7 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AppEvaluator.Views.Teacher"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             MinWidth="850" 
+             MinHeight="650"
+             FontSize="14">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -26,14 +30,14 @@
                     Width="100"
                     Height="25"
                     HorizontalAlignment="Left"
-                    Command="{Binding BackToMenuCommand}"/>
+                    Command="{Binding BackToMenuCmd}"/>
 
             <Button Content="To create page"
                     Width="100"
                     Height="25"
                     HorizontalAlignment="Left"
                     Margin="20 0 0 0"
-                    Command="{Binding BackToMenuCommand}"/>
+                    Command="{Binding ToAddAssingmentsCmd}"/>
         </StackPanel>
     </Grid>
 </UserControl>

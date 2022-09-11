@@ -48,7 +48,7 @@ namespace AppEvaluator.Commands.User
         private async void ExecuteAtRuntTests()
         {
             Stream uploadStream = null;
-            string evaluationFileName = "";
+            //string evaluationFileName = "";
             try
             {
                 _runTestsViewModel.FileContent = "";

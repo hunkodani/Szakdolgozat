@@ -57,9 +57,9 @@
             <DataTemplate DataType="{x:Type vmsTeacher:AddAssignmentsViewModel}">
                 <viewsTeacher:AddAssignments/>
             </DataTemplate>
-            <!--<DataTemplate DataType="{x:Type vms:AddAssignmentsViewModel}">
+            <DataTemplate DataType="{x:Type vmsTeacher:DeleteAssignmentsViewModel}">
                 <viewsTeacher:DeleteAssignments/>
-            </DataTemplate>-->
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
                 <views:Settings/>
             </DataTemplate>

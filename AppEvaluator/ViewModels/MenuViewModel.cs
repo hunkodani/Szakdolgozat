@@ -38,7 +38,7 @@ namespace AppEvaluator.ViewModels
             ToManageTestsCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateManageTestsViewModel));
             ToAddAssignmentsCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateAddAssingmentsViewModel));
             ToSettingsCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateSettingsVIewModel));
-            LogoutCmd = new NavigateCmd(navigationService);
+            LogoutCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateAuthenticationVIewModel));
             ExitCmd = new ExitCmd();
         }
 
@@ -74,12 +74,17 @@ namespace AppEvaluator.ViewModels
 
         private AddAssignmentsViewModel CreateAddAssingmentsViewModel()
         {
-            return new AddAssignmentsViewModel(new NavigationService(_navigationStore, CreateMenuViewModel));
+            return new AddAssignmentsViewModel(_navigationStore, new NavigationService(_navigationStore, CreateMenuViewModel));
         }
 
         private SettingsViewModel CreateSettingsVIewModel()
         {
             return new SettingsViewModel(new NavigationService(_navigationStore, CreateMenuViewModel));
+        }
+
+        private AuthenticationViewModel CreateAuthenticationVIewModel()
+        {
+            return new AuthenticationViewModel(_navigationStore);
         }
 
         private MenuViewModel CreateMenuViewModel()

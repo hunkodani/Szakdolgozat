@@ -3,6 +3,7 @@ using AppEvaluator.Commands.Teacher;
 using AppEvaluator.Models;
 using AppEvaluator.NetworkingAndWCF;
 using AppEvaluator.Services;
+using AppEvaluator.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -12,6 +13,8 @@ namespace AppEvaluator.ViewModels.Teacher
 {
     internal class AddAssignmentsViewModel : ViewModelBase
     {
+        private readonly NavigationStore _navigationStore;
+        private readonly NavigationService _navigationService;
         internal class UserAssignmentViewModel : UserViewModel
         {
             public bool Selected { get; set; }
@@ -89,11 +92,13 @@ namespace AppEvaluator.ViewModels.Teacher
         }
         #endregion
 
-        public AddAssignmentsViewModel(NavigationService navigationService)
+        public AddAssignmentsViewModel(NavigationStore navigationStore, NavigationService navigationService)
         {
+            _navigationStore = navigationStore;
+            _navigationService = navigationService;
             CreateAssignmentCmd = new CreateAssignmentCmd(this);
             LoadTestsCmd = new LoadTestsCmd(this);
-            //ToDeleteAssignmentCmd = new ToDeleteAssignmentCmd();
+            ToDeleteAssignmentCmd = new NavigateCmd(new NavigationService(_navigationStore, CreateDeleteAssignmentsViewModel));
             BackToMenuCmd = new NavigateCmd(navigationService);
             _users = new ObservableCollection<UserAssignmentViewModel>();
             _tests = new ObservableCollection<TestViewModel>();
@@ -144,6 +149,16 @@ namespace AppEvaluator.ViewModels.Teacher
                     _cBSubjects.Add(new SubjectViewModel(subject));
                 }
             }
+        }
+
+        private DeleteAssignmentsViewModel CreateDeleteAssignmentsViewModel()
+        {
+            return new DeleteAssignmentsViewModel(_navigationStore, new NavigationService(_navigationStore, CreateAddAssignmentsViewModel));
+        }
+
+        private AddAssignmentsViewModel CreateAddAssignmentsViewModel()
+        {
+            return new AddAssignmentsViewModel(_navigationStore, _navigationService);
         }
     }
 }

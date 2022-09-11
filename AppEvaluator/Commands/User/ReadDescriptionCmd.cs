@@ -12,7 +12,6 @@ namespace AppEvaluator.Commands.User
         private readonly RunTestsViewModel _runTestsViewModel;
         private readonly ViewUserTestResultsViewModel _viewUserTestResultsViewModel;
         private readonly ViewTestResultsViewModel _viewTestResultsViewModel;
-        private readonly static string descPrefix = "Desc_";
 
         public ReadDescriptionCmd(RunTestsViewModel runTestsViewModel)
         {

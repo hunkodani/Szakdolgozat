@@ -118,6 +118,7 @@
     <Compile Include="ViewModels\Teacher\AddAssignmentsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Admin\ManageSubjectsViewModel.cs" />
+    <Compile Include="ViewModels\Teacher\DeleteAssignmentsViewModel.cs" />
     <Compile Include="ViewModels\Teacher\ManageTestsViewModel.cs" />
     <Compile Include="ViewModels\Admin\ManageUsersViewModel.cs" />
     <Compile Include="ViewModels\User\RunTestsViewModel.cs" />
