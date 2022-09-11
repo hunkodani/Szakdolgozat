@@ -36,6 +36,7 @@ namespace AppEvaluator.Commands
             WcfService.FileChannel?.Close();
             if (Settings.Default.IsStaticIP)
             {
+                NetworkMethods.ServerIPAddress = IPAddress.Parse(Settings.Default.IPAddress);
                 WcfService.ConnectToServices(IPAddress.Parse(Settings.Default.IPAddress), Settings.Default.ClientPort - 1);
             }
             else if (Settings.Default.IsMulticast)

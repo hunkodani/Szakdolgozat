@@ -60,16 +60,12 @@ namespace AppEvaluator.Commands.User
                 {
                     if (stream != null && stream.CanRead)
                     {
-                        using (FileStream fs = new FileStream(descPrefix + _runTestsViewModel.SelectedTest.TestName, FileMode.OpenOrCreate, FileAccess.Write))
+                        using (StreamReader reader = new StreamReader(stream))
                         {
-                            await stream.CopyToAsync(fs);
-                            fs.Close();
+                            _runTestsViewModel.FileContent = reader.ReadToEnd();
                         }
                     }
                 }
-                string textFile = File.ReadAllText(descPrefix + _runTestsViewModel.SelectedTest.TestName);
-                _runTestsViewModel.FileContent = textFile;
-                File.Delete(descPrefix + _runTestsViewModel.SelectedTest.TestName);
             }
             catch (Exception e)
             {
@@ -94,16 +90,12 @@ namespace AppEvaluator.Commands.User
                 {
                     if (stream != null && stream.CanRead)
                     {
-                        using (FileStream fs = new FileStream(descPrefix + _viewUserTestResultsViewModel.SelectedTest.TestName, FileMode.OpenOrCreate, FileAccess.Write))
+                        using (StreamReader reader = new StreamReader(stream))
                         {
-                            await stream.CopyToAsync(fs);
-                            fs.Close();
+                            _viewUserTestResultsViewModel.FileContent = reader.ReadToEnd();
                         }
                     }
                 }
-                string textFile = File.ReadAllText(descPrefix + _viewUserTestResultsViewModel.SelectedTest.TestName);
-                _viewUserTestResultsViewModel.FileContent = textFile;
-                File.Delete(descPrefix + _viewUserTestResultsViewModel.SelectedTest.TestName);
             }
             catch (Exception e)
             {
@@ -128,16 +120,12 @@ namespace AppEvaluator.Commands.User
                 {
                     if (stream != null && stream.CanRead)
                     {
-                        using (FileStream fs = new FileStream(descPrefix + _viewTestResultsViewModel.SelectedTest.TestName, FileMode.OpenOrCreate, FileAccess.Write))
+                        using (StreamReader reader = new StreamReader(stream))
                         {
-                            await stream.CopyToAsync(fs);
-                            fs.Close();
+                            _viewTestResultsViewModel.FileContent = reader.ReadToEnd();
                         }
                     }
                 }
-                string textFile = File.ReadAllText(descPrefix + _viewTestResultsViewModel.SelectedTest.TestName);
-                _viewTestResultsViewModel.FileContent = textFile;
-                File.Delete(descPrefix + _viewTestResultsViewModel.SelectedTest.TestName);
             }
             catch (Exception e)
             {

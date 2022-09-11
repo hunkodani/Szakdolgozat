@@ -47,18 +47,22 @@ namespace AppEvaluator.Commands.User
 
         private async void ExecuteAtRuntTests()
         {
+            Stream uploadStream = null;
+            string evaluationFileName = "";
             try
             {
                 _runTestsViewModel.FileContent = "";
                 //Getting the file paths and downloading them
-                List<string> testFileNames = WcfService.FileProxy?.GetTestFileNames(_runTestsViewModel.SelectedTest.TestId);
-                for (int i = 0; i < testFileNames.Count; i++)
+                List<string> testFilePaths = WcfService.FileProxy?.GetTestFileNames(_runTestsViewModel.SelectedTest.TestId);
+                for (int i = 0; i < testFilePaths.Count; i++)
                 {
-                    using (Stream stream = await WcfService.FileProxy.DownloadTestFile(testFileNames[i]))
+                    using (Stream stream = await WcfService.FileProxy.DownloadTestFile(testFilePaths[i]))
                     {
                         if (stream != null && stream.CanRead)
                         {
-                            using (FileStream fs = new FileStream(testPrefix + testFileNames[i] + "_" + _viewTestResultsViewModel.SelectedTest.TestName, FileMode.OpenOrCreate, FileAccess.Write))
+                            using (FileStream fs = new FileStream(testPrefix + i + "_" + _runTestsViewModel.SelectedTest.TestName, 
+                                                                  FileMode.OpenOrCreate, 
+                                                                  FileAccess.Write))
                             {
                                 await stream.CopyToAsync(fs);
                                 fs.Close();
@@ -67,44 +71,79 @@ namespace AppEvaluator.Commands.User
                     }
                 }
 
-                //Do stuff here
+                //Do evaluation and make a file from it
+
 
 
                 //Delete the unnecessary files (all of the downloaded ones)(, when working properly)
-                for (int i = 0; i < testFileNames.Count; i++)
+                for (int i = 0; i < testFilePaths.Count; i++)
                 {
-                    File.Delete(testPrefix + testFileNames[i] + "_" + _viewTestResultsViewModel.SelectedTest.TestName);
+                    File.Delete(testPrefix + i + "_" + _runTestsViewModel.SelectedTest.TestName);
                 }
+
+                //Upload evaluation, show here in FileContent, then delete it (not working, while evaluation is not generating file)
+                /*using (uploadStream = File.OpenRead(evaluationFileName))
+                {
+                    await WcfService.FileProxy.UploadEvaluationFile(
+                        new ServerContracts.Models.FileUpload(fileName: evaluationFileName,
+                                                              fileStreamer: uploadStream,
+                                                              toRelativeLocation: Stores.LoginDataStore.UserLoginData.FolderLocation));
+                }
+                _runTestsViewModel.FileContent = File.ReadAllText(evaluationFileName);
+                File.Delete(evaluationFileName);*/
             }
             catch (Exception e)
             {
                 _runTestsViewModel.FileContent = "Error when evaluating: " + e.Message;
+                uploadStream?.Close();
             }
             _runTestsViewModel.ContentType = "Test result:";
         }
 
-        private void ExecuteAtViewTestResults()
+        private async void ExecuteAtViewTestResults()
         {
             try
             {
                 _viewTestResultsViewModel.FileContent = "";
+                string path = Path.Combine(Stores.LoginDataStore.UserLoginData.FolderLocation, _viewTestResultsViewModel.SelectedTest.TestName);
+                using (Stream stream = await WcfService.FileProxy?.DownloadEvaluationFile(path))
+                {
+                    if (stream != null && stream.CanRead)
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            _viewTestResultsViewModel.FileContent = reader.ReadToEnd();
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
-                _viewTestResultsViewModel.FileContent = "Error when evaluating: " + e.Message;
+                _viewTestResultsViewModel.FileContent = "Error at evaluation download: " + e.Message;
             }
             _viewTestResultsViewModel.ContentType = "Test result:";
         }
 
-        private void ExecuteAtViewUserTestResults()
+        private async void ExecuteAtViewUserTestResults()
         {
             try
             {
                 _viewUserTestResultsViewModel.FileContent = "";
+                string path = Path.Combine(Stores.LoginDataStore.UserLoginData.FolderLocation, _viewUserTestResultsViewModel.SelectedTest.TestName);
+                using (Stream stream = await WcfService.FileProxy?.DownloadEvaluationFile(path))
+                {
+                    if (stream != null && stream.CanRead)
+                    {
+                        using (StreamReader reader = new StreamReader(stream))
+                        {
+                            _viewUserTestResultsViewModel.FileContent = reader.ReadToEnd();
+                        }
+                    }
+                }
             }
             catch (Exception e)
             {
-                _viewUserTestResultsViewModel.FileContent = "Error when evaluating: " + e.Message;
+                _viewUserTestResultsViewModel.FileContent = "Error at evaluation download: " + e.Message;
             }
             _viewUserTestResultsViewModel.ContentType = "Test result:";
         }

@@ -13,12 +13,18 @@ namespace ServerContracts.Models
     {
         [MessageHeader(MustUnderstand = true)]
         public int TestId { get; set; }
+
         [MessageHeader(MustUnderstand = true)]
         public string TestName { get; set; }
+
         [MessageHeader(MustUnderstand = true)]
         public string FileName { get; set; }
+
         [MessageBodyMember]
         public Stream FileStreamer { get; set; }
+
+        [MessageHeader(MustUnderstand = true)]
+        public string ToRelativeLocation { get; set; }
 
         public FileUpload(int testId, string fileName, Stream fileStreamer)
         {
@@ -32,6 +38,13 @@ namespace ServerContracts.Models
             TestName = testName;
             FileName = fileName;
             FileStreamer = fileStreamer;
+        }
+
+        public FileUpload(string fileName, Stream fileStreamer, string toRelativeLocation)
+        {
+            FileName = fileName;
+            FileStreamer = fileStreamer;
+            ToRelativeLocation = toRelativeLocation;
         }
 
         public FileUpload()

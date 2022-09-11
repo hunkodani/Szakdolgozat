@@ -38,7 +38,7 @@ namespace AppEvaluator.Commands.Teacher
                     {
                         using (stream = File.OpenRead(_manageTestsViewModel.DescFile.Location))
                         {
-                            await NetworkingAndWCF.WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.FileUpload(
+                            await WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.FileUpload(
                                 _manageTestsViewModel.TestName,
                                 _manageTestsViewModel.DescFile.Name,
                                 stream));
@@ -49,13 +49,13 @@ namespace AppEvaluator.Commands.Teacher
                     {
                         using (stream = File.OpenRead(item.Location))
                         {
-                            await NetworkingAndWCF.WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.FileUpload(
+                            await WcfService.FileProxy.SaveTestFilesToServerByName(new ServerContracts.Models.FileUpload(
                                 _manageTestsViewModel.TestName,
                                 item.Name,
                                 stream));
                         }
-                        _manageTestsViewModel.TestFiles.Remove(item);
                     }
+                    _manageTestsViewModel.TestFiles.Clear();
                     _manageTestsViewModel.AddMessage = "Test and data creation request sent.";
                     _manageTestsViewModel.AddMessageColor = Brushes.Green;
                     _manageTestsViewModel.TestName = null;

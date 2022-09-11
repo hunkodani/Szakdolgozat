@@ -29,6 +29,7 @@ namespace AppEvaluator
                      (AppEvaluator.Properties.Settings.Default.IPAddress != "" &&
                      AppEvaluator.Properties.Settings.Default.IPAddress != string.Empty))
             {
+                NetworkMethods.ServerIPAddress = IPAddress.Parse(AppEvaluator.Properties.Settings.Default.IPAddress);
                 WcfService.ConnectToServices(IPAddress.Parse(AppEvaluator.Properties.Settings.Default.IPAddress), 
                                                              AppEvaluator.Properties.Settings.Default.ClientPort - 1);
             }

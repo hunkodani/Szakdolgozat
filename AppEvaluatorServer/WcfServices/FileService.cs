@@ -189,5 +189,54 @@ namespace AppEvaluatorServer.WcfServices
                 return null;
             }
         }
+
+        ///Evaluation file upload download
+        
+        public async Task<Stream> DownloadEvaluationFile(string relativePath)
+        {
+            string path = null;
+            try
+            {
+                path = FileMethods.DataRoot;
+                path = Path.Combine(path, relativePath);
+                var task = Task.Run(() => { return DownloadFileStream(path); });
+                return await task.ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                if (path == null || path == String.Empty)
+                {
+                    Logging.WriteToLog(LogTypes.Error, "No DataRoot was set, no file movemement can happen.");
+                }
+                else
+                {
+                    Logging.WriteToLog(LogTypes.Error, e.Message);
+                }
+                return null;
+            }
+        }
+
+        public async Task UploadEvaluationFile(FileUpload file)
+        {
+            string path = null;
+            try
+            {
+                path = FileMethods.DataRoot;
+                path = Path.Combine(path, file.ToRelativeLocation);
+                var task = Task.Run(() => SaveFileStreamAsync(file.FileStreamer, path, file.FileName));
+                await task.ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                if (path == null || path == String.Empty)
+                {
+                    Logging.WriteToLog(LogTypes.Error, "No DataRoot was set, no file movemement can happen.");
+                }
+                else
+                {
+                    Logging.WriteToLog(LogTypes.Error, e.Message);
+                }
+            }
+        }
     }
 }
