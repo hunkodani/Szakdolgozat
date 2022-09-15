@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppEvaluatorServer", "AppEv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerContracts", "ServerContracts\ServerContracts.csproj", "{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AppEvaluatorServer Setup", "Setups\AppEvaluatorServer Setup.vdproj", "{6160A51A-0B87-4136-9C6E-2AD1BC0B365B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,7 +23,7 @@ Global
 		{4159A0BD-AF5E-4DDA-AA8F-0372594AE40F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4159A0BD-AF5E-4DDA-AA8F-0372594AE40F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4159A0BD-AF5E-4DDA-AA8F-0372594AE40F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD3428BF-248D-487A-99AB-1DF46CD0C902}.Debug|Any CPU.ActiveCfg = Debug
+		{FD3428BF-248D-487A-99AB-1DF46CD0C902}.Debug|Any CPU.ActiveCfg = Release
 		{FD3428BF-248D-487A-99AB-1DF46CD0C902}.Release|Any CPU.ActiveCfg = Release
 		{F3559FB6-C400-43AB-ACD2-1A00DA2F25AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3559FB6-C400-43AB-ACD2-1A00DA2F25AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -31,6 +33,8 @@ Global
 		{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6160A51A-0B87-4136-9C6E-2AD1BC0B365B}.Debug|Any CPU.ActiveCfg = Release
+		{6160A51A-0B87-4136-9C6E-2AD1BC0B365B}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
