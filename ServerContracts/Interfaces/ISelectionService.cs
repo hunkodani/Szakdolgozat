@@ -61,5 +61,12 @@ namespace ServerContracts.Interfaces
 
         #endregion
 
+        #region UpdateFunctions
+
+        [OperationContract]
+        void UpdateUser(int userId, string pass = null, string code = null);
+
+        #endregion
+
     }
 }

@@ -278,6 +278,40 @@ namespace AppEvaluatorServer
             return true;
         }
 
+        internal static void UpdateUser(int userId, string pass = null, string code = null)
+        {
+            SQLiteCommand cmd = null;
+            try
+            {
+                cmd = _conn.CreateCommand();
+                if (code != null && pass == null)
+                {
+                    cmd.CommandText = "Update Users SET Code = @code WHERE UserId = @id";
+                    cmd.Parameters.AddWithValue("code", code);
+                    cmd.Parameters.AddWithValue("id", userId);
+                }
+                else if (code == null && pass != null)
+                {
+                    cmd.CommandText = "Update Users SET Password = @pass WHERE UserId = @id";
+                    cmd.Parameters.AddWithValue("pass", pass);
+                    cmd.Parameters.AddWithValue("id", userId);
+                }
+                else
+                {
+                    cmd.CommandText = "Update Users SET Password = @pass, Code = @code WHERE UserId = @id";
+                    cmd.Parameters.AddWithValue("pass", pass);
+                    cmd.Parameters.AddWithValue("code", code);
+                    cmd.Parameters.AddWithValue("id", userId);
+                }
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+            }
+            cmd?.Dispose();
+        }
+
         #endregion
 
         #region Delete Methods

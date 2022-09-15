@@ -120,6 +120,34 @@ namespace AppEvaluatorServer.WcfServices
 
         #endregion
 
+        #region UpdateFunctions
+
+        public void UpdateUser(int userId, string pass = null, string code = null)
+        {
+            if (code == null && pass == null)
+            {
+                return;
+            }
+            if (pass == null)
+            {
+                SQLiteMethods.UpdateUser(userId: userId,
+                                         code: code);
+            }
+            else if (code == null)
+            {
+                SQLiteMethods.UpdateUser(userId: userId,
+                                         pass: pass);
+            }
+            else
+            {
+                SQLiteMethods.UpdateUser(userId: userId,
+                                         pass: pass,
+                                         code: code);
+            }
+        }
+
+        #endregion
+
     }
 
 }
