@@ -1,5 +1,6 @@
 ﻿using AppEvaluator.ViewModels.Teacher;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -16,7 +17,7 @@ namespace AppEvaluator.Commands.Teacher
 
         public override void Execute(object parameter)
         {
-            if (parameter == null)
+            if (_manageTestsViewModel.SelectedTest == null)
             {
                 _manageTestsViewModel.UpDelMessage = "No test selected.";
                 _manageTestsViewModel.UpDelMessageColor = Brushes.Red;
@@ -25,7 +26,12 @@ namespace AppEvaluator.Commands.Teacher
             {
                 try
                 {
-                    //call delete method here
+                    NetworkingAndWCF.WcfService.MainProxy?.DeleteTest(_manageTestsViewModel.SelectedTest.TestId,
+                                                                      Path.Combine(_manageTestsViewModel.SelectedTest.SubjectCode,
+                                                                                   _manageTestsViewModel.SelectedTest.TestName));
+                    _manageTestsViewModel.UpDelMessage = "Test deletion message sent.";
+                    _manageTestsViewModel.UpDelMessageColor = Brushes.Green;
+                    _manageTestsViewModel.LoadTests();
                 }
                 catch (Exception e)
                 {

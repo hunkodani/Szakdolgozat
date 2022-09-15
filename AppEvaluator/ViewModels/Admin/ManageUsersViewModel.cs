@@ -174,6 +174,20 @@ namespace AppEvaluator.ViewModels.Admin
             }
         }
 
+        private UserViewModel _selectedUser;
+        public UserViewModel SelectedUser
+        {
+            get
+            {
+                return _selectedUser;
+            }
+            set
+            {
+                _selectedUser = value;
+                OnPropertyChanged(nameof(SelectedUser));
+            }
+        }
+
         public void CreateUpdatableUser(UserViewModel user)
         {
             _updatedUser = user;

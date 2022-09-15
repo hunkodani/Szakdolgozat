@@ -66,6 +66,35 @@ namespace AppEvaluator.ViewModels.Admin
                 OnPropertyChanged(nameof(AddMessageColor));
             }
         }
+
+        private string _delMessage;
+        public string DelMessage
+        {
+            get
+            {
+                return _delMessage;
+            }
+            set
+            {
+                _delMessage = value;
+                OnPropertyChanged(nameof(DelMessage));
+            }
+        }
+
+        private Brush _delMessageColor;
+
+        public Brush DelMessageColor
+        {
+            get
+            {
+                return _delMessageColor;
+            }
+            set
+            {
+                _delMessageColor = value;
+                OnPropertyChanged(nameof(DelMessageColor));
+            }
+        }
         #endregion
 
         private string _subjectCode;
@@ -95,6 +124,20 @@ namespace AppEvaluator.ViewModels.Admin
             { 
                 _subjectName = value;
                 OnPropertyChanged(nameof(SubjectName));
+            }
+        }
+
+        private SubjectViewModel _selectedSubject;
+        public SubjectViewModel SelectedSubject
+        {
+            get
+            {
+                return _selectedSubject;
+            }
+            set
+            {
+                _selectedSubject = value;
+                OnPropertyChanged(nameof(SelectedSubject));
             }
         }
 

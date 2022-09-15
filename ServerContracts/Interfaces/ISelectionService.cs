@@ -36,5 +36,30 @@ namespace ServerContracts.Interfaces
 
         [OperationContract]
         bool SaveNewPassword(int userId, string newPass);
+
+
+        #region DeleteFunctions
+
+        [OperationContract]
+        void DeleteAssignment(int userId, int testId);
+
+        [OperationContract]
+        void DeleteTest(int testId, string testLocation);
+
+        [OperationContract]
+        void DeleteSubject(string code, string subjectLocation);
+
+        [OperationContract]
+        void DeleteUser(int userId, string userLocaiton);
+
+        #endregion
+
+        #region InsertFunctions
+
+        [OperationContract]
+        void InsertAssignment(int userId, int testId);
+
+        #endregion
+
     }
 }

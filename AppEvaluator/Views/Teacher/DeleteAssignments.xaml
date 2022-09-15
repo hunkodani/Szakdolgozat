@@ -22,6 +22,151 @@
                    FontSize="24"
                    HorizontalAlignment="Center"/>
 
+        <Border Grid.Row="1"
+                BorderThickness="0 0 0 1"
+                Margin="5 10 5 0"
+                BorderBrush="Black"
+                VerticalAlignment="Top">
+            <TextBlock Margin="0 0 0 9"/>
+        </Border>
+
+        <Grid Grid.Row="1"
+              Margin="5 0 5 20">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0"
+                  Margin="0 10 10 0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Choose a subject and a test"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           FontWeight="Bold"
+                           Margin="0 0 0 10"/>
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            Margin="5 5">
+
+                    <ComboBox ItemsSource="{Binding CBSubjects}"
+                              SelectedItem="{Binding SelectedSubject}"
+                              Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} -- {1}">
+                                            <Binding Path="Code"/>
+                                            <Binding Path="Name"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <Button Content="List"
+                            Width="40"
+                            Height="25"
+                            Margin="5 0 5 0"
+                            Command="{Binding LoadTestsCmd}"/>
+                </StackPanel>
+
+                <ListView Grid.Row="2"
+                          Grid.Column="0"
+                          Margin="0 5 5 0"
+                          Width="250"
+                          SelectedItem="{Binding SelectedTest}"
+                          ItemsSource="{Binding Tests}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="TestName"
+                                            Width="200"
+                                            DisplayMemberBinding="{Binding TestName}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <TextBlock Text="Choose users (multiple selectable)"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           FontWeight="Bold"
+                           Margin="0 0 0 10"/>
+
+                <ListView Grid.Row="1"
+                          Grid.RowSpan="2"
+                          Grid.Column="1"
+                          Margin="0 5 0 0"
+                          Width="250"
+                          ItemsSource="{Binding Users}"
+                          SelectionMode="Multiple">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="IsSelected" Value="{Binding Selected, Mode=TwoWay}" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Username"
+                                            Width="100"
+                                            DisplayMemberBinding="{Binding Username}"/>
+                            <GridViewColumn Header="Code"
+                                            Width="80"
+                                            DisplayMemberBinding="{Binding Code}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Margin="0 10 0 9"/>
+
+                <StackPanel Grid.Row="1"
+                            Margin="0 10 0 0"
+                            VerticalAlignment="Center">
+                    <TextBlock Margin="0 0 0 5"
+                               HorizontalAlignment="Center"
+                               Text="Selected test"/>
+
+                    <TextBlock Margin="0 0 0 10"
+                               HorizontalAlignment="Center"
+                               Text="{Binding SelectedTest.TestName}"
+                               x:Name="SelectedTest"/>
+
+                    <Button Content="Delete assignment(s)"
+                            Width="150"
+                            Height="25"
+                            Command="{Binding DeleteAssignmentCmd}"/>
+
+                    <TextBlock Margin="0 15 0 0"
+                               HorizontalAlignment="Center"
+                               Text="{Binding Message, Mode=OneWay}"
+                               Foreground="{Binding MessageColor}"/>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     Margin="10 0 0 10">

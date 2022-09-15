@@ -167,6 +167,20 @@ namespace AppEvaluator.ViewModels.Teacher
             }
         }
 
+        private TestViewModel _selectedTest;
+        public TestViewModel SelectedTest
+        {
+            get
+            {
+                return _selectedTest;
+            }
+            set
+            {
+                _selectedTest = value;
+                OnPropertyChanged(nameof(SelectedTest));
+            }
+        }
+
         internal void LoadTests()
         {
             List<Test> tests = null;

@@ -123,8 +123,8 @@ namespace AppEvaluatorServer
 
         /// <summary>
         /// Starts the TCP listener that handles the clients requests
-        /// If there is a request, first reads the first 4 bytes: it tells what type of request was sent
-        /// If first 4 byte is 1 then reads the next 80 bytes: 50 for the username, 30 for the request type. Additional information follows i.e: test name (100 bytes) or sql codes or file
+        /// If there is a request, first reads the first byte: it tells what type of request was sent
+        /// If the first byte is 2 then reads the next 30 bytes, that contains the request and accordingly reads the rest which contains the actual data
         /// </summary>
         private static void StartServerTcpListener()
         {
@@ -139,7 +139,6 @@ namespace AppEvaluatorServer
                 byte[] bytes = new byte[256];
                 int i;
 
-                string username = null;
                 string request = null;
                 int requestmode = 0;
 
@@ -152,40 +151,8 @@ namespace AppEvaluatorServer
                     if ((i = stream.Read(bytes, 0, 1)) != 0)
                     {
                         requestmode = int.Parse(Encoding.ASCII.GetString(bytes, 0, 1));
-                        if (requestmode == 1)
-                        {
-                            i = stream.Read(bytes, 0, 80);
-                            username = Encoding.ASCII.GetString(bytes, 0, 50).Trim();
-                            request = Encoding.ASCII.GetString(bytes, 50, i - 50).Trim();
-                            switch (request.ToLower())
-                            {
-                                case "send testlist":
-                                    SendTestsListToMessage(stream, username);
-                                    break;
-                                case "send descriptionfile":
-                                    i = stream.Read(bytes, 0, 100);
-                                    SendFilesToMessage(stream, username, Encoding.ASCII.GetString(bytes, 0, i).Trim(), true);
-                                    break;
-                                case "send testfiles"://test name
-                                    i = stream.Read(bytes, 0, 100);
-                                    SendFilesToMessage(stream, username, Encoding.ASCII.GetString(bytes, 0, i).Trim(), false);
-                                    break;
-                                case "save evaulation":
-                                    i = stream.Read(bytes, 0, 100);
-                                    SaveTestEvaulation(stream, username, Encoding.ASCII.GetString(bytes, 0, i).Trim());
-                                    break;
-                                case "save testfile":
-                                    i = stream.Read(bytes, 0, 100);
-                                    SaveTestFile(stream, username, Encoding.ASCII.GetString(bytes, 0, i).Trim());
-                                    break;
-                                case "sql command":
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
                         ///Database insert requests
-                        else if (requestmode == 2)
+                        if (requestmode == 2)
                         {
                             i = stream.Read(bytes, 0, 30);
                             request = Encoding.ASCII.GetString(bytes, 0, 30).Trim();
@@ -196,7 +163,7 @@ namespace AppEvaluatorServer
                                     SQLiteMethods.InsertSubject(Encoding.ASCII.GetString(bytes, 0, 50).Trim(),
                                                                 Encoding.ASCII.GetString(bytes, 50, i - 50).Trim());
                                     break;
-                                case "save test"://minimum req: sql row data, 1 testfile, 1 description
+                                case "save test":
                                     i = stream.Read(bytes, 0, 150);
                                     SQLiteMethods.InsertTest(Encoding.ASCII.GetString(bytes, 0, 100).Trim(),
                                                              Encoding.ASCII.GetString(bytes, 100, i - 100).Trim());
@@ -218,70 +185,6 @@ namespace AppEvaluatorServer
                                     break;
                             }
                         }
-                        ///Database update requests
-                        else if (requestmode == 3)
-                        {
-
-                        }
-                        ///Database delete requests
-                        else if (requestmode == 4)
-                        {
-                            i = stream.Read(bytes, 0, 30);
-                            request = Encoding.ASCII.GetString(bytes, 0, 30).Trim();
-                            switch (request.ToLower())
-                            {
-                                case "delete subject":
-                                    i = stream.Read(bytes, 0, 10);
-                                    SQLiteMethods.DeleteSubject(Encoding.ASCII.GetString(bytes, 0, 10).Trim());
-                                    break;
-                                case "delete test":
-                                    i = stream.Read(bytes, 0, 4);
-                                    SQLiteMethods.DeleteTest(BitConverter.ToInt32(bytes, 0));
-                                    break;
-                                case "delete assingment":
-                                    i = stream.Read(bytes, 0, 8);
-                                    SQLiteMethods.DeleteAssignments(BitConverter.ToInt32(bytes, 0),
-                                                                   BitConverter.ToInt32(bytes, 4));
-                                    break;
-                                case "delete user":
-                                    i = stream.Read(bytes, 0, 4);
-                                    int userId = int.Parse(Encoding.ASCII.GetString(bytes, 0, 4).Trim());
-                                    SQLiteMethods.DeleteUser(userId);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        ///Database select requests
-                        else if (requestmode == 5)
-                        {
-                            i = stream.Read(bytes, 0, 30);
-                            request = Encoding.ASCII.GetString(bytes, 0, 30).Trim();
-                            switch (request.ToLower())
-                            {
-                                case "get subjects":
-                                    
-                                    break;
-                                case "get tests":
-                                    
-                                    break;
-                                case "get assingments":
-                                    
-                                    break;
-                                case "get users":
-                                    
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        
-                        /*// Loop to receive all the data sent by the client.
-                        while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                        {
-                            data = Encoding.ASCII.GetString(bytes, 0, i);
-                            
-                        }*/
                     }
                     stream.Dispose();
                     client.Close();
@@ -298,62 +201,6 @@ namespace AppEvaluatorServer
                 TcpServerListener.Stop();
                 TcpServerShutdown = true;
             }
-        }
-
-        /// <summary>
-        /// Sends all the available testNames to the user
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="username"></param>
-        private static void SendTestsListToMessage(NetworkStream stream, string username)
-        {
-            string data = null;
-            byte[] msg = Encoding.ASCII.GetBytes(data);
-           // stream.Write(msg, 0, msg.Length);
-        }
-
-        /// <summary>
-        /// Sends all the test files available for the test to the user
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="username"></param>
-        /// <param name="testName"></param>
-        /// <param name="isDescriptionRequested"></param>
-        private static void SendFilesToMessage(NetworkStream stream, string username, string testName, bool isDescriptionRequested)
-        {
-            if (isDescriptionRequested)
-            {
-
-            }
-            else
-            {
-
-            }
-            //string data = null;
-            //byte[] msg = Encoding.ASCII.GetBytes(data);
-            //stream.Write(msg, 0, msg.Length);
-        }
-
-        /// <summary>
-        /// Gets and saves the testfile in the corresponding test folder
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="username"></param>
-        /// <param name="testName"></param>
-        private static void SaveTestFile(NetworkStream stream, string username, string testName)
-        {
-            //save the testfile in the correct test folder
-        }
-
-        /// <summary>
-        /// Gets and saves the evaulation in the username/testName/
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="username"></param>
-        /// <param name="testName"></param>
-        private static void SaveTestEvaulation(NetworkStream stream, string username, string testName)
-        {
-            //save the evaulation in the username/testName/
         }
 
         #endregion

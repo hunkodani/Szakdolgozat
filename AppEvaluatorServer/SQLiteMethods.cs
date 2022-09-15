@@ -333,7 +333,7 @@ namespace AppEvaluatorServer
             cmd?.Dispose();
         }
 
-        internal static void DeleteAssignments(int userID, int testId)
+        internal static void DeleteAssignment(int userID, int testId)
         {
             SQLiteCommand cmd = null;
             try
@@ -342,6 +342,57 @@ namespace AppEvaluatorServer
                 cmd.CommandText = "DELETE FROM Assignments WHERE UserId = @user AND TestId = @test";
                 cmd.Parameters.AddWithValue("user", userID);
                 cmd.Parameters.AddWithValue("test", testId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+            }
+            cmd?.Dispose();
+        }
+
+        internal static void DeleteSubjectTests(string code)
+        {
+            SQLiteCommand cmd = null;
+            try
+            {
+                cmd = _conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Tests WHERE SubjectCode = @code";
+                cmd.Parameters.AddWithValue("code", code);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+            }
+            cmd?.Dispose();
+        }
+
+        internal static void DeleteTestAssignments(int testId)
+        {
+            SQLiteCommand cmd = null;
+            try
+            {
+                cmd = _conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Assignments WHERE TestId = @test";
+                cmd.Parameters.AddWithValue("test", testId);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+            }
+            cmd?.Dispose();
+        }
+
+        internal static void DeleteUserAssignments(int userId)
+        {
+            SQLiteCommand cmd = null;
+            try
+            {
+                cmd = _conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Assignments WHERE UserId = @user";
+                cmd.Parameters.AddWithValue("user", userId);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)

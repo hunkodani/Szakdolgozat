@@ -6,6 +6,7 @@ namespace AppEvaluator.Commands.Teacher
     {
         private readonly ManageTestsViewModel _manageTestsViewModel;
         private readonly AddAssignmentsViewModel _addAssignmentsViewModel;
+        private readonly DeleteAssignmentsViewModel _deleteAssignmentsViewModel;
 
         public LoadTestsCmd(ManageTestsViewModel manageTestsViewModel)
         {
@@ -17,15 +18,24 @@ namespace AppEvaluator.Commands.Teacher
             _addAssignmentsViewModel = addAssignmentsViewModel;
         }
 
+        public LoadTestsCmd(DeleteAssignmentsViewModel deleteAssignmentsViewModel)
+        {
+            _deleteAssignmentsViewModel = deleteAssignmentsViewModel;
+        }
+
         public override void Execute(object parameter)
         {
             if (_manageTestsViewModel != null)
             {
                 _manageTestsViewModel.LoadTests();
             }
-            else
+            else if (_addAssignmentsViewModel != null)
             {
                 _addAssignmentsViewModel.LoadTests();
+            }
+            else
+            {
+                _deleteAssignmentsViewModel.LoadTests();
             }
         }
     }

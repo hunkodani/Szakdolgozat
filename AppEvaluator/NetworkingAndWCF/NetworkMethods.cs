@@ -107,48 +107,7 @@ namespace AppEvaluator.NetworkingAndWCF
         }
         #endregion
 
-        #region TCPFunctions
-
-        public static void SendBasicTcpMessage(string username, string request, string optional = null)
-        {
-            TcpClient client = null;
-            NetworkStream stream = null;
-            try
-            {
-                byte[] container;
-                char[] name = new char[50];
-                char[] req = new char[30];
-                username.ToCharArray().CopyTo(name, 0);
-                request.ToCharArray().CopyTo(req, 0);
-                name = FillWithSpace(name, username.Length);
-                req = FillWithSpace(req, request.Length);
-
-                if (!string.IsNullOrEmpty(optional))
-                {
-                    char[] opt = new char[100];
-                    optional.ToCharArray().CopyTo(opt, 0);
-                    opt = FillWithSpace(opt, optional.Length);
-                    container = Encoding.ASCII.GetBytes(1 + new string(name) + new string(req) + new string(opt));
-                }
-                else
-                {
-                    container = Encoding.ASCII.GetBytes(1 + new string(name) + new string(req));
-                }
-                
-                client = new TcpClient(ServerIPAddress.ToString(), Properties.Settings.Default.ClientPort);
-                stream = client.GetStream();
-                
-                stream.Write(container, 0, container.Length);
-
-                stream.Dispose();
-                client.Close();
-            }
-            catch (Exception)
-            {
-                stream.Dispose();
-                client.Close();
-            }
-        }
+        #region TCPInserts and FillWithSpace function
 
         /// <summary>
         /// Fills the given character array up with dummy characters (SPACE) starting with the given position
@@ -164,66 +123,6 @@ namespace AppEvaluator.NetworkingAndWCF
             }
             return array;
         }
-
-        /* public static void TcpListener()
-         {
-             TcpServer = null;
-             try
-             {
-                 TcpServer = new TcpListener(LocalIPAddress, Port);
-
-                 // Start listening for client requests.
-                 TcpServer.Start();
-
-                 // Buffer for reading data
-                 byte[] bytes = new byte[256];
-                 string data = null;
-                 int i;
-
-                 // Enter the listening loop.
-                 while (true)
-                 {
-                     data = null;
-                     TcpClient client = TcpServer.AcceptTcpClient();
-
-                     NetworkStream stream = client.GetStream();
-
-                     // Loop to receive all the data sent by the client.
-                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                     {
-                         // Translate data bytes to a ASCII string.
-                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                         Console.WriteLine("Received: {0}", data);
-
-                         // Process the data sent by the client.
-                         data = data.ToUpper();
-
-                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-
-                         // Send back a response.
-                         stream.Write(msg, 0, msg.Length);
-                         Console.WriteLine("Sent: {0}", data);
-                     }
-
-                     // Shutdown and end connection
-                     client.Close();
-                 }
-             }
-             catch (SocketException e)
-             {
-                 Console.WriteLine("SocketException: {0}", e);
-             }
-             finally
-             {
-                 // Stop listening for new clients.
-                 TcpServer.Stop();
-             }
-
-         }*/
-
-        #endregion
-
-        #region TCPInserts
 
         /// <summary>
         /// Sends an insert tcp message with the specified data to insert a new subject
@@ -354,7 +253,7 @@ namespace AppEvaluator.NetworkingAndWCF
         }
 
         /// <summary>
-        /// Sends an insert tcp message with the specified data to insert a new assignment
+        /// Sends an insert tcp message with the specified data to insert a new assignment --> not working above 10 (int number) on the other side or this one
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="testId"></param>

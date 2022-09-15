@@ -1,4 +1,5 @@
-﻿using ServerContracts.Interfaces;
+﻿using AppEvaluator.Properties;
+using ServerContracts.Interfaces;
 using System.Net;
 using System.ServiceModel;
 
@@ -36,14 +37,28 @@ namespace AppEvaluator.NetworkingAndWCF
                 MainCommunicationChannel.Abort();
             }
 
-            if (Stores.ConnectionStore.ConnectionStatus == true)
+            if (Stores.ConnectionStore.ConnectionStatus != true)
             {
-                binding.TransferMode = TransferMode.Streamed;
-                FileChannel = new ChannelFactory<IFileService>(binding);
-                _fileUriData = $"net.tcp://{ip}:{serverPort}/FileService";
-                endpoint = new EndpointAddress(_fileUriData);
-                FileProxy = FileChannel.CreateChannel(endpoint);
+                return;
             }
+
+            binding.TransferMode = TransferMode.Streamed;
+            FileChannel = new ChannelFactory<IFileService>(binding);
+            _fileUriData = $"net.tcp://{ip}:{serverPort}/FileService";
+            endpoint = new EndpointAddress(_fileUriData);
+            FileProxy = FileChannel.CreateChannel(endpoint);
+
+            MainCommunicationChannel.Faulted += Communication_Faulted;
+            FileChannel.Faulted += Communication_Faulted;
+            
+        }
+
+        private static void Communication_Faulted(object sender, System.EventArgs e)
+        {
+            Stores.ConnectionStore.ConnectionStatus = false;
+            MainCommunicationChannel?.Close();
+            FileChannel?.Close();
+            ConnectToServices(NetworkMethods.ServerIPAddress, Settings.Default.ClientPort - 1);
         }
     }
     

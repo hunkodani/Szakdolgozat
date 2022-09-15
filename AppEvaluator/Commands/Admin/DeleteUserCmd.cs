@@ -16,7 +16,7 @@ namespace AppEvaluator.Commands.Admin
 
         public override void Execute(object parameter)
         {
-            if (parameter == null)
+            if (_manageUsersViewModel.SelectedUser == null)
             {
                 _manageUsersViewModel.UpDelMessage = "No user selected.";
                 _manageUsersViewModel.UpDelMessageColor = Brushes.Red;
@@ -25,7 +25,11 @@ namespace AppEvaluator.Commands.Admin
             {
                 try
                 {
-                    //call delete method here
+                    NetworkingAndWCF.WcfService.MainProxy?.DeleteUser(_manageUsersViewModel.SelectedUser.UserId ?? default,
+                                                                      _manageUsersViewModel.SelectedUser.FolderLocation);
+                    _manageUsersViewModel.UpDelMessage = "User deletion message sent.";
+                    _manageUsersViewModel.UpDelMessageColor = Brushes.Green;
+                    _manageUsersViewModel.LoadUsers();
                 }
                 catch (Exception e)
                 {

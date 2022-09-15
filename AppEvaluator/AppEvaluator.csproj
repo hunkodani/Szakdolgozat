@@ -91,6 +91,7 @@
     <Compile Include="Commands\Teacher\AddTestCmd.cs" />
     <Compile Include="Commands\Teacher\AddTestFileCmd.cs" />
     <Compile Include="Commands\Teacher\CreateAssignmentCmd.cs" />
+    <Compile Include="Commands\Teacher\DeleteAssignmentCmd.cs" />
     <Compile Include="Commands\Teacher\DeleteTestCmd.cs" />
     <Compile Include="Commands\Teacher\LoadTestsCmd.cs" />
     <Compile Include="Commands\Teacher\RemoveTestFileCmd.cs" />
@@ -266,7 +267,9 @@
   <ItemGroup>
     <Resource Include="Suggestions and ToDo.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\refresh.png" />
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
@@ -275,6 +278,9 @@
       <Project>{FF5191BC-8C10-4DF1-A7EA-9BCB80A144CB}</Project>
       <Name>ServerContracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\avatar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

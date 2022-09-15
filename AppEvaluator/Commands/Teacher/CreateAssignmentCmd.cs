@@ -33,7 +33,7 @@ namespace AppEvaluator.Commands.Teacher
                     {
                         if (user.Selected)
                         {
-                            NetworkMethods.SendInsertAssignment(
+                            WcfService.MainProxy?.InsertAssignment(
                                 userId: user.UserId ?? default,
                                 testId: _addAssignmentssViewModel.SelectedTest.TestId
                                 );
@@ -48,7 +48,7 @@ namespace AppEvaluator.Commands.Teacher
                     }
                     else
                     {
-                        _addAssignmentssViewModel.AddMessage = "Assignment creation aborted. No user selected";
+                        _addAssignmentssViewModel.AddMessage = "Assignment creation aborted. No user selected.";
                         _addAssignmentssViewModel.AddMessageColor = Brushes.Red;
                     }
                 }

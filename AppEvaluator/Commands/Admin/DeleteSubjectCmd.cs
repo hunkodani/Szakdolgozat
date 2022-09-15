@@ -1,6 +1,7 @@
 ﻿using AppEvaluator.ViewModels.Admin;
 using System;
 using System.Windows;
+using System.Windows.Media;
 
 namespace AppEvaluator.Commands.Admin
 {
@@ -15,23 +16,27 @@ namespace AppEvaluator.Commands.Admin
 
         public override void Execute(object parameter)
         {
-            if (parameter == null)
+            if (_manageSubjectsViewModel.SelectedSubject == null)
             {
-                /*_manageSubjectsViewModel.DelMessage = "No subject selected.";
-                _manageSubjectsViewModel.DelMessageColor = Brushes.Red;*/
+                _manageSubjectsViewModel.DelMessage = "No subject selected.";
+                _manageSubjectsViewModel.DelMessageColor = Brushes.Red;
             }
             else
             {
                 try
                 {
-                    //call delete method here
+                    NetworkingAndWCF.WcfService.MainProxy?.DeleteSubject(_manageSubjectsViewModel.SelectedSubject.Code,
+                                                                         _manageSubjectsViewModel.SelectedSubject.FolderLocation);
+                    _manageSubjectsViewModel.DelMessage = "Subject deletion message sent.";
+                    _manageSubjectsViewModel.DelMessageColor = Brushes.Green;
+                    _manageSubjectsViewModel.LoadSubjects();
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
                     Logging.WriteToLog(LogTypes.Error, "Unable to delete subject, message:" + e.Message);
-                    /*_manageSubjectsViewModel.UpDelMessage = "Subject deletion failed.";
-                    _manageSubjectsViewModel.UpDelMessageColor = Brushes.Red;*/
+                    _manageSubjectsViewModel.DelMessage = "Subject deletion failed.";
+                    _manageSubjectsViewModel.DelMessageColor = Brushes.Red;
                 }
             }
         }
