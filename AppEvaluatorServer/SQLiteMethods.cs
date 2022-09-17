@@ -81,9 +81,9 @@ namespace AppEvaluatorServer
             if (!list.Contains("Users"))
             {
                 cmd.CommandText = "Create Table Users (UserId INTEGER Primary key, " +
-                                                        "Username Varchar(100) Not null, " +
+                                                        "Username Varchar(100) Not null UNIQUE, " +
                                                         "Password Varchar(255) Not null, " +
-                                                        "Code Varchar(10), " +
+                                                        "Code Varchar(10) UNIQUE, " +
                                                         "RoleId INTEGER Not null, " +
                                                         "FolderLocation Varchar(255)," +
                                                         "UNIQUE(Username, Code)," +
@@ -113,7 +113,7 @@ namespace AppEvaluatorServer
             if (!list.Contains("Assignments"))
             {
                 cmd.CommandText = "Create Table Assignments (TestId INTEGER, UserId INTEGER, " +
-                                    "FOREIGN KEY(TestId) REFERENCES Tests(TestId), FOREIGN KEY(UserId) REFERENCES Users(UserId))";
+                                    "FOREIGN KEY(TestId) REFERENCES Tests(TestId), FOREIGN KEY(UserId) REFERENCES Users(UserId), UNIQUE(TestId, UserId))";
                 _ = cmd.ExecuteNonQuery();
             }
         }

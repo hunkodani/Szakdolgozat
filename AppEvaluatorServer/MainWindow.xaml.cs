@@ -38,20 +38,28 @@ namespace AppEvaluatorServer
         public MainWindow()
         {
             InitializeComponent();
-            NetworkMethods.ListenMulticastGroup();
-            NetworkMethods.ListenTcpRequests();
-            SQLiteMethods.ConnectToDatabase();
-            SqlConnectionStatus = SQLiteMethods.ConnectionStatus;
             try
             {
-                FileMethods.LoadSettingsFromFile();
-                FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
-                FolderPathLbl.Content = FileMethods.DataRoot;
-                MigrationCheck.IsChecked = FileMethods.FindSettingsElement("Migration") != "False";
+                NetworkMethods.ListenMulticastGroup();
+                NetworkMethods.ListenTcpRequests();
+                SQLiteMethods.ConnectToDatabase();
+                SqlConnectionStatus = SQLiteMethods.ConnectionStatus;
+                try
+                {
+                    FileMethods.LoadSettingsFromFile();
+                    FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
+                    FolderPathLbl.Content = FileMethods.DataRoot;
+                    MigrationCheck.IsChecked = FileMethods.FindSettingsElement("Migration") != "False";
+                }
+                catch (FileNotFoundException)
+                {
+                    FileMethods.DataRoot = null;
+                }
             }
-            catch (FileNotFoundException)
+            catch (Exception e)
             {
-                FileMethods.DataRoot = null;
+                Error.Text = e.Message;
+                Logging.WriteToLog(LogTypes.Error, e.Message);
             }
         }
 

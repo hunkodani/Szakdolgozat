@@ -19,12 +19,6 @@ namespace AppEvaluatorServer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            /*MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel()
-            };
-            MainWindow.Show();*/
-
             ISelectionService mainCommunicationService = new MainCommunicationService();
             Uri[] uris = new Uri[1]
             {
