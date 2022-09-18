@@ -1,4 +1,5 @@
-﻿using AppEvaluatorServer.WcfServices;
+﻿using AppEvaluatorServer.FileManupulationAndSQL;
+using AppEvaluatorServer.WcfServicesAndNetworking;
 using ServerContracts.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,17 @@ namespace AppEvaluatorServer
             NetworkMethods.FileHost.Opened += Host_Opened;
             NetworkMethods.FileHost.Open();
 
+            try
+            {
+                NetworkMethods.ListenMulticastGroup();
+                NetworkMethods.ListenTcpRequests();
+                SQLiteMethods.ConnectToDatabase();
+            }
+            catch (Exception ex)
+            {
+                Logging.WriteToLog(LogTypes.Error, ex.Message);
+            }
+
             base.OnStartup(e);
         }
 
@@ -50,6 +62,12 @@ namespace AppEvaluatorServer
             NetworkMethods.FileHost.Closed += Host_Closed;
             NetworkMethods.SelectionHost.Close();
             NetworkMethods.FileHost.Close();
+
+            ///Aborts the Multicast listening thread by closing the sokcet
+            NetworkMethods.McastSocket.Close();
+            ///Aborts the Tcp listening thread
+            NetworkMethods.TcpServerShutdown = true;
+            SQLiteMethods.DisconnectFromDatabase();
 
             base.OnExit(e);
         }

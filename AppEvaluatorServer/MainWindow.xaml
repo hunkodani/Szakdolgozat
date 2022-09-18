@@ -4,48 +4,110 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:AppEvaluatorServer"
-    xmlns:AppEvaluatorServer="clr-namespace:AppEvaluatorServer" x:Class="AppEvaluatorServer.MainWindow"
+    xmlns:AppEvaluatorServer="clr-namespace:AppEvaluatorServer"
+    xmlns:viewmodels="clr-namespace:AppEvaluatorServer.ViewModels"
+    x:Class="AppEvaluatorServer.MainWindow"
     mc:Ignorable="d"
-    x:Name="mainwindow"
-    Title="App evaluator server" 
-    Height="450" 
-    Width="800" 
-    ResizeMode="CanMinimize" 
-    WindowStartupLocation="CenterScreen" 
-    Background="#FF746B58" 
-    Closing="DisposeElements">
+    Title="App evaluator server"
+    Height="450"
+    Width="800"
+    ResizeMode="CanMinimize"
+    WindowStartupLocation="CenterScreen"
+    Background="#FF746B58">
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel/>
+    </Window.DataContext>
+    
     <Grid>
         <StackPanel>
             <Label Content="Pick a folder that will contain all of the data" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="14" Height="32"/>
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <Border Margin="10,0,0,0" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <Button x:Name="PickFolderBtn" Content="Pick folder" Background="#FFDDDDDD" BorderThickness="0" FontSize="14" Click="PickFolderBtn_Click" />
+            <StackPanel Orientation="Horizontal" 
+                        Margin="0,10,0,0">
+                
+                <Border Margin="10,0,0,0"
+                        CornerRadius="5"
+                        BorderThickness="2"
+                        BorderBrush="#FFDDDDDD"
+                        MinWidth="100"
+                        MinHeight="30"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left">
+                    
+                    <Button Content="Pick folder"
+                            Background="#FFDDDDDD"
+                            BorderThickness="0"
+                            FontSize="14"
+                            Command="{Binding PickRootFolderCmd}"/>
                 </Border>
-                <Label x:Name="FolderPathLbl" Content="" HorizontalAlignment="Stretch" Margin="10,0,0,0" VerticalAlignment="Stretch" FontSize="14"/>
+                
+                <Label Content="{Binding FolderPathLbl}"
+                       HorizontalAlignment="Stretch"
+                       Margin="10,0,0,0"
+                       VerticalAlignment="Stretch"
+                       FontSize="14"/>
             </StackPanel>
-            <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <Label Content="Migrate files to new folder? (If not, a clean folder will be generated and the &#xA;old one cannot be accessed from this application --&gt; cannot be undone!!)" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="14"/>
-                <CheckBox x:Name="MigrationCheck" Content="Migrate" HorizontalAlignment="Stretch" IsChecked="True" VerticalAlignment="Center" FontSize="14" Margin="20,0,0,0" Checked="MigrationCheck_Checked" Unchecked="MigrationCheck_Unchecked"/>
+            
+            <StackPanel Margin="0,10,0,0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Stretch">
+                
+                <Label Content="Migrate files to new folder? (If not, a clean folder will be generated and the &#xA;old one cannot be accessed from this application --&gt; cannot be undone!!)"
+                       HorizontalAlignment="Left"
+                       Margin="10,0,0,0"
+                       FontSize="14"/>
+                
+                <CheckBox Content="Migrate"
+                          HorizontalAlignment="Stretch"
+                          IsChecked="{Binding IsMigrate}"
+                          VerticalAlignment="Center"
+                          FontSize="14"
+                          Margin="20,0,0,0"
+                          Command="{Binding ToggleMigrationCmd}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                <Border Margin="10,0,0,0" CornerRadius="5" BorderThickness="2" BorderBrush="#FFDDDDDD" MinWidth="100" MinHeight="30" VerticalAlignment="Top" HorizontalAlignment="Left">
-                    <Button x:Name="SaveSettingsBtn" Content="Save setttings" Background="#FFDDDDDD" BorderThickness="0" FontSize="16" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="1,1,1,1" Click="SaveSettingsBtn_Click" />
+            
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,10,0,0">
+                
+                <Border Margin="10,0,0,0"
+                        CornerRadius="5"
+                        BorderThickness="2"
+                        BorderBrush="#FFDDDDDD"
+                        MinWidth="100"
+                        MinHeight="30"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left">
+                    
+                    <Button Content="Save setttings"
+                            Background="#FFDDDDDD"
+                            BorderThickness="0"
+                            FontSize="16"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Padding="1,1,1,1"
+                            Command="{Binding SaveSettingsCmd}"/>
                 </Border>
-                <Label x:Name="RespondLbl" Content="" Margin="10,0,0,0" FontSize="14" Background="{x:Null}" Foreground="LimeGreen"/>
+                
+                <Label Content="{Binding SaveMsg}"
+                       Margin="10,0,0,0"
+                       FontSize="14"
+                       Background="{x:Null}"
+                       Foreground="{Binding SaveMsgColor}"/>
             </StackPanel>
+            
             <StackPanel Orientation="Horizontal"
                         Margin="0,30,0,0">
+                
                 <Label Content="Database connection status:"
                        Margin="10,0,0,0"/>
-                <CheckBox IsChecked="{Binding ElementName=mainwindow, Path=SqlConnectionStatus}"
+
+                <CheckBox IsChecked="{Binding SqlConnectionStatus}"
                           VerticalAlignment="Center"
                           IsEnabled="False"
                           Margin="10,0,0,0"/>
             </StackPanel>
 
-            <TextBlock Text=""
-                       x:Name="Error"
-                       Margin="0 10 0 0"/>
+            <TextBlock Text="{Binding ErrorMsg}"
+                       Margin="10 10 10 0"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -105,12 +105,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FileMethods.cs" />
-    <Compile Include="Logging.cs" />
-    <Compile Include="NetworkMethods.cs" />
-    <Compile Include="SQLiteMethods.cs" />
-    <Compile Include="WcfServices\FileService.cs" />
-    <Compile Include="WcfServices\MainCommunicationService.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\PickRootFolderCmd.cs" />
+    <Compile Include="Commands\ToggleMigrationCmd.cs" />
+    <Compile Include="FileManupulationAndSQL\FileMethods.cs" />
+    <Compile Include="FileManupulationAndSQL\Logging.cs" />
+    <Compile Include="Commands\SaveSettingsCmd.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="WcfServicesAndNetworking\NetworkMethods.cs" />
+    <Compile Include="FileManupulationAndSQL\SQLiteMethods.cs" />
+    <Compile Include="WcfServicesAndNetworking\FileService.cs" />
+    <Compile Include="WcfServicesAndNetworking\MainCommunicationService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

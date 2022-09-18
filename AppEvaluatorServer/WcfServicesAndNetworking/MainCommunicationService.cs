@@ -1,4 +1,5 @@
-﻿using ServerContracts.Interfaces;
+﻿using AppEvaluatorServer.FileManupulationAndSQL;
+using ServerContracts.Interfaces;
 using ServerContracts.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppEvaluatorServer.WcfServices
+namespace AppEvaluatorServer.WcfServicesAndNetworking
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class MainCommunicationService : ISelectionService

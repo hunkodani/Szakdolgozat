@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace AppEvaluatorServer
+namespace AppEvaluatorServer.FileManupulationAndSQL
 {
     internal static class FileMethods
     {
@@ -82,8 +82,5 @@ namespace AppEvaluatorServer
 
         #endregion
 
-        #region Data
-
-        #endregion
     }
 }
