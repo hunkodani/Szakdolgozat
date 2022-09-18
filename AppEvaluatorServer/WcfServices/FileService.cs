@@ -197,8 +197,11 @@ namespace AppEvaluatorServer.WcfServices
             string path = null;
             try
             {
-                path = FileMethods.DataRoot;
-                path = Path.Combine(path, relativePath);
+                path = Path.Combine(FileMethods.DataRoot, relativePath);
+                if (!File.Exists(path))
+                {
+                    return null;
+                }
                 var task = Task.Run(() => { return DownloadFileStream(path); });
                 return await task.ConfigureAwait(false);
             }

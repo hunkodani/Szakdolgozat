@@ -113,9 +113,6 @@
     <Compile Include="NetworkingAndWCF\WcfDataParser.cs" />
     <Compile Include="NetworkingAndWCF\WcfService.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
-    <Compile Include="Student_RunTest.xaml.cs">
-      <DependentUpon>Student_RunTest.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\Teacher\AddAssignmentsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Admin\ManageSubjectsViewModel.cs" />
@@ -181,10 +178,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Student_RunTest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Admin\ManageSubjects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

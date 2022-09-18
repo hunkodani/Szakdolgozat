@@ -19,8 +19,8 @@ namespace AppEvaluator.NetworkingAndWCF
             NetTcpBinding binding = new NetTcpBinding(SecurityMode.None)
             {
                 OpenTimeout = new System.TimeSpan(0, 0, 0, 1),
-                ReceiveTimeout = new System.TimeSpan(0, 0, 1),
-                SendTimeout = new System.TimeSpan(0, 0, 0, 1),
+                ReceiveTimeout = new System.TimeSpan(0, 0, 10),
+                SendTimeout = new System.TimeSpan(0, 0, 0, 10),
                 CloseTimeout = new System.TimeSpan(0, 0, 1)
             };
             MainCommunicationChannel = new ChannelFactory<ISelectionService>(binding);

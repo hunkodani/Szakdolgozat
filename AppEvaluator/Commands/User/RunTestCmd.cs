@@ -72,7 +72,10 @@ namespace AppEvaluator.Commands.User
                 }
 
                 //Do evaluation and make a file from it
-
+                FileEvaluation fileEvaluation = new FileEvaluation(_runTestsViewModel.SelectedFile.Location,
+                                                                   testFilePaths.Count,
+                                                                   _runTestsViewModel.SelectedTest.TestName);
+                 await fileEvaluation.Execute();
 
 
                 //Delete the unnecessary files (all of the downloaded ones)(, when working properly)
@@ -82,15 +85,15 @@ namespace AppEvaluator.Commands.User
                 }
 
                 //Upload evaluation, show here in FileContent, then delete it (not working, while evaluation is not generating file)
-                /*using (uploadStream = File.OpenRead(evaluationFileName))
+                using (uploadStream = File.OpenRead(fileEvaluation.ResultPath))
                 {
                     await WcfService.FileProxy.UploadEvaluationFile(
-                        new ServerContracts.Models.FileUpload(fileName: evaluationFileName,
+                        new ServerContracts.Models.FileUpload(fileName: "Result_" + _runTestsViewModel.SelectedTest.TestName,
                                                               fileStreamer: uploadStream,
                                                               toRelativeLocation: Stores.LoginDataStore.UserLoginData.FolderLocation));
                 }
-                _runTestsViewModel.FileContent = File.ReadAllText(evaluationFileName);
-                File.Delete(evaluationFileName);*/
+                _runTestsViewModel.FileContent = File.ReadAllText(fileEvaluation.ResultPath);
+                File.Delete(fileEvaluation.ResultPath);
             }
             catch (Exception e)
             {
@@ -105,7 +108,7 @@ namespace AppEvaluator.Commands.User
             try
             {
                 _viewTestResultsViewModel.FileContent = "";
-                string path = Path.Combine(Stores.LoginDataStore.UserLoginData.FolderLocation, _viewTestResultsViewModel.SelectedTest.TestName);
+                string path = Path.Combine(Stores.LoginDataStore.UserLoginData.FolderLocation, "Result_" + _viewTestResultsViewModel.SelectedTest.TestName);
                 using (Stream stream = await WcfService.FileProxy?.DownloadEvaluationFile(path))
                 {
                     if (stream != null && stream.CanRead)
@@ -129,17 +132,25 @@ namespace AppEvaluator.Commands.User
             try
             {
                 _viewUserTestResultsViewModel.FileContent = "";
-                string path = Path.Combine(Stores.LoginDataStore.UserLoginData.FolderLocation, _viewUserTestResultsViewModel.SelectedTest.TestName);
-                using (Stream stream = await WcfService.FileProxy?.DownloadEvaluationFile(path))
+                string path = Path.Combine(_viewUserTestResultsViewModel.SelectedUser.FolderLocation, "Result_" + _viewUserTestResultsViewModel.SelectedTest.TestName);
+                Stream stream = await WcfService.FileProxy?.DownloadEvaluationFile(path);
+                if (stream != null)
                 {
-                    if (stream != null && stream.CanRead)
+                    using (stream)
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        if (stream != null && stream.CanRead)
                         {
-                            _viewUserTestResultsViewModel.FileContent = reader.ReadToEnd();
+                            using (StreamReader reader = new StreamReader(stream))
+                            {
+                                _viewUserTestResultsViewModel.FileContent = reader.ReadToEnd();
+                            }
                         }
                     }
                 }
+            }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                _viewUserTestResultsViewModel.FileContent = "No file can be retrieved or timeout has been reached.";
             }
             catch (Exception e)
             {
