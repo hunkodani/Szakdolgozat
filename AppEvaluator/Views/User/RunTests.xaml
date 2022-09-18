@@ -139,8 +139,9 @@
 
                 <ScrollViewer Margin="0 10 0 0"
                               VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Auto">
-                    <TextBlock Text="{Binding FileContent}"/>
+                              HorizontalScrollBarVisibility="Disabled">
+                    <TextBlock Text="{Binding FileContent}"
+                               TextWrapping="Wrap"/>
                 </ScrollViewer>
             </StackPanel>
         </Grid>

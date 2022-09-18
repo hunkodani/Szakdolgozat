@@ -82,7 +82,7 @@ namespace AppEvaluator
 
                                 }
                             }
-                            elapsedTime += AppProcess.UserProcessorTime.TotalMilliseconds;//AppProcess.TotalProcessorTime.TotalMilliseconds;
+                            elapsedTime += AppProcess.UserProcessorTime.TotalMilliseconds;
                             if (!AppProcess.HasExited)
                             {
                                 AppProcess.StandardInput.WriteLine();
