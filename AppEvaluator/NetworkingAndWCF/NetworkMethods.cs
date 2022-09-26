@@ -18,7 +18,7 @@ namespace AppEvaluator.NetworkingAndWCF
         {
             get
             {
-                IPAddress address = IPAddress.Parse("0.0.0.0");
+                IPAddress address = IPAddress.Parse("127.0.0.1");
                 NetworkInterface.GetAllNetworkInterfaces().ToList().ForEach(netwint =>
                 {
                     if (netwint.OperationalStatus == OperationalStatus.Up && netwint.GetIPProperties().GatewayAddresses.Count != 0)

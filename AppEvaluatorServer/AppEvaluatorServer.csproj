@@ -108,6 +108,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\PickRootFolderCmd.cs" />
     <Compile Include="Commands\ToggleMigrationCmd.cs" />
+    <Compile Include="Commands\ToggleMulticastCmd.cs" />
     <Compile Include="FileManupulationAndSQL\FileMethods.cs" />
     <Compile Include="FileManupulationAndSQL\Logging.cs" />
     <Compile Include="Commands\SaveSettingsCmd.cs" />

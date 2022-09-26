@@ -19,6 +19,7 @@ namespace AppEvaluatorServer.Commands
         public override void Execute(object parameter)
         {
             SaveSettings();
+            _mainWindowViewModel.UpdateMulticasting();
         }
 
         public void SaveSettings()
@@ -69,7 +70,7 @@ namespace AppEvaluatorServer.Commands
                 }
                 else
                 {
-                    MessageBoxResult result = System.Windows.MessageBox.Show(
+                    MessageBoxResult result = MessageBox.Show(
                         "Directory already exists, would you like to use as data root anyway? Cannot migrate directory contents, only use directory as root.",
                         "Root change confirmation", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)

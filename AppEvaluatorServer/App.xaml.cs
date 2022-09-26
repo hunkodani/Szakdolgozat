@@ -44,7 +44,6 @@ namespace AppEvaluatorServer
 
             try
             {
-                NetworkMethods.ListenMulticastGroup();
                 NetworkMethods.ListenTcpRequests();
                 SQLiteMethods.ConnectToDatabase();
             }
@@ -64,7 +63,11 @@ namespace AppEvaluatorServer
             NetworkMethods.FileHost.Close();
 
             ///Aborts the Multicast listening thread by closing the sokcet
-            NetworkMethods.McastSocket.Close();
+            NetworkMethods.McastSocket?.Close();
+            if (NetworkMethods.IsMulticasting)
+            {
+                NetworkMethods.IsMulticasting = false;
+            }
             ///Aborts the Tcp listening thread
             NetworkMethods.TcpServerShutdown = true;
             SQLiteMethods.DisconnectFromDatabase();

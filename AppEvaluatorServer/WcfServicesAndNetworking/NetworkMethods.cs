@@ -20,7 +20,7 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
         {
             get
             {
-                IPAddress address = IPAddress.Parse("0.0.0.0");
+                IPAddress address = IPAddress.Parse("127.0.0.1");
                 NetworkInterface.GetAllNetworkInterfaces().ToList().ForEach(netwint =>
                 {
                     if (netwint.OperationalStatus == OperationalStatus.Up && netwint.GetIPProperties().GatewayAddresses.Count != 0)
@@ -38,8 +38,10 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
         
         #region MulticastFunctions
 
-        private static IPAddress McastIPAddress { get { return IPAddress.Parse("224.168.100.2"); } }
+        internal static IPAddress McastIPAddress { get { return IPAddress.Parse("224.168.100.2"); } }
         public static Socket McastSocket { get; set; }
+
+        public static bool IsMulticasting { get; set; } = true;
 
         /// <summary>
         /// Starts a multicast group, listens, and if the server called sends the local IPv4 address
@@ -72,7 +74,7 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             EndPoint remoteEP = new IPEndPoint(IPAddress.Any, ServerPort + 1);
             try
             {
-                while (true)
+                while (IsMulticasting)
                 {
                     int length = McastSocket.ReceiveFrom(bytes, ref remoteEP);
 

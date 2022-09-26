@@ -2,6 +2,7 @@
 using AppEvaluatorServer.FileManupulationAndSQL;
 using System;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -13,6 +14,7 @@ namespace AppEvaluatorServer.ViewModels
 
         public ICommand PickRootFolderCmd { get; }
         public ICommand ToggleMigrationCmd { get; }
+        public ICommand ToggleMulticastCmd { get; }
         public ICommand SaveSettingsCmd { get; }
 
 
@@ -51,6 +53,25 @@ namespace AppEvaluatorServer.ViewModels
                 OnPropertyChanged(nameof(IsMigrate));
             }
         }
+
+        private bool _multicastStatus;
+
+        public bool MulticastStatus
+        {
+            get { return _multicastStatus; }
+            set
+            {
+                _multicastStatus = value;
+                OnPropertyChanged(nameof(MulticastStatus));
+                OnPropertyChanged(nameof(MulticastIP));
+                OnPropertyChanged(nameof(MulticastVisibility));
+            }
+        }
+
+        public string MulticastIP => WcfServicesAndNetworking.NetworkMethods.McastIPAddress.ToString();
+
+        public Visibility MulticastVisibility => MulticastStatus == true ? Visibility.Visible : Visibility.Hidden;
+
 
         #region MessagesAndColors
 
@@ -96,6 +117,7 @@ namespace AppEvaluatorServer.ViewModels
         {
             PickRootFolderCmd = new PickRootFolderCmd(this);
             ToggleMigrationCmd = new ToggleMigrationCmd(this);
+            ToggleMulticastCmd = new ToggleMulticastCmd(this);
             SaveSettingsCmd = new SaveSettingsCmd(this);
 
             SqlConnectionStatus = SQLiteMethods.ConnectionStatus;
@@ -115,6 +137,7 @@ namespace AppEvaluatorServer.ViewModels
                     FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
                     FolderPathLbl = FileMethods.DataRoot;
                     IsMigrate = FileMethods.FindSettingsElement("Migration") != "False";
+                    UpdateMulticasting();
                 }
             }
             catch (FileNotFoundException e)
@@ -125,6 +148,7 @@ namespace AppEvaluatorServer.ViewModels
             catch (Exception e)
             {
                 ErrorMsg = e.Message;
+                FileMethods.DataRoot = null;
                 Logging.WriteToLog(LogTypes.Error, e.Message);
             }
         }
@@ -148,6 +172,25 @@ namespace AppEvaluatorServer.ViewModels
             {
                 SaveMsgColor = Brushes.DarkRed;
                 SaveMsg = "An error occured while saving. Nothing everything was saved.";
+            }
+        }
+
+        public void UpdateMulticasting()
+        {
+            string tmp = FileMethods.FindSettingsElement("Multicasting");
+            if (tmp == null || tmp == "True")
+            {
+                WcfServicesAndNetworking.NetworkMethods.ListenMulticastGroup();
+                MulticastStatus = true;
+            }
+            else
+            {
+                WcfServicesAndNetworking.NetworkMethods.McastSocket.Close();
+                if (WcfServicesAndNetworking.NetworkMethods.IsMulticasting)
+                {
+                    WcfServicesAndNetworking.NetworkMethods.IsMulticasting = false;
+                }
+                MulticastStatus = false;
             }
         }
     }
