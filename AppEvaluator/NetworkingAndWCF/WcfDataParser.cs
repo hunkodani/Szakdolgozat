@@ -11,6 +11,11 @@ namespace AppEvaluator.NetworkingAndWCF
 {
     internal static class WcfDataParser
     {
+        /// <summary>
+        /// Parses the server user model to this app user model
+        /// </summary>
+        /// <param name="user">The content to parse</param>
+        /// <returns>True if user not null, else otherwise</returns>
         public static bool LoginDataParser(ServerContracts.Models.User user)
         {
             if (user == null)
@@ -21,6 +26,11 @@ namespace AppEvaluator.NetworkingAndWCF
             return true;
         }
 
+        /// <summary>
+        /// Parses a list of server user models to this app user models
+        /// </summary>
+        /// <param name="users">List to parse</param>
+        /// <returns>The parsed list</returns>
         public static List<Models.User> UsersParse(List<ServerContracts.Models.User> users)
         {
             if (users != null)
@@ -32,6 +42,11 @@ namespace AppEvaluator.NetworkingAndWCF
             return null;
         }
 
+        /// <summary>
+        /// Parses a list of server role models to this app role models
+        /// </summary>
+        /// <param name="roles">List to parse</param>
+        /// <returns>The parsed list</returns>
         public static List<Models.Role> RolesParse(List<ServerContracts.Models.Role> roles)
         {
             if (roles != null)
@@ -43,6 +58,11 @@ namespace AppEvaluator.NetworkingAndWCF
             return null;
         }
 
+        /// <summary>
+        /// Parses a list of server subject models to this app subject models
+        /// </summary>
+        /// <param name="subjects">List to parse</param>
+        /// <returns>The parsed list</returns>
         internal static List<Models.Subject> SubjectsParse(List<ServerContracts.Models.Subject> subjects)
         {
             if (subjects != null)
@@ -54,6 +74,11 @@ namespace AppEvaluator.NetworkingAndWCF
             return null;
         }
 
+        /// <summary>
+        /// Parses a list of server test models to this app test models
+        /// </summary>
+        /// <param name="tests">List to parse</param>
+        /// <returns>The parsed list</returns>
         internal static List<Models.Test> TestsParse(List<ServerContracts.Models.Test> tests)
         {
             if (tests != null)

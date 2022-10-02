@@ -72,6 +72,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             SQLiteMethods.DeleteAssignment(userId, testId);
         }
 
+        /// <summary>
+        /// Deletes a test, the associated assignments and all its files
+        /// </summary>
+        /// <param name="testId"></param>
+        /// <param name="testLocation"></param>
         public void DeleteTest(int testId, string testLocation)
         {
             SQLiteMethods.DeleteTestAssignments(testId);
@@ -83,6 +88,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Deletes a subject, the associated tests and the assignments and deletes all its files
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="subjectLocation"></param>
         public void DeleteSubject(string code, string subjectLocation)
         {
             List<Test> tests = SQLiteMethods.GetTests(code);
@@ -99,6 +109,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Deletes a user and all associated assignments and deletes all user files
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userLocaiton"></param>
         public void DeleteUser(int userId, string userLocaiton)
         {
             SQLiteMethods.DeleteUserAssignments(userId);

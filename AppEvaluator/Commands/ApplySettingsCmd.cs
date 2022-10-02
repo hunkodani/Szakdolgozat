@@ -17,6 +17,10 @@ namespace AppEvaluator.Commands
             _settingsViewModel = settingsViewModel;
         }
 
+        /// <summary>
+        /// Saves the connection settings and applies it to the running application
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (!_iPRegex.IsMatch(_settingsViewModel.IPAddress))

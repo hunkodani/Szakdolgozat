@@ -141,6 +141,9 @@ namespace AppEvaluator.ViewModels.Admin
             }
         }
 
+        /// <summary>
+        /// Loads the subjects from the database
+        /// </summary>
         internal void LoadSubjects()
         {
             List<Subject> subjects = WcfDataParser.SubjectsParse(WcfService.MainProxy?.GetSubjects());

@@ -26,12 +26,19 @@ namespace AppEvaluator
             ResultPath = "Result_" + _testName;
         }
 
+        /// <summary>
+        /// Calls the Evaluate method via a task
+        /// </summary>
+        /// <returns></returns>
         public async Task Execute()
         {
             var task = Task.Run(() => Evaluate());
             await task.ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Creates a new proccess with the given file and settings
+        /// </summary>
         private void CreateNewProcess()
         {
             AppProcess = new Process();
@@ -43,6 +50,9 @@ namespace AppEvaluator
             AppProcess.StartInfo.CreateNoWindow = true;
         }
 
+        /// <summary>
+        /// Evaluates the executable file with the given test cases and creates a file from the result
+        /// </summary>
         private void Evaluate()
         {
             bool isSuccess = true;
@@ -110,72 +120,5 @@ namespace AppEvaluator
                 }
             }
         }
-
-        /*private bool ExecuteProgram(StreamReader reader)
-        {
-            try
-            {
-                _ = AppProcess.Start();
-                while (true)  //itt nem lehet endofstream, mert akkor ha elfogy az olvasnivaló akkor leállna, függetlenül, hogy van-e még utána más
-                {
-                    if (AppProcess.HasExited) //&& evaluation.Process.ExitCode > -1)   //Cannot put HasExited because it returns true if there is an input required (-xxxxxxxxx negative value)
-                    {
-                        while (!AppProcess.StandardOutput.EndOfStream)
-                        {
-                            AppProcess.StandardOutput.ReadLine();
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        if (AppProcess.StandardOutput.Peek() != -1)
-                        {
-                            AppProcess.StandardOutput.ReadLine();
-                        }
-                        else
-                        {
-                            //billentyűlenyomást kellene átküldeni.... vagy: nem lehet a kódban readkey (a végén lehet, mert a rendszer leállítja, mert úgy érzékeli, mintha végzett volna)!!!
-                            AppProcess.StandardInput.WriteLine("1");
-                        }
-                    }
-                }
-            }
-            catch (InvalidOperationException)
-            {
-                if (!AppProcess.HasExited)
-                {
-                    AppProcess.Close();
-                }
-                if (!AppProcess.HasExited)
-                {
-                    AppProcess.Kill();
-                }
-                AppProcess.Dispose();
-                return false;
-            }
-            catch (Exception)
-            {
-                if (!AppProcess.HasExited)
-                {
-                    AppProcess.Close();
-                }
-                if (!AppProcess.HasExited)
-                {
-                    AppProcess.Kill();
-                }
-                AppProcess.Dispose();
-                return false;
-            }
-            if (!AppProcess.HasExited)
-            {
-                AppProcess.Close();
-            }
-            if (!AppProcess.HasExited)
-            {
-                AppProcess.Kill();
-            }
-            AppProcess.Dispose();
-            return true;
-        }*/
     }
 }

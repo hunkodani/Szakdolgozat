@@ -18,6 +18,10 @@ namespace AppEvaluator.Commands.Teacher
             _deleteAssignmentsViewModel = deleteAssignmentsViewModel;
         }
 
+        /// <summary>
+        /// Deletes a selected assignment from the database for all users that have been selected
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_deleteAssignmentsViewModel.SelectedTest == null ||

@@ -16,6 +16,10 @@ namespace AppEvaluator.Commands.Admin
             this._manageUsersViewModel = manageUsersViewModel;
         }
 
+        /// <summary>
+        /// Add a new User to the database if everything filled out (username, password, Code)
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_manageUsersViewModel.Username == null ||

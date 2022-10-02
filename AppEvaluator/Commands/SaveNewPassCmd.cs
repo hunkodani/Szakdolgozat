@@ -19,6 +19,10 @@ namespace AppEvaluator.Commands
             _settingsViewModel = settingsViewModel;
         }
 
+        /// <summary>
+        /// Saves the new password for the User in the database
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_settingsViewModel.NewPass == string.Empty ||_settingsViewModel.NewPass == "" ||

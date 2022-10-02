@@ -12,6 +12,10 @@ namespace AppEvaluatorServer.Commands
             _mainWindowViewModel = mainWindowViewModel;
         }
 
+        /// <summary>
+        /// Updates the Migration setting in the settings list
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             int index = FileMethods.FindSettingsElementIndex("Migration");

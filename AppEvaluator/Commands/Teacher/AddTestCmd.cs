@@ -16,6 +16,10 @@ namespace AppEvaluator.Commands.Teacher
             this._manageTestsViewModel = manageTestsViewModel;
         }
 
+        /// <summary>
+        /// Adds a test to the database, uploads the selected description file and testFiles to the server
+        /// </summary>
+        /// <param name="parameter"></param>
         public async override void Execute(object parameter)
         {
             if (_manageTestsViewModel.TestName == null ||

@@ -11,6 +11,10 @@ namespace AppEvaluator.Commands.Admin
             _manageUsersViewModel = manageUsersViewModel;
         }
 
+        /// <summary>
+        /// Calls the LoadUsers method on the _manageUsersViewModel
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             _manageUsersViewModel.LoadUsers();

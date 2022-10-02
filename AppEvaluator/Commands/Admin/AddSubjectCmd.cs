@@ -15,6 +15,10 @@ namespace AppEvaluator.Commands.Admin
             this._manageSubjectsViewModel = manageSubjectsViewModel;
         }
 
+        /// <summary>
+        /// Adds a new subject to the database if everything filled out (SubjectCode and SubjectName)
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_manageSubjectsViewModel.SubjectCode == null ||

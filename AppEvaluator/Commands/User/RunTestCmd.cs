@@ -45,6 +45,9 @@ namespace AppEvaluator.Commands.User
             }
         }
 
+        /// <summary>
+        /// Downloads the evaluation testcases, calls the evaluation, show the result in the page, then uploads the result. Deletes every file that created
+        /// </summary>
         private async void ExecuteAtRuntTests()
         {
             Stream uploadStream = null;
@@ -71,20 +74,20 @@ namespace AppEvaluator.Commands.User
                     }
                 }
 
-                //Do evaluation and make a file from it
+                ///Creates the evaluation element that will evaluate
                 FileEvaluation fileEvaluation = new FileEvaluation(_runTestsViewModel.SelectedFile.Location,
                                                                    testFilePaths.Count,
                                                                    _runTestsViewModel.SelectedTest.TestName);
                  await fileEvaluation.Execute();
 
 
-                //Delete the unnecessary files (all of the downloaded ones)(, when working properly)
+                ///Deletes the unnecessary files (all of the downloaded ones)
                 for (int i = 0; i < testFilePaths.Count; i++)
                 {
                     File.Delete(testPrefix + i + "_" + _runTestsViewModel.SelectedTest.TestName);
                 }
 
-                //Upload evaluation, show here in FileContent, then delete it (not working, while evaluation is not generating file)
+                ///Uploads the evaluation, and also shows here in FileContent, then deletes it
                 using (uploadStream = File.OpenRead(fileEvaluation.ResultPath))
                 {
                     await WcfService.FileProxy.UploadEvaluationFile(
@@ -103,6 +106,9 @@ namespace AppEvaluator.Commands.User
             _runTestsViewModel.ContentType = "Test result:";
         }
 
+        /// <summary>
+        /// Donwloads the selected test result and load it to the viewport
+        /// </summary>
         private async void ExecuteAtViewTestResults()
         {
             try
@@ -120,6 +126,10 @@ namespace AppEvaluator.Commands.User
                     }
                 }
             }
+            catch (System.ServiceModel.CommunicationException)
+            {
+                _viewTestResultsViewModel.FileContent = "No file can be retrieved or timeout has been reached.";
+            }
             catch (Exception e)
             {
                 _viewTestResultsViewModel.FileContent = "Error at evaluation download: " + e.Message;
@@ -127,6 +137,9 @@ namespace AppEvaluator.Commands.User
             _viewTestResultsViewModel.ContentType = "Test result:";
         }
 
+        /// <summary>
+        /// Donwloads the selected test result and load it to the viewport
+        /// </summary>
         private async void ExecuteAtViewUserTestResults()
         {
             try

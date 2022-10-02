@@ -28,6 +28,10 @@ namespace AppEvaluator.Commands.User
             this._viewTestResultsViewModel = viewTestResultsViewModel;
         }
 
+        /// <summary>
+        /// Downloads the corresponding description file and loads it to the viewing element (on 3 different UserControl --> execution depending which calls it)
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_runTestsViewModel != null)

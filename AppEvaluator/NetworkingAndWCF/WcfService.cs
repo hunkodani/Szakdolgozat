@@ -14,6 +14,11 @@ namespace AppEvaluator.NetworkingAndWCF
         public static ChannelFactory<ISelectionService> MainCommunicationChannel { get; set; }
         public static ChannelFactory<IFileService> FileChannel { get; set; }
 
+        /// <summary>
+        /// Connects to the server
+        /// </summary>
+        /// <param name="ip">The IP to connect to</param>
+        /// <param name="serverPort">The port to connect to</param>
         public static void ConnectToServices(IPAddress ip, int serverPort)
         {
             NetTcpBinding binding = new NetTcpBinding(SecurityMode.None)
@@ -50,9 +55,13 @@ namespace AppEvaluator.NetworkingAndWCF
 
             MainCommunicationChannel.Faulted += Communication_Faulted;
             FileChannel.Faulted += Communication_Faulted;
-            
         }
 
+        /// <summary>
+        /// Reconnects to the server if it was faulted 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Communication_Faulted(object sender, System.EventArgs e)
         {
             Stores.ConnectionStore.ConnectionStatus = false;

@@ -16,12 +16,19 @@ namespace AppEvaluatorServer.Commands
             _mainWindowViewModel = mainWindowViewModel;
         }
 
+        /// <summary>
+        /// Saves the settings and updates the multicasting
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             SaveSettings();
             _mainWindowViewModel.UpdateMulticasting();
         }
 
+        /// <summary>
+        /// Saves the settings to a file, reevaluates the settings and applies it to the running application
+        /// </summary>
         public void SaveSettings()
         {
             ///should create a new-old configuration so if there is a problem, it can roll back to that

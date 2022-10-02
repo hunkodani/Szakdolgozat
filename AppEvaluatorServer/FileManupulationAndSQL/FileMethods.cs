@@ -28,6 +28,9 @@ namespace AppEvaluatorServer.FileManupulationAndSQL
 
         public static List<string[]> Settings = new List<string[]>();
 
+        /// <summary>
+        /// Save the settings to a file
+        /// </summary>
         public static void SaveSettingsToFile()
         {
             List<string> tmp = new List<string>();
@@ -43,6 +46,10 @@ namespace AppEvaluatorServer.FileManupulationAndSQL
             }
         }
 
+        /// <summary>
+        /// Loads the settings from a file
+        /// </summary>
+        /// <exception cref="FileNotFoundException"></exception>
         public static void LoadSettingsFromFile()
         {
             Settings.Clear();
@@ -61,15 +68,25 @@ namespace AppEvaluatorServer.FileManupulationAndSQL
                     _ = Directory.CreateDirectory(SettingsFilePath);
                     File.Create(SettingsFile).Close();
                 }
-                throw new FileNotFoundException("No settings file was found. Settings file created.");
+                Logging.WriteToLog(LogTypes.Log, "No settings file was found. Settings file created.");
             }
         }
 
+        /// <summary>
+        /// Find a setting's index in a list
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static int FindSettingsElementIndex(string value)
         {
             return Settings.FindIndex(item => item.ElementAt(0) == value);
         }
 
+        /// <summary>
+        /// Find a setting in a list
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string FindSettingsElement(string value)
         {
             string[] tmp = Settings.Find(item => item.ElementAt(0) == value);

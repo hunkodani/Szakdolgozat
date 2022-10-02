@@ -14,6 +14,10 @@ namespace AppEvaluatorServer.Commands
             _mainWindowViewModel = mainWindowViewModel;
         }
 
+        /// <summary>
+        /// Picks a root folder location, then updates the settings list with it
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();

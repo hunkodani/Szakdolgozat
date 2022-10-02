@@ -15,6 +15,10 @@ namespace AppEvaluator.Commands.Admin
             this._manageUsersViewModel = manageUsersViewModel;
         }
 
+        /// <summary>
+        /// Updates the User with the new informations (code and/or password)
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_manageUsersViewModel.UpdatedUser.Password == null &&

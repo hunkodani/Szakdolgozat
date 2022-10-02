@@ -137,6 +137,9 @@ namespace AppEvaluator.ViewModels.Teacher
             LoadSubjects();
         }
 
+        /// <summary>
+        /// Loads the subjects from the database
+        /// </summary>
         internal void LoadSubjects()
         {
             List<Subject> subjects = WcfDataParser.SubjectsParse(WcfService.MainProxy?.GetSubjects());
@@ -152,6 +155,9 @@ namespace AppEvaluator.ViewModels.Teacher
             _users.Clear();
         }
 
+        /// <summary>
+        /// Loads the selected subject's tests from the database
+        /// </summary>
         internal void LoadTests()
         {
             List<Test> tests = null;
@@ -170,6 +176,9 @@ namespace AppEvaluator.ViewModels.Teacher
             _users.Clear();
         }
 
+        /// <summary>
+        /// Loads the Users associated with the selected test (have an assignment)
+        /// </summary>
         internal void LoadUsers()
         {
             List<User> users = null;

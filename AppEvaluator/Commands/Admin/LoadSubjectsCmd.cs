@@ -11,6 +11,10 @@ namespace AppEvaluator.Commands.Admin
             _manageSubjectsViewModel = manageSubjectsViewModel;
         }
 
+        /// <summary>
+        /// Calls the LoadSubjects method on the _manageSubjectsViewModel
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             _manageSubjectsViewModel.LoadSubjects();

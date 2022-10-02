@@ -15,6 +15,10 @@ namespace AppEvaluator.Commands.Teacher
             this._manageTestsViewModel = manageTestsViewModel;
         }
 
+        /// <summary>
+        /// Deletes a test from the database (and every assignment connected to it)
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_manageTestsViewModel.SelectedTest == null)

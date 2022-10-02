@@ -13,7 +13,7 @@
     Width="800"
     ResizeMode="CanMinimize"
     WindowStartupLocation="CenterScreen"
-    Background="#FF746B58">
+    Background="White">
     <Window.DataContext>
         <viewmodels:MainWindowViewModel/>
     </Window.DataContext>

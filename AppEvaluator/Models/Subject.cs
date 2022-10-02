@@ -8,7 +8,6 @@ namespace AppEvaluator.Models
 {
     internal class Subject
     {
-        private readonly List<Test> _testList;//maybe needed
         public string SubjectCode { get; set; }
         public string SubjectName { get; set; }
         public string FolderLocation { get; set; }
@@ -18,7 +17,6 @@ namespace AppEvaluator.Models
             SubjectCode = subjectCode;
             SubjectName = subjectName;
             FolderLocation = folderLocation;
-            _testList = new List<Test>();
         }
     }
 }

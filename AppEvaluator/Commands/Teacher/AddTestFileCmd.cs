@@ -12,6 +12,10 @@ namespace AppEvaluator.Commands.Teacher
             this._manageTestsViewModel = manageTestsViewModel;
         }
 
+        /// <summary>
+        /// Adds a testfile from the storage to a list
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             OpenFileDialog dialog = new OpenFileDialog

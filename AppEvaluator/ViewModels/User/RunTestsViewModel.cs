@@ -131,6 +131,9 @@ namespace AppEvaluator.ViewModels.UserVMs
             LoadSubjects();
         }
 
+        /// <summary>
+        /// Loads the tests from tha database that available for the user
+        /// </summary>
         internal void LoadTests()
         {
             List<Test> tests = null;
@@ -148,6 +151,9 @@ namespace AppEvaluator.ViewModels.UserVMs
             }
         }
 
+        /// <summary>
+        /// Loads the subjects from the database
+        /// </summary>
         internal void LoadSubjects()
         {
             List<Subject> subjects = WcfDataParser.SubjectsParse(WcfService.MainProxy?.GetSubjects());

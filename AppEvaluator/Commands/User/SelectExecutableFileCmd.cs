@@ -13,6 +13,10 @@ namespace AppEvaluator.Commands.User
             _runTestsViewModel = runTestsViewModel;
         }
 
+        /// <summary>
+        /// Selects an executable file from the storage to later run an evaluation on it
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             OpenFileDialog dialog = new OpenFileDialog

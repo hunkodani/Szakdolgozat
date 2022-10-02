@@ -12,6 +12,11 @@ namespace AppEvaluator
         private static readonly string _logFilePath = Path.Combine(Environment.CurrentDirectory, AppDomain.CurrentDomain.FriendlyName.Trim(".exe".ToCharArray()));
         private static readonly string _logFile = "log.txt";
 
+        /// <summary>
+        /// Writes a log / line into a txt logfile
+        /// </summary>
+        /// <param name="type">The level of the log</param>
+        /// <param name="content">The content</param>
         public static void WriteToLog(LogTypes type, string content)
         {
             try

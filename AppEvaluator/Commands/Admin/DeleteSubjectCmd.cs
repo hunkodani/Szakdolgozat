@@ -14,6 +14,10 @@ namespace AppEvaluator.Commands.Admin
             _manageSubjectsViewModel = manageSubjectsViewModel;
         }
 
+        /// <summary>
+        /// Removes a Subject from the database (and everything that connects to it)
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_manageSubjectsViewModel.SelectedSubject == null)

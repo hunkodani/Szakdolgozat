@@ -14,6 +14,10 @@ namespace AppEvaluator.Commands.Admin
             _manageUsersViewModel = manageUsersViewModel;
         }
 
+        /// <summary>
+        /// Removes a User from the database
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_manageUsersViewModel.SelectedUser == null)

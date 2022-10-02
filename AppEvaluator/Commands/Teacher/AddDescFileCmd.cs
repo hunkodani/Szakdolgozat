@@ -12,6 +12,10 @@ namespace AppEvaluator.Commands.Teacher
             this._manageTestsViewModel = manageTestsViewModel;
         }
 
+        /// <summary>
+        /// Loads the selected file's path in a variable (it is the description) to later save it to the server 
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             OpenFileDialog dialog = new OpenFileDialog

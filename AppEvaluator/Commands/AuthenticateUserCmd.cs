@@ -19,6 +19,10 @@ namespace AppEvaluator.Commands
             _navigationStore = navigationStore;
         }
 
+        /// <summary>
+        /// Authenticates the user and navigates to the menu if it was a success
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
 

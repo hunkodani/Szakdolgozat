@@ -14,6 +14,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]//for debug: , IncludeExceptionDetailInFaults = true)]
     public class FileService : IFileService
     {
+        /// <summary>
+        /// Saves a file to the server by testId
+        /// </summary>
+        /// <param name="testFileUpload">The file to upload</param>
+        /// <returns></returns>
         public async Task SaveTestFilesToServer(FileUpload testFileUpload)
         {
             string path = null;
@@ -37,6 +42,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Saves a file to the server by TestName
+        /// </summary>
+        /// <param name="testFileUpload">The file to upload</param>
+        /// <returns></returns>
         public async Task SaveTestFilesToServerByName(FileUpload testFileUpload)
         {
             string path = null;
@@ -60,6 +70,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Download a test description file
+        /// </summary>
+        /// <param name="testId">The test's ID to download from</param>
+        /// <returns>A stream to download</returns>
         public async Task<Stream> DownloadDescription(int testId)
         {
             string path = null;
@@ -101,6 +116,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Downloads a testfile
+        /// </summary>
+        /// <param name="path">A location to download from</param>
+        /// <returns>A stream to download</returns>
         public async Task<Stream> DownloadTestFile(string path)
         {
             try
@@ -115,6 +135,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Gets the test cases name
+        /// </summary>
+        /// <param name="testId">The test's ID for the searching</param>
+        /// <returns>List of names to download</returns>
         public List<string> GetTestFileNames(int testId)
         {
             List<string> testFileNames = new List<string>();
@@ -150,6 +175,13 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             return testFileNames;
         }
 
+        /// <summary>
+        /// Saves the Uploading file
+        /// </summary>
+        /// <param name="stream">The stream to upload</param>
+        /// <param name="path">The path to put</param>
+        /// <param name="fileName">The name of the file</param>
+        /// <returns></returns>
         private async Task SaveFileStreamAsync(Stream stream, string path, string fileName) 
         {
             try
@@ -173,6 +205,12 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Creates a download stream for a file
+        /// </summary>
+        /// <param name="path">Path to download from</param>
+        /// <param name="fileName">The name of the file</param>
+        /// <returns></returns>
         private Stream DownloadFileStream(string path, string fileName = null)
         {
             try
@@ -191,8 +229,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
-        ///Evaluation file upload download
-        
+        /// <summary>
+        /// Downloads an evaluation file from the server
+        /// </summary>
+        /// <param name="relativePath">A path to download from</param>
+        /// <returns>A stream to download</returns>
         public async Task<Stream> DownloadEvaluationFile(string relativePath)
         {
             string path = null;
@@ -220,6 +261,11 @@ namespace AppEvaluatorServer.WcfServicesAndNetworking
             }
         }
 
+        /// <summary>
+        /// Uploads an evaluation file to the server
+        /// </summary>
+        /// <param name="file">The file to upload</param>
+        /// <returns></returns>
         public async Task UploadEvaluationFile(FileUpload file)
         {
             string path = null;

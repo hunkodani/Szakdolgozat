@@ -153,6 +153,9 @@ namespace AppEvaluatorServer.ViewModels
             }
         }
 
+        /// <summary>
+        /// Creates a folder root at the first start and saves the settings file
+        /// </summary>
         private void FirstStart()
         {
             SaveMsg = "";
@@ -175,6 +178,9 @@ namespace AppEvaluatorServer.ViewModels
             }
         }
 
+        /// <summary>
+        /// Updates the multicasting setting
+        /// </summary>
         public void UpdateMulticasting()
         {
             string tmp = FileMethods.FindSettingsElement("Multicasting");

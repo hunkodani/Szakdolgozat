@@ -23,6 +23,10 @@ namespace AppEvaluator.Commands.Teacher
             _deleteAssignmentsViewModel = deleteAssignmentsViewModel;
         }
 
+        /// <summary>
+        /// Calls the LoadTests method across multiple viewmodel (depending which calls it)
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_manageTestsViewModel != null)

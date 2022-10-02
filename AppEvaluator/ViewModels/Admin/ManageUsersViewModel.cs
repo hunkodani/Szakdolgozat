@@ -188,12 +188,19 @@ namespace AppEvaluator.ViewModels.Admin
             }
         }
 
+        /// <summary>
+        /// Creates a user identical with the selected to be modified
+        /// </summary>
+        /// <param name="user"></param>
         public void CreateUpdatableUser(UserViewModel user)
         {
             _updatedUser = user;
             OnPropertyChanged(nameof(UpdatedUser));
         }
 
+        /// <summary>
+        /// Loads the users from the database
+        /// </summary>
         internal void LoadUsers()
         {
             List<User> users = WcfDataParser.UsersParse(WcfService.MainProxy?.GetUsers());
@@ -207,6 +214,9 @@ namespace AppEvaluator.ViewModels.Admin
             }
         }
 
+        /// <summary>
+        /// Loads the roles from the database
+        /// </summary>
         internal void LoadRoles()
         {
             List<Role> roles = WcfDataParser.RolesParse(WcfService.MainProxy?.GetRoles());

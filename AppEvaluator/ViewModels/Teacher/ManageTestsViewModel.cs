@@ -181,6 +181,9 @@ namespace AppEvaluator.ViewModels.Teacher
             }
         }
 
+        /// <summary>
+        /// Loads the selected subject's tests from the database
+        /// </summary>
         internal void LoadTests()
         {
             List<Test> tests = null;
@@ -198,6 +201,9 @@ namespace AppEvaluator.ViewModels.Teacher
             }
         }
 
+        /// <summary>
+        /// Loads the subjects from the database
+        /// </summary>
         internal void LoadSubjects()
         {
             List<Subject> subjects = WcfDataParser.SubjectsParse(WcfService.MainProxy?.GetSubjects());

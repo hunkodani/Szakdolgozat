@@ -11,6 +11,10 @@ namespace AppEvaluator.Commands.Teacher
             this._manageTestsViewModel = manageTestsViewModel;
         }
 
+        /// <summary>
+        /// Removes a testfile from the TestFiles on _manageTestsViewModel
+        /// </summary>
+        /// <param name="parameter">the file to remove</param>
         public override void Execute(object parameter)
         {
             if (parameter != null)

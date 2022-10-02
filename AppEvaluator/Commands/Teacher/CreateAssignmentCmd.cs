@@ -16,6 +16,10 @@ namespace AppEvaluator.Commands.Teacher
             this._addAssignmentssViewModel = addAssignmentssViewModel;
         }
 
+        /// <summary>
+        /// Creates assignments in the database for every User that have been selected
+        /// </summary>
+        /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
             if (_addAssignmentssViewModel.SelectedTest == null ||
