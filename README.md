@@ -49,7 +49,7 @@ Készítette: Hunkó Dániel
 <br/>
 <br/>
 
-# Thesis - "Console application evaluator system" development in .NET enviroment
+# Thesis - "Console application evaluator system" development in .NET environment
 
 This system consists of two application: a client and a server. It's main purpose is to evaluate console applications, and store the generated result files. This system can best be compared to the "Test Driven Development" development style.
 
