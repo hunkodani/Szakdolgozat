@@ -1,5 +1,6 @@
 ﻿using AppEvaluatorServer.Commands;
 using AppEvaluatorServer.FileManupulationAndSQL;
+using AppEvaluatorServer.WcfServicesAndNetworking;
 using System;
 using System.IO;
 using System.Windows;
@@ -54,7 +55,7 @@ namespace AppEvaluatorServer.ViewModels
             }
         }
 
-        private bool _multicastStatus;
+        private bool _multicastStatus = false;
 
         public bool MulticastStatus
         {
@@ -135,6 +136,10 @@ namespace AppEvaluatorServer.ViewModels
                 {
                     FileMethods.LoadSettingsFromFile();
                     FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
+                    if (FileMethods.FindSettingsElement("Multicasting") == null)
+                    {
+                        FileMethods.Settings.Add(new string[] { "Multicasting", MulticastStatus.ToString() });
+                    }
                     FolderPathLbl = FileMethods.DataRoot;
                     IsMigrate = FileMethods.FindSettingsElement("Migration") != "False";
                     UpdateMulticasting();
@@ -168,6 +173,7 @@ namespace AppEvaluatorServer.ViewModels
                     _ = Directory.CreateDirectory(NewDataPath + "\\Users");
                 }
                 FileMethods.Settings.Add(new string[] { "DataRoot", NewDataPath });
+                FileMethods.Settings.Add(new string[] { "Multicasting", MulticastStatus.ToString() });
                 FileMethods.SaveSettingsToFile();
                 FileMethods.DataRoot = FileMethods.FindSettingsElement("DataRoot");
             }
@@ -186,15 +192,19 @@ namespace AppEvaluatorServer.ViewModels
             string tmp = FileMethods.FindSettingsElement("Multicasting");
             if (tmp == null || tmp == "True")
             {
-                WcfServicesAndNetworking.NetworkMethods.ListenMulticastGroup();
-                MulticastStatus = true;
+                if (!MulticastStatus)
+                {
+                    NetworkMethods.ListenMulticastGroup();
+                    MulticastStatus = true;
+                }
+                
             }
             else
             {
-                WcfServicesAndNetworking.NetworkMethods.McastSocket.Close();
-                if (WcfServicesAndNetworking.NetworkMethods.IsMulticasting)
+                NetworkMethods.McastSocket?.Close();
+                if (NetworkMethods.IsMulticasting)
                 {
-                    WcfServicesAndNetworking.NetworkMethods.IsMulticasting = false;
+                    NetworkMethods.IsMulticasting = false;
                 }
                 MulticastStatus = false;
             }

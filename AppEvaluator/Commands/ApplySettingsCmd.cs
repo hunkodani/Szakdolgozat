@@ -23,7 +23,7 @@ namespace AppEvaluator.Commands
         /// <param name="parameter"></param>
         public override void Execute(object parameter)
         {
-            if (!_iPRegex.IsMatch(_settingsViewModel.IPAddress))
+            if (_settingsViewModel.IsStaticIPEna && !_iPRegex.IsMatch(_settingsViewModel.IPAddress))
             {
                 _settingsViewModel.ConnErrorMsg = "Invalid IP address. Changes discarded.";
                 _settingsViewModel.ConnErrorMsgColor = Brushes.Red;

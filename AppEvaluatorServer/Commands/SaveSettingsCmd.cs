@@ -52,10 +52,11 @@ namespace AppEvaluatorServer.Commands
                     _mainWindowViewModel.SaveMsgColor = Brushes.LimeGreen;
                     _mainWindowViewModel.SaveMsg = "Settings successfully saved";
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     _mainWindowViewModel.SaveMsgColor = Brushes.DarkRed;
                     _mainWindowViewModel.SaveMsg = "An error occured while saving. Nothing changed.";
+                    _mainWindowViewModel.ErrorMsg = e.Message;
                 }
             }
             else
@@ -68,10 +69,11 @@ namespace AppEvaluatorServer.Commands
                         _mainWindowViewModel.SaveMsgColor = Brushes.LimeGreen;
                         _mainWindowViewModel.SaveMsg = "Settings successfully saved";
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         _mainWindowViewModel.SaveMsgColor = Brushes.DarkRed;
                         _mainWindowViewModel.SaveMsg = "An error occured while saving. Nothing changed.";
+                        _mainWindowViewModel.ErrorMsg = e.Message;
                     }
 
                 }
@@ -99,10 +101,11 @@ namespace AppEvaluatorServer.Commands
                             _mainWindowViewModel.SaveMsgColor = Brushes.LimeGreen;
                             _mainWindowViewModel.SaveMsg = "Settings successfully saved";
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
                             _mainWindowViewModel.SaveMsgColor = Brushes.DarkRed;
                             _mainWindowViewModel.SaveMsg = "An error occured while saving. Nothing changed.";
+                            _mainWindowViewModel.ErrorMsg = e.Message;
                         }
                     }
                 }

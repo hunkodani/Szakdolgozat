@@ -528,7 +528,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:AppEvaluatorServer Setup"
         "ProductCode" = "8:{CFE312F2-1C1E-4074-BF00-E0A406C7B2E9}"
-        "PackageCode" = "8:{CC878597-DA2C-4426-BD4D-1BBFB2E32C17}"
+        "PackageCode" = "8:{F259FA48-A3EC-4936-916B-7DC050BE8926}"
         "UpgradeCode" = "8:{152997CE-A5C6-4024-9484-F0BF3813BD62}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
