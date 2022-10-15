@@ -37,7 +37,7 @@ Az egyes elemekhez tartozó fájlok pedig ennek a hierarchiának megfelelően eg
 
 ## Telepítés
 
-Le kell generálni a telepítőket: A két setup project lefordítása után létrejön mindkét alkalmazáshoz két-két telepítő fájl (egy .msi és egy .exe). Telepítés a .exe fájllal ajánlott, mert az a függőségeket is telepíti, amennyiben hiányoznának. A szerver futtatásához és telepítéséhez adminisztrátori jog szükséges.
+Le kell generálni a telepítőket: A két setup project lefordítása után létrejön mindkét alkalmazáshoz két-két telepítő fájl (egy .msi és egy .exe). Telepítés a .exe fájllal ajánlott, mert az a függőségeket is telepíti, amennyiben hiányoznának. Mindkét applikáció futtatásához és telepítéséhez adminisztrátori jog szükséges.
 
 <br/>
 <br/>
@@ -88,7 +88,7 @@ The files belonging to each element are stored in a root directory according to 
 
 ## Installation
 
-The installers must be generated: After building the two setup projects, two installation files (one .msi and one .exe) are created for both applications. Installation with the .exe file is recommended because it also installs the dependencies if they are missing. Administrator rights are required to run and install the server application.
+The installers must be generated: After building the two setup projects, two installation files (one .msi and one .exe) are created for both applications. Installation with the .exe file is recommended because it also installs the dependencies if they are missing. Administrator rights are required to run and install both applications.
 
 <br/>
 <br/>
